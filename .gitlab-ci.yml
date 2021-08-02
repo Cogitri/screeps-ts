@@ -18,12 +18,6 @@ cache:
   paths:
     - node_modules/
 
-# Correct formatting errors
-correct_formatting:
-  script:
-    - yarn
-    - npx prettier --write ./src ./test/unit
-
 # Lint as described in package.json
 lint:
   script:
