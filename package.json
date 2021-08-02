@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint \"src/**/*.ts\"",
+    "lint": "eslint ./src ./test/unit --max-warnings 0 --ext .ts",
     "build": "rollup -c",
     "push-main": "rollup -c --environment DEST:main",
     "push-sim": "rollup -c --environment DEST:sim",
