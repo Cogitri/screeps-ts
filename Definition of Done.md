@@ -1,7 +1,7 @@
 # Unsere Definition of Done
 
 Code ist nur Done, wenn er:
-* formatiert ist
+* Formatiert ist
 * Der Linter keine Anmerkungen hat
 * Die MR-Pipeline erfolgreich ist
 * Der Code Reviewer keine Anmerkungen hat
