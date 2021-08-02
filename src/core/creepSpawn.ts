@@ -3,7 +3,7 @@ export default function (spawn: StructureSpawn): void {
   if (!spawn.room.find(FIND_MY_CREEPS).length) {
     // TODO: Implement defined standard creep body (Issue 4)
     // TODO: Assing unique name (Issue 5)
-    spawn.spawnCreep([MOVE], `Creep1`);
+    spawn.spawnCreep([MOVE], `Creep1`, { memory: {role: 'creep', working: false, room: spawn.room.name } });
     return;
   }
 }
