@@ -1,4 +1,5 @@
 import { ErrorMapper } from "utils/ErrorMapper";
+import gameLoop from "./core/gameLoop";
 
 declare global {
   /*
@@ -41,4 +42,5 @@ export const loop = ErrorMapper.wrapLoop(() => {
       delete Memory.creeps[name];
     }
   }
+  gameLoop();
 });
