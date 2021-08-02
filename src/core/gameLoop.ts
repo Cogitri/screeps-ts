@@ -10,7 +10,7 @@ export default function (): void {
   }
 
   for (const name in Game.creeps) {
-    var creep = Game.creeps[name];
+    const creep = Game.creeps[name];
     if (!creep.memory.working) {
       creep.say("Hello World, i am " + creep.name);
     }
