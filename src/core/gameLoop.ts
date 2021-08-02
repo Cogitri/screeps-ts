@@ -7,6 +7,11 @@ export default function (): void {
     if (!Game.spawns[spawn].spawning) {
       creepSpawn(Game.spawns[spawn]);
     }
+    console.log(Game.spawns[spawn].room.find(FIND_MY_CREEPS));
+    for(const creep in Game.spawns[spawn].room.find(FIND_MY_CREEPS)){
+      console.log(creep);
+      console.log(Game.creeps[creep].name);
+    }
   }
 
   for (const name in Game.creeps) {
