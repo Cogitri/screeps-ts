@@ -23,6 +23,7 @@
         "node_modules/**": true,
         "typings/**": true
     },
+    "files.autoSave": "onFocusChange",
     "typescript.tsdk": "./node_modules/typescript/lib",
     "eslint.enable": true
 }
