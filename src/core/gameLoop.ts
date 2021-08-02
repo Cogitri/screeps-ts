@@ -12,7 +12,11 @@ export default function (): void {
   for (const name in Game.creeps) {
     const creep = Game.creeps[name];
     if (!creep.memory.working) {
-      creep.say("Hello World, i am " + creep.name);
+      creep.say(`Hello world, I am ${creep.name}`);
+    }
+
+    if (Game.time % creep.memory.counter === 10) {
+      creep.memory.working = true;
     }
   }
 }

@@ -6,7 +6,7 @@ export default function (spawn: StructureSpawn): void {
     const creepName = `Creep${creepNumber}`;
     creepNumber++;
 
-    spawn.spawnCreep(creepBasicBody, creepName, { memory: { role: "creep", room: "", working: true } });
+    spawn.spawnCreep(creepBasicBody, creepName, { memory: { role: "creep", room: "", working: false, counter: 33 } });
     return;
   }
 }
