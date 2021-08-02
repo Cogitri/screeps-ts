@@ -8,9 +8,10 @@ export default function (): void {
       creepSpawn(Game.spawns[spawn]);
     }
     console.log(Game.spawns[spawn].room.find(FIND_MY_CREEPS));
-    for(const creep in Game.spawns[spawn].room.find(FIND_MY_CREEPS)){
-      console.log(creep);
-      console.log(Game.creeps[creep].name);
+    for(const creep in Game.creeps){
+      //console.log(creep);
+      console.log('Hier meldet sich '+ Game.creeps[creep].name);
+      //console.log(Game.creeps[creep].name);
     }
   }
 
