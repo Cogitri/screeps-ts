@@ -9,7 +9,7 @@ export default function (): void {
     }
 
     for (const creep in Game.creeps) {
-      console.log(`Hier meldet sich Game.creeps[creep].name`);
+      console.log(`Hier meldet sich ${Game.creeps[creep].name}`);
     }
   }
 
