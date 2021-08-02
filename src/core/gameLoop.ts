@@ -8,7 +8,7 @@ export default function (): void {
       creepSpawn(Game.spawns[spawn]);
     }
 
-    for(const creep in Game.creeps){
+    for (const creep in Game.creeps) {
       console.log(`Hier meldet sich Game.creeps[creep].name`);
     }
   }
