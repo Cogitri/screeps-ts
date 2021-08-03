@@ -8,10 +8,6 @@ export default function (): void {
     if (!Game.spawns[spawn].spawning) {
       creepSpawn(Game.spawns[spawn]);
     }
-
-    for (const creep in Game.creeps) {
-      console.log(`Hier meldet sich ${Game.creeps[creep].name}`);
-    }
   }
 
   for (const creepName in Game.creeps) {
@@ -19,14 +15,6 @@ export default function (): void {
 
     if (creep.memory.role === "harvester") {
       checkHarvesterWork(creep);
-    }
-
-    if (!creep.memory.working) {
-      creep.say(`Hello world, I am ${creep.name}`);
-    }
-
-    if (Game.time % creep.memory.counter === 10) {
-      creep.memory.working = true;
     }
   }
 }

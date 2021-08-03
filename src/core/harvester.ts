@@ -4,7 +4,7 @@ let harvesterNumber = 0;
 export function spawnHarvester(spawn: StructureSpawn): void {
   const name = `harvester${harvesterNumber}`;
   harvesterNumber++;
-  spawn.spawnCreep(body, name, { memory: { role: "harvester", room: "", working: false, counter: 34 } });
+  spawn.spawnCreep(body, name, { memory: { role: "harvester", room: "", working: false } });
 }
 
 export function checkHarvesterWork(creep: Creep): void {
