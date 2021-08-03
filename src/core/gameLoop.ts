@@ -21,7 +21,6 @@ export default function (): void {
     creepWork(creep);
   }
 
-  //ausführen pickupEnergy
+  // ausführen pickupEnergy
   pickupenergy();
-
 }
