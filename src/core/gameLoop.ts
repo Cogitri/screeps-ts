@@ -1,4 +1,3 @@
-import { checkHarvesterWork } from "./harvester";
 import creepSpawn from "./creepSpawn";
 import creepWork from "./creepWork";
 
