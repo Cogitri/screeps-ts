@@ -1,11 +1,11 @@
-import creepSpawn from "./creepSpawn";
 import creepWork from "./creepWork";
 import buildStreet from "./buildStreet";
+import creepSpawn from "./creepSpawn";
 
 export default function (): void {
   // Iterate over all owned spawns
-  buildStreet();
   for (const spawn in Game.spawns) {
+    buildStreet(Game.spawns[spawn]);
     // Check if creep is already spawning (avoids bug)
     if (!Game.spawns[spawn].spawning) {
       creepSpawn(Game.spawns[spawn]);
