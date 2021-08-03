@@ -18,7 +18,7 @@ export default function (): void {
   for (const creepName in Game.creeps) {
     const creep = Game.creeps[creepName];
     if (!creep.memory.working) {
-      // ausführen pickupEnergy
+      // pickupEnergy routine started with this function. place wherever it's needed.
       pickupenergy(creep);
     }
 
