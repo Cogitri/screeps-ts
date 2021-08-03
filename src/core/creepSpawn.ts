@@ -1,3 +1,6 @@
+import { spawnBuilder } from ".././creeps/models/modelBuilder";
+import { spawnHarvester } from ".././creeps/models/modelHarvester";
+
 export default function (spawn: StructureSpawn): void {
   // Spawn a creep if there is none
   let creepNumber = 0;

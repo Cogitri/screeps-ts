@@ -1,7 +1,5 @@
-import { spawnHarvester } from "../creeps/models/modelHarvester";
 import creepWork from "./creepWork";
 import creepSpawn from "./creepSpawn";
-import { spawnBuilder } from "../creeps/models/modelBuilder";
 
 export default function (): void {
   // Iterate over all owned spawns
