@@ -15,6 +15,7 @@ declare global {
   interface Memory {
     uuid: number;
     log: any;
+    pathToController: boolean;
   }
 
   interface CreepMemory {
@@ -22,6 +23,7 @@ declare global {
     room: string;
     working: boolean;
   }
+
 
   // Syntax for adding proprties to `global` (ex "global.log")
   namespace NodeJS {
