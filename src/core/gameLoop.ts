@@ -1,7 +1,7 @@
 import { type } from "os";
-import creepSpawn from "./creepSpawn";
 import creepWork from "./creepWork";
 import { basicHarvest } from "./basicHarvest";
+import creepSpawn from "./creepSpawn";
 
 export default function (): void {
   // Iterate over all owned spawns
