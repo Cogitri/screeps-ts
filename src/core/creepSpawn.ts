@@ -1,5 +1,6 @@
 import { spawnBuilder } from ".././creeps/models/modelBuilder";
 import { spawnHarvester } from ".././creeps/models/modelHarvester";
+import { spawnSoldier } from ".././creeps/models/modelSoldier";
 
 export default function (spawn: StructureSpawn): void {
   // Spawn a creep if there is none
@@ -21,5 +22,10 @@ export default function (spawn: StructureSpawn): void {
   // check number of creeps and check if creep is already spawning (avoids bug)
   if (harvesters.length < 3) {
     spawnHarvester(spawn);
+  }
+  const soldiers = _.filter(Game.creeps, creep => creep.memory.role === "soldier");
+  // check number of creeps and check if creep is already spawning (avoids bug)
+  if (soldiers.length < 1) {
+    spawnSoldier(spawn);
   }
 }
