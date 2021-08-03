@@ -1,5 +1,7 @@
+import { type } from "os";
 import creepSpawn from "./creepSpawn";
 import creepWork from "./creepWork";
+import { basicHarvest } from "./basicHarvest";
 
 export default function (): void {
   // Iterate over all owned spawns
@@ -10,8 +12,12 @@ export default function (): void {
     }
   }
 
-  for (const creepName in Game.creeps) {
-    const creep = Game.creeps[creepName];
+  for (const name in Game.creeps) {
+    const creep = Game.creeps[name];
+    basicHarvest.run(creep);
+    if (!creep.memory.working) {
+      creep.say(`Hello world, I am ${creep.name}`);
+    }
 
     creepWork(creep);
   }
