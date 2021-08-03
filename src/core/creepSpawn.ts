@@ -10,7 +10,9 @@ export default function (spawn: StructureSpawn): void {
     const creepName = `Creep${creepNumber}`;
     creepNumber++;
 
-    spawn.spawnCreep(creepBasicBody, creepName, { memory: { role: "creep", room: "", working: false } });
+    spawn.spawnCreep(creepBasicBody, creepName, {
+      memory: { role: "harvester", room: "", working: false, lockTask: false }
+    });
     return;
   }
   const builders = _.filter(Game.creeps, creep => creep.memory.role === "builder");
