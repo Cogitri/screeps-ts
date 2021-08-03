@@ -1,5 +1,5 @@
-import creepWork from "./creepWork";
 import creepSpawn from "./creepSpawn";
+import creepWork from "./creepWork";
 
 export default function (): void {
   // Iterate over all owned spawns
