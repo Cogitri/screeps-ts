@@ -7,7 +7,6 @@ export default function (): void {
     });
     const ruin = creep.room.find(FIND_RUINS);
     const tombstones = creep.room.find(FIND_TOMBSTONES);
-    console.log("pickupEnergy läuft");
 
     if (droppedEnergy.length) {
       creep.moveTo(droppedEnergy[0]);
