@@ -1,13 +1,4 @@
-const body = [WORK, MOVE, CARRY, CARRY];
-let harvesterNumber = 0;
-
-export function spawnHarvester(spawn: StructureSpawn): void {
-  const name = `harvester${harvesterNumber}`;
-  harvesterNumber++;
-  spawn.spawnCreep(body, name, { memory: { role: "harvester", room: "", working: false } });
-}
-
-export function checkHarvesterWork(creep: Creep): void {
+export default function (creep: Creep): void {
   if (!creep.memory.working) {
     if (creep.store[RESOURCE_ENERGY] < creep.store.getCapacity()) {
       const closestSource = creep.pos.findClosestByPath(FIND_SOURCES);
