@@ -1,5 +1,5 @@
-/* import spawnBuilder from "./modelBuilder";
-import spawnHarvester from "./creeps/models/modelHarvester";*/
+import { spawnBuilder } from ".././creeps/models/modelBuilder";
+import { spawnHarvester } from ".././creeps/models/modelHarvester";
 
 export default function (spawn: StructureSpawn): void {
   // Spawn a creep if there is none
@@ -12,14 +12,14 @@ export default function (spawn: StructureSpawn): void {
     spawn.spawnCreep(creepBasicBody, creepName, { memory: { role: "creep", room: "", working: false } });
     return;
   }
-  /* const builders = _.filter(Game.creeps, creep => creep.memory.role === "builder");
+  const builders = _.filter(Game.creeps, creep => creep.memory.role === "builder");
   // check number of creeps and check if creep is already spawning (avoids bug)
   if (builders.length < 3) {
-    spawnBuilder(Game.spawns[spawn]);
+    spawnBuilder(spawn);
   }
   const harvesters = _.filter(Game.creeps, creep => creep.memory.role === "harvester");
   // check number of creeps and check if creep is already spawning (avoids bug)
   if (harvesters.length < 3) {
-    spawnHarvester(Game.spawns[spawn]);
-  } */
+    spawnHarvester(spawn);
+  }
 }
