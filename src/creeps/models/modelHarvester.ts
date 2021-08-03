@@ -1,4 +1,4 @@
-const body = [WORK, MOVE, CARRY, CARRY, ATTACK, TOUGH, TOUGH];
+const body = [WORK, MOVE, CARRY, CARRY];
 
 export function spawnHarvester(spawn: StructureSpawn): void {
   const name = `harvester${Game.time}${Math.trunc(Math.random() * 10)}`;
