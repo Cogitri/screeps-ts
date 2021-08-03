@@ -1,5 +1,6 @@
-import { checkHarvesterWork } from "./harvester";
+import { checkHarvesterWork, spawnHarvester } from "./harvester";
 import creepSpawn from "./creepSpawn";
+import { spawnBuilder } from "./builder";
 
 export default function (): void {
   // Iterate over all owned spawns
@@ -7,6 +8,16 @@ export default function (): void {
     // Check if creep is already spawning (avoids bug)
     if (!Game.spawns[spawn].spawning) {
       creepSpawn(Game.spawns[spawn]);
+    }
+    const builders = _.filter(Game.creeps, creep => creep.memory.role === "builder");
+    // check number of creeps and check if creep is already spawning (avoids bug)
+    if (builders.length < 3 && !Game.spawns[spawn].spawning) {
+      spawnBuilder(Game.spawns[spawn]);
+    }
+    const harvesters = _.filter(Game.creeps, creep => creep.memory.role === "harvester");
+    // check number of creeps and check if creep is already spawning (avoids bug)
+    if (harvesters.length < 3 && !Game.spawns[spawn].spawning) {
+      spawnHarvester(Game.spawns[spawn]);
     }
 
     for (const creep in Game.creeps) {
