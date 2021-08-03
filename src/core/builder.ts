@@ -4,5 +4,5 @@ let builderNumber = 0;
 export function spawnBuilder(spawn: StructureSpawn): void {
   const name = `builder${builderNumber}`;
   builderNumber++;
-  spawn.spawnCreep(body, name, { memory: { role: "builder", room: "", working: false, counter: 34 } });
+  spawn.spawnCreep(body, name, { memory: { role: "builder", room: "", working: false } });
 }

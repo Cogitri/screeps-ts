@@ -20,13 +20,5 @@ export default function (): void {
     if (creep.memory.role === "harvester") {
       checkHarvesterWork(creep);
     }
-
-    if (!creep.memory.working) {
-      creep.say(`Hello world, I am ${creep.name}`);
-    }
-
-    if (Game.time % creep.memory.counter === 10) {
-      creep.memory.working = true;
-    }
   }
 }
