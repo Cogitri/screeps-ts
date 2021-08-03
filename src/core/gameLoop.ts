@@ -2,6 +2,7 @@ import buildStreet from "./buildStreet";
 import createRampart from "construct/createRampart";
 import creepSpawn from "./creepSpawn";
 import creepWork from "./creepWork";
+import pickupenergy from "./pickupenergy";
 
 export default function (): void {
   // Iterate over all owned spawns
@@ -19,4 +20,8 @@ export default function (): void {
 
     creepWork(creep);
   }
+
+  //ausführen pickupEnergy
+  pickupenergy();
+
 }
