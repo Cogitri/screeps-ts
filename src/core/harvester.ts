@@ -13,6 +13,7 @@ export function checkHarvesterWork(creep: Creep): void {
       const closestSource = creep.pos.findClosestByPath(FIND_SOURCES);
       if (closestSource != null) {
         const closestSourcePos = closestSource.pos;
+        // eslint-disable-next-line eqeqeq
         if (creep.pos.getRangeTo(closestSource) == 0) {
           creep.harvest(closestSource);
         } else {
