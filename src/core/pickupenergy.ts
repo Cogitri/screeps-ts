@@ -19,7 +19,6 @@ export default function (): void {
     if (ruin.length) {
       console.log();
       console.log("ruin");
-      // console.log(creep.store[RESOURCE_ENERGY]);
     }
     if (lootRuin === ERR_NOT_IN_RANGE) {
       creep.moveTo(ruin[0]);
