@@ -1,12 +1,14 @@
 Die Entwickler berichten davon, wie sie auf das Sprintziel hingearbeitet haben und wie sie weiter machen wollen.
 Einige Hindernisse werden aufgezeigt:
 
-- Tim: Warten auf andere Entwickler
-- Janis: Git-Umgang, Linter
-- Mika: Approval im CR, Linter Extension in VSCode (bereits gefixed)
-- Katharina: Warten auf andere Entwickler, da Abhängigkeiten#
-- Lara: Warten auf andere Entwickler
-- Paul: Unklarheit bei Task
+- Paul: Stuck bei Consolen-Export => Hilfe im Team beschlossen
+- Janis: -
+- Mika: Verlaufen in Aufgabe und dann gemerkt, dass eingeschlagener Pfad nicht richtig war => Arbeit verworfen.
+- Tim: Stuck beim Helfen, Probleme mit Tooling
+- Dennis: MR hing lange
+- Lara: MR hing lange
+- Kat: Tooling, warten auf MR, Refactoring war nervig
+- Mattis: MRs liegen lange, nicht genug Code Reviewer.
 
 Somit sollten wir:
 
