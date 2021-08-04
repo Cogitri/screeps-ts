@@ -92,7 +92,9 @@ export default function (creep: Creep): void {
     }
     // Building the containers. for now only one is built per energy source.
     if (xBuildPlaceAvailable.length > 0) {
-      Game.rooms.sim.createConstructionSite(xBuildPlaceAvailable[0], yBuildPlaceAvailable[0], STRUCTURE_CONTAINER);
+      if (terrain.get(xBuildPlaceAvailable[0], yBuildPlaceAvailable[0]) === 0) {
+        Game.rooms.sim.createConstructionSite(xBuildPlaceAvailable[0], yBuildPlaceAvailable[0], STRUCTURE_CONTAINER);
+      }
     }
   }
 }
