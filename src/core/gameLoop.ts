@@ -1,6 +1,7 @@
-import routineHarvester from "creeps/routines/routineHarvester";
+import buildStreet from "./buildStreet";
 import creepSpawn from "./creepSpawn";
 import creepWork from "./creepWork";
+import routineHarvester from "creeps/routines/routineHarvester";
 
 export default function (): void {
   // Iterate over all owned spawns
