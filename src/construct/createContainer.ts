@@ -2,7 +2,6 @@
 export default function (creep: Creep): void {
   // Container placement here
   const energySources = creep.room.find(FIND_SOURCES_ACTIVE);
-  // eslint-disable-next-line @typescript-eslint/no-for-in-array
   for (const i in energySources) {
     const position = energySources[i].pos;
     const xSource: number = position.x;
