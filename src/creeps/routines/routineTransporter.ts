@@ -1,3 +1,4 @@
+import routineEnergizeTower from "./routineEnergizeTower";
 import routineUpgrade from "./routineUpgrade";
 import routineWithdraw from "./routineWithdraw";
 
@@ -8,7 +9,11 @@ export default function (creep: Creep): void {
       routineWithdraw(creep);
     } else {
       if (checkSpawnCapacity(creep) && checkExtensionsCapacity(creep)) {
-        routineUpgrade(creep);
+        if (TOWER_CAPACITY < 300) {
+          routineEnergizeTower(creep);
+        } else {
+          routineUpgrade(creep);
+        }
       } else {
         const target = creep.room.find(FIND_STRUCTURES, {
           filter: structure => {
