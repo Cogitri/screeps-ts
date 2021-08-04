@@ -45,6 +45,7 @@ module.exports = {
     "@typescript-eslint/no-use-before-define": ["error", { functions: false }],
     "@typescript-eslint/prefer-for-of": "error",
     "@typescript-eslint/space-within-parens": ["off", "never"],
+    "@typescript-eslint/unbound-method": ["off"],
     "@typescript-eslint/unified-signatures": "error",
     "arrow-parens": ["off", "as-needed"],
     camelcase: "error",
