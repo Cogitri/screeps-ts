@@ -26,6 +26,6 @@ export default function (creep: Creep): void {
 
   if (creep.attack(enemy) === ERR_NOT_IN_RANGE) {
     creep.moveTo(enemy, { visualizePathStyle: { stroke: pathColor } });
-    creep.say("⚔️ deliver");
+    creep.say("⚔️ attack");
   }
 }
