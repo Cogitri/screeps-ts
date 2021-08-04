@@ -36,6 +36,6 @@ function isViableHarvestPosition(pos: RoomPosition): boolean {
       return false;
     }
   }
-  // there is no Object which would make this pos invlid -> must be valid
+  // there is no Object which would make this pos invalid -> must be valid
   return true;
 }
