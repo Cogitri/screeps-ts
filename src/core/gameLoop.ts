@@ -9,7 +9,6 @@ import { visualizeControllerProgress } from "../utils/vizControllerLvl";
 export default function (): void {
   // Refresh variables in memory
   refreshMemory();
-  console.log(`log level - ${Logger.logLevel}`);
 
   // Iterate over all owned spawns
   for (const spawn in Game.spawns) {
