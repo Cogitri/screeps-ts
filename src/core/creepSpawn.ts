@@ -11,7 +11,7 @@ export default function (spawn: StructureSpawn): void {
     creepNumber++;
 
     spawn.spawnCreep(creepBasicBody, creepName, {
-      memory: { role: "harvester", room: "", working: false, lockTask: false }
+      memory: { role: "harvester", room: "", working: false, lockTask: false, target: null }
     });
     return;
   }

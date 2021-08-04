@@ -23,6 +23,7 @@ declare global {
     room: string;
     working: boolean;
     lockTask: boolean;
+    target: Structure | Source | Mineral | Creep | null;
   }
 
   // Syntax for adding proprties to `global` (ex "global.log")

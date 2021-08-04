@@ -25,6 +25,7 @@ export default function (creep: Creep): void {
             creep.memory.lockTask = false;
             creep.say("⛴︎ deliver");
             creep.moveTo(target[0], { visualizePathStyle: { stroke: pathColor } });
+            creep.memory.target = target[0];
           }
         }
       }

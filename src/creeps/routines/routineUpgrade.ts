@@ -11,5 +11,6 @@ export default function (creep: Creep): void {
     creep.memory.lockTask = true;
     creep.say("⚡ upgrade");
     creep.moveTo(controller, { visualizePathStyle: { stroke: pathColor } });
+    creep.memory.target = controller;
   }
 }
