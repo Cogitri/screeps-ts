@@ -78,6 +78,5 @@ export class Logger {
    */
   public static set logLevel(newLogLevel: LogLevel) {
     this._logLevel = newLogLevel;
-    console.log(`LOG LEVEL NOW SET TO ${this._logLevel}`);
   }
 }

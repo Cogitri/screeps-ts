@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-namespace */
+import { LogLevel, Logger } from "utils/logger";
 import { ErrorMapper } from "utils/ErrorMapper";
 import gameLoop from "./core/gameLoop";
 import { showRole } from "./utils/commands";
@@ -17,6 +18,7 @@ declare global {
     uuid: number;
     log: any;
     pathToController: boolean;
+    logLevel: LogLevel;
   }
 
   interface CreepMemory {
@@ -32,6 +34,7 @@ declare global {
     interface Global {
       log: any;
       findRole: (role: string) => void;
+      logLevel: (l: LogLevel) => void;
     }
   }
 }
@@ -39,6 +42,12 @@ declare global {
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
 export const loop = ErrorMapper.wrapLoop(() => {
+  global.logLevel = (l: LogLevel) => {
+    Logger.logLevel = l;
+    Memory.logLevel = l;
+    console.log(`LOG LEVEL NOW SET TO ${Logger.logLevel}`);
+  };
+
   // Automatically delete memory of missing creeps
   global.findRole = showRole;
   for (const name in Memory.creeps) {

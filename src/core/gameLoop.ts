@@ -1,3 +1,4 @@
+import { Logger } from "utils/logger";
 import createConstructions from "./createConstructions";
 import creepSpawn from "./creepSpawn";
 import creepWork from "./creepWork";
@@ -6,6 +7,10 @@ import routineTower from "./routineTower";
 import { visualizeControllerProgress } from "../utils/vizControllerLvl";
 
 export default function (): void {
+  // Refresh variables in memory
+  refreshMemory();
+  console.log(`log level - ${Logger.logLevel}`);
+
   // Iterate over all owned spawns
   for (const spawn in Game.spawns) {
     createConstructions(Game.spawns[spawn]);
@@ -31,5 +36,13 @@ export default function (): void {
       pickupenergy(creep);
     }
     creepWork(creep);
+  }
+}
+
+function refreshMemory(): void {
+  if (!Memory.logLevel) {
+    Memory.logLevel = Logger.logLevel;
+  } else {
+    Logger.logLevel = Memory.logLevel;
   }
 }
