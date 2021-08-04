@@ -25,8 +25,8 @@ export default function (creep: Creep): void {
     }
     const xBuildPlaceAvailable: number[] = [];
     const yBuildPlaceAvailable: number[] = [];
+          // checks for all available positions if there's room to place a container
     for (const k in xPositionsAvailable) {
-      // checks for all available positions if there's room to place a container
       switch (xPositionsAvailable[k] - xSource) {
         case -1:
           switch (yPositionsAvailable[k] - ySource) {
