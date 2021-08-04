@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { ErrorMapper } from "utils/ErrorMapper";
 import gameLoop from "./core/gameLoop";
-import {showRole} from "./utils/commands";
+import { showRole } from "./utils/commands";
 
 declare global {
   /*
@@ -31,7 +31,7 @@ declare global {
   namespace NodeJS {
     interface Global {
       log: any;
-      findRole: (role : String) => void;
+      findRole: (role: string) => void;
     }
   }
 }
