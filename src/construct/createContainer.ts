@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-for-in-array */
-export default function (creep: Creep): void {
+export default function (): void {
   // Container placement here
-  const energySources = creep.room.find(FIND_SOURCES_ACTIVE);
+  const energySources = Game.rooms.spawn.find(FIND_SOURCES_ACTIVE);
   for (const i in energySources) {
     const position = energySources[i].pos;
     const xSource: number = position.x;
     const ySource: number = position.y;
-    const terrain = new Room.Terrain(creep.room.name);
+    const terrain = new Room.Terrain(Game.rooms.spawn.name);
     const xArray: number[] = [-1, -1, -1, 0, 0, 1, 1, 1];
     const yArray: number[] = [-1, 0, 1, -1, 1, -1, 0, 1];
     const xPositionsAvailable: number[] = [];
@@ -93,7 +93,7 @@ export default function (creep: Creep): void {
     // Building the containers. for now only one is built per energy source.
     if (xBuildPlaceAvailable.length > 0) {
       if (terrain.get(xBuildPlaceAvailable[0], yBuildPlaceAvailable[0]) === 0) {
-        Game.rooms.sim.createConstructionSite(xBuildPlaceAvailable[0], yBuildPlaceAvailable[0], STRUCTURE_CONTAINER);
+        Game.rooms.spawn.createConstructionSite(xBuildPlaceAvailable[0], yBuildPlaceAvailable[0], STRUCTURE_CONTAINER);
       }
     }
   }
