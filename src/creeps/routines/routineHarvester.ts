@@ -1,9 +1,8 @@
 import routineFarm from "./routineFarm";
 import routineUpgrade from "./routineUpgrade";
 
+const pathColor = "#ffaa00";
 export default function (creep: Creep): void {
-  const pathColor = "#ffaa00";
-
   if (!creep.memory.working) {
     if (checkSpawnCapacity(creep)) {
       routineUpgrade(creep);
@@ -12,7 +11,7 @@ export default function (creep: Creep): void {
         routineFarm(creep);
       } else {
         // the creep looks for the nearest container.
-        // the container the creep uses.
+        // the container the creep hopefully can use.
         const container = creep.pos.findClosestByPath(FIND_STRUCTURES, {
           filter: structure => {
             return (
@@ -21,35 +20,40 @@ export default function (creep: Creep): void {
             );
           }
         });
+        // if the creep cant use the container, the creep will use this target.
+        const target = creep.room.find(FIND_STRUCTURES, {
+          filter: structure => {
+            return (
+              (structure.structureType === STRUCTURE_EXTENSION || structure.structureType === STRUCTURE_SPAWN) &&
+              structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+            );
+          }
+        });
         // check if there are any containers
         if (container !== undefined && container != null) {
-          if (creep.transfer(container, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-            creep.memory.lockTask = false;
-            creep.memory.target = container;
-            creep.say("⛴︎ deliver");
-            creep.moveTo(container, { visualizePathStyle: { stroke: pathColor } });
+          // check if the container is closer than the spwan based on the cost.
+          if (PathFinder.search(creep.pos, container.pos).cost < PathFinder.search(creep.pos, target[0].pos).cost) {
+            moveCreep(creep, container);
+          } else {
+            if (target.length > 0) {
+              moveCreep(creep, target[0]);
+            }
           }
           // if there are no containers the creep will go to the spawn.
         } else {
-          const target = creep.room.find(FIND_STRUCTURES, {
-            filter: structure => {
-              return (
-                (structure.structureType === STRUCTURE_EXTENSION || structure.structureType === STRUCTURE_SPAWN) &&
-                structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-              );
-            }
-          });
-
           if (target.length > 0) {
-            if (creep.transfer(target[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-              creep.memory.lockTask = false;
-              creep.say("⛴︎ deliver");
-              creep.moveTo(target[0], { visualizePathStyle: { stroke: pathColor } });
-            }
+            moveCreep(creep, target[0]);
           }
         }
       }
     }
+  }
+}
+function moveCreep(creep: Creep, goal: AnyStructure) {
+  if (creep.transfer(goal, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+    creep.memory.lockTask = false;
+    creep.say("⛴︎ deliver");
+    creep.moveTo(goal, { visualizePathStyle: { stroke: pathColor } });
   }
 }
 
