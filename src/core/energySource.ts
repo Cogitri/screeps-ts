@@ -23,18 +23,19 @@ export default function getFreeSourcePos(source: Source): RoomPosition | null {
 function isViableHarvestPosition(pos: RoomPosition): boolean {
   const look = pos.look();
   for (const lookObject of look) {
-    // when there are creeps, sources, walls or structures at this position it is not viable#
+    // when there are creeps, sources, walls or structures (excluded rampart and road) at this position it is not viable#
     if (
       lookObject[LOOK_CREEPS] !== undefined ||
-      lookObject[LOOK_STRUCTURES] !== undefined ||
+      // this expression means should be true when there is a structure which is not a road or rampart
+      (lookObject[LOOK_STRUCTURES]?.structureType !== "rampart" &&
+        lookObject[LOOK_STRUCTURES]?.structureType !== "road" &&
+        lookObject[LOOK_STRUCTURES] !== undefined) ||
       lookObject[LOOK_SOURCES] !== undefined ||
       lookObject[LOOK_TERRAIN] === "wall"
     ) {
-      console.log("first false return");
       return false;
     }
   }
   // there is no Object which would make this pos invlid -> must be valid
-  console.log("true return");
   return true;
 }
