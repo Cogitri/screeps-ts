@@ -1,4 +1,4 @@
-enum LogLevel {
+export enum LogLevel {
   DEBUG,
   INFO,
   WARN,
@@ -17,7 +17,8 @@ export class Logger {
    */
   public static debug(...message: unknown[]): void {
     if (Logger.logLevel <= 0) {
-      Logger.composeMsg(LogLevel.DEBUG, message);
+      const levelString: keyof typeof LogLevel = "DEBUG";
+      Logger.composeMsg(levelString, message);
     }
   }
 
@@ -30,32 +31,53 @@ export class Logger {
    */
   public static info(...message: unknown[]): void {
     if (Logger.logLevel <= 1) {
-      Logger.composeMsg(LogLevel.INFO, message);
+      const levelString: keyof typeof LogLevel = "INFO";
+      Logger.composeMsg(levelString, message);
     }
   }
 
+  /**
+   * Logs messages with the WARN tag
+   *
+   * Should be used for warnings about the game state (e.g. low resources)
+   *
+   * @param message Message to be logged
+   */
   public static warn(...message: unknown[]): void {
     if (Logger.logLevel <= 2) {
-      Logger.composeMsg(LogLevel.WARN, message);
+      const levelString: keyof typeof LogLevel = "WARN";
+      Logger.composeMsg(levelString, message);
     }
   }
 
+  /**
+   * Logs messages with the ERROR tag
+   *
+   * Should be used for errors about the game state (e.g. critical routine doesn't work)
+   *
+   * @param message Message to be logged
+   */
   public static error(...message: unknown[]): void {
     if (Logger.logLevel <= 3) {
-      Logger.composeMsg(LogLevel.ERROR, message);
+      const levelString: keyof typeof LogLevel = "ERROR";
+      Logger.composeMsg(levelString, message);
     }
   }
 
-  private static composeMsg(level: LogLevel, ...message: unknown[]) {
+  // Helper function
+  private static composeMsg(level: keyof typeof LogLevel, ...message: unknown[]) {
     console.log(`[${level}]: ${message.toString()} `);
   }
 
-  public static get logLevel(): any {
-    return this._logLevel.toString();
+  public static get logLevel(): LogLevel {
+    return this._logLevel;
   }
 
+  /**
+   * Set the log level to be used
+   */
   public static set logLevel(newLogLevel: LogLevel) {
     this._logLevel = newLogLevel;
-    console.log("LOG LEVEL NOW SET TO ${this._logLevel}");
+    console.log(`LOG LEVEL NOW SET TO ${this._logLevel}`);
   }
 }
