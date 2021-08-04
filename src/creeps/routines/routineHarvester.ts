@@ -1,18 +1,23 @@
 export default function (creep: Creep): void {
-  if (!creep.memory.working) {
-    if (creep.store[RESOURCE_ENERGY] < creep.store.getCapacity()) {
-      const closestSource = creep.pos.findClosestByPath(FIND_SOURCES);
-      if (closestSource != null) {
-        const closestSourcePos = closestSource.pos;
-        // eslint-disable-next-line eqeqeq
-        if (creep.pos.getRangeTo(closestSource) == 0) {
-          creep.harvest(closestSource);
-        } else {
-          creep.moveTo(closestSourcePos);
-        }
+  if (creep.store.getFreeCapacity() > 0) {
+    const sources = creep.room.find(FIND_SOURCES_ACTIVE);
+    if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) {
+      creep.moveTo(sources[0]);
+    }
+  } else {
+    const targets = creep.room.find(FIND_STRUCTURES, {
+      filter: structure => {
+        return (
+          (structure.structureType === STRUCTURE_EXTENSION || structure.structureType === STRUCTURE_SPAWN) &&
+          structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+        );
       }
-    } else {
-      creep.moveTo(0, 0);
+    });
+    if (targets.length > 0) {
+      if (creep.transfer(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(targets[0]);
+      }
     }
   }
+
 }

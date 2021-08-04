@@ -1,4 +1,4 @@
-import { basicHarvest } from "./basicHarvest";
+import routineHarvester from "creeps/routines/routineHarvester";
 import creepSpawn from "./creepSpawn";
 import creepWork from "./creepWork";
 
@@ -13,11 +13,11 @@ export default function (): void {
 
   for (const name in Game.creeps) {
     const creep = Game.creeps[name];
-    basicHarvest.run(creep);
     if (!creep.memory.working) {
       creep.say(`Hello world, I am ${creep.name}`);
     }
 
+    routineHarvester(creep);
     creepWork(creep);
   }
 }
