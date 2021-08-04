@@ -33,3 +33,16 @@ export function logLevel(ls: keyof typeof LogLevel): string {
     return `Unknown log level entered, available log levels are: ${logLevelArr}`;
   }
 }
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function findCreep(name: string): string {
+  const emojis = ["👋", "✌️", "✋", "🤙", "🙋‍♂️"];
+
+  for (const creepName in Game.creeps) {
+    if (creepName === name) {
+      Game.creeps[name].say(emojis[Math.floor(Math.random() * (4 + 1))]);
+      return "Der gesuchte Screep wurde gefunden.";
+    }
+  }
+  return "Der gesuchte Screep wurde nicht gefunden.";
+}

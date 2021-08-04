@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import { logLevel, showRole } from "./utils/commands";
+import { findCreep, logLevel, showRole } from "./utils/commands";
 import { ErrorMapper } from "utils/ErrorMapper";
 import { LogLevel } from "utils/logger";
 import gameLoop from "./core/gameLoop";
@@ -35,9 +35,11 @@ declare global {
       log: any;
       findRole: (role: string) => void;
       logLevel: (l: keyof typeof LogLevel) => void;
+      sayHello: (name: string) => string;
     }
   }
 }
+global.sayHello = findCreep;
 
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
