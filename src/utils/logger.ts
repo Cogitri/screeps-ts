@@ -66,7 +66,7 @@ export class Logger {
 
   // Helper function
   private static composeMsg(level: keyof typeof LogLevel, ...message: unknown[]) {
-    console.log(`[${level}]: ${message.toString()} `);
+    console.log(`[${level}]: ${message.toString()}`);
   }
 
   public static get logLevel(): LogLevel {
