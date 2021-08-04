@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { ErrorMapper } from "utils/ErrorMapper";
 import gameLoop from "./core/gameLoop";
+import {showRole} from "./utils/commands";
 
 declare global {
   /*
@@ -30,6 +31,7 @@ declare global {
   namespace NodeJS {
     interface Global {
       log: any;
+      findRole: (role : String) => void;
     }
   }
 }
@@ -38,6 +40,7 @@ declare global {
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
 export const loop = ErrorMapper.wrapLoop(() => {
   // Automatically delete memory of missing creeps
+  global.findRole = showRole;
   for (const name in Memory.creeps) {
     if (!(name in Game.creeps)) {
       delete Memory.creeps[name];
