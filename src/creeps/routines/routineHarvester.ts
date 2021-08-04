@@ -3,10 +3,10 @@ import routineUpgrade from "./routineUpgrade";
 
 export default function (creep: Creep): void {
   if (!creep.memory.working) {
-    if (creep.store.getFreeCapacity() > 0 && !creep.memory.lockTask) {
+    if (checkCreepCapacity(creep)) {
       routineFarm(creep);
     } else {
-      if (creep.room.energyAvailable === creep.room.energyCapacityAvailable) {
+      if (checkSpawnCapacity(creep)) {
         routineUpgrade(creep);
       } else {
         const target = creep.room.find(FIND_STRUCTURES, {
@@ -23,4 +23,18 @@ export default function (creep: Creep): void {
       }
     }
   }
+}
+
+function checkCreepCapacity(creep: Creep): boolean {
+  if (creep.store.getFreeCapacity() > 0 && !creep.memory.lockTask) {
+    return true;
+  }
+  return false;
+}
+
+function checkSpawnCapacity(creep: Creep): boolean {
+  if (creep.room.energyAvailable === creep.room.energyCapacityAvailable) {
+    return true;
+  }
+  return false;
 }
