@@ -87,7 +87,7 @@ export default function (creep: Creep): void {
               }
               break;
             default:
-              // Not possible/ position of the energy source
+              // Not possible/ it's position of the energy source
               break;
           }
           break;
