@@ -3,6 +3,7 @@ import createRampart from "construct/createRampart";
 import creepSpawn from "./creepSpawn";
 import creepWork from "./creepWork";
 import pickupenergy from "./pickupenergy";
+import routineHarvester from "creeps/routines/routineHarvester";
 
 export default function (): void {
   // Iterate over all owned spawns
@@ -22,6 +23,7 @@ export default function (): void {
       pickupenergy(creep);
     }
 
+    routineHarvester(creep);
     creepWork(creep);
   }
 }
