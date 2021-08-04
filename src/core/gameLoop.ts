@@ -3,6 +3,7 @@ import createRampart from "construct/createRampart";
 import creepSpawn from "./creepSpawn";
 import creepWork from "./creepWork";
 import pickupenergy from "./pickupenergy";
+import routineTower from "./routineTower";
 
 export default function (): void {
   // Iterate over all owned spawns
@@ -13,6 +14,12 @@ export default function (): void {
     if (!Game.spawns[spawn].spawning) {
       creepSpawn(Game.spawns[spawn]);
     }
+    const tower = Game.spawns[spawn].room.find(FIND_STRUCTURES, {
+      filter: s => s.structureType === STRUCTURE_TOWER
+    });
+    tower.forEach(t => {
+      return routineTower(t as StructureTower);
+    });
   }
 
   for (const creepName in Game.creeps) {
