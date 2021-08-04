@@ -1,5 +1,5 @@
 export default function (creep: Creep): void {
-  const pathColor = "#ff333";
+  const pathColor = "#ff3333";
 
   if (creep.memory.working && creep.store[RESOURCE_ENERGY] === 0) {
     creep.memory.working = false;
