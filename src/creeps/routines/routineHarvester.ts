@@ -2,6 +2,8 @@ import routineFarm from "./routineFarm";
 import routineUpgrade from "./routineUpgrade";
 
 export default function (creep: Creep): void {
+  const pathColor = "#ffaa00";
+
   if (!creep.memory.working) {
     if (checkCreepCapacity(creep)) {
       routineFarm(creep);
@@ -22,7 +24,7 @@ export default function (creep: Creep): void {
           if (creep.transfer(target[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
             creep.memory.lockTask = false;
             creep.say("⛴︎ deliver");
-            creep.moveTo(target[0]);
+            creep.moveTo(target[0], { visualizePathStyle: { stroke: pathColor } });
           }
         }
       }
