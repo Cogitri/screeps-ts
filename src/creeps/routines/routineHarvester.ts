@@ -32,13 +32,22 @@ export default function (creep: Creep): void {
   }
 }
 
+// Checks if the creep capacity is full or empty
+// Releases the locked task when capacity is empty
 function checkCreepCapacity(creep: Creep): boolean {
   if (creep.store.getFreeCapacity() > 0 && !creep.memory.lockTask) {
     return true;
   }
+
+  if (creep.store[RESOURCE_ENERGY] === 0 && creep.memory.lockTask) {
+    creep.memory.lockTask = false;
+    return true;
+  }
+
   return false;
 }
 
+// Checks spawn capacity to determine if harvester should upgrade controller
 function checkSpawnCapacity(creep: Creep): boolean {
   if (creep.room.energyAvailable === creep.room.energyCapacityAvailable) {
     return true;

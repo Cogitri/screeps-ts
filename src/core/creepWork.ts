@@ -1,3 +1,4 @@
+import routineBuilder from "creeps/routines/routineBuilder";
 import routineHarvester from "creeps/routines/routineHarvester";
 import routineSoldier from "creeps/routines/routineSoldier";
 
@@ -12,10 +13,12 @@ export default function (creep: Creep): void {
     case CreepTypes.ROLE_HARVESTER:
       routineHarvester(creep);
       break;
+    case CreepTypes.ROLE_BUILDER:
+      routineBuilder(creep);
+      break;
     case CreepTypes.ROLE_SOLDIER:
       routineSoldier(creep);
       break;
-
     default:
       break;
   }
