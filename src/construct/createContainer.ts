@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-for-in-array */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 export default function (creep: Creep): void {
   // Container placement here
   const energySources = creep.room.find(FIND_SOURCES_ACTIVE);
