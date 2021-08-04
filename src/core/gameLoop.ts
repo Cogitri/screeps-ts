@@ -1,33 +1,25 @@
-import { basicHarvest } from "./basicHarvest";
-import { checkHarvesterWork } from "./harvester";
+import buildStreet from "./buildStreet";
 import creepSpawn from "./creepSpawn";
+import creepWork from "./creepWork";
+import routineHarvester from "creeps/routines/routineHarvester";
 
 export default function (): void {
   // Iterate over all owned spawns
   for (const spawn in Game.spawns) {
+    buildStreet(Game.spawns[spawn]);
     // Check if creep is already spawning (avoids bug)
     if (!Game.spawns[spawn].spawning) {
       creepSpawn(Game.spawns[spawn]);
     }
-
-    for (const creep in Game.creeps) {
-      console.log(`Hier meldet sich ${Game.creeps[creep].name}`);
-    }
   }
 
-  for (const creepName in Game.creeps) {
-    const creep = Game.creeps[creepName];
-    basicHarvest.run(creep);
-    if (creep.memory.role === "harvester") {
-      checkHarvesterWork(creep);
-    }
-
+  for (const name in Game.creeps) {
+    const creep = Game.creeps[name];
     if (!creep.memory.working) {
       creep.say(`Hello world, I am ${creep.name}`);
     }
 
-    if (Game.time % creep.memory.counter === 10) {
-      creep.memory.working = true;
-    }
+    routineHarvester(creep);
+    creepWork(creep);
   }
 }
