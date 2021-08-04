@@ -2,7 +2,7 @@ import buildStreet from "./buildStreet";
 import createRampart from "construct/createRampart";
 import creepSpawn from "./creepSpawn";
 import creepWork from "./creepWork";
-import routineHarvester from "creeps/routines/routineHarvester";
+import pickupenergy from "./pickupenergy";
 
 export default function (): void {
   // Iterate over all owned spawns
@@ -15,13 +15,13 @@ export default function (): void {
     }
   }
 
-  for (const name in Game.creeps) {
-    const creep = Game.creeps[name];
+  for (const creepName in Game.creeps) {
+    const creep = Game.creeps[creepName];
     if (!creep.memory.working) {
-      creep.say(`Hello world, I am ${creep.name}`);
+      // pickupEnergy routine started with this function. place wherever it's needed.
+      pickupenergy(creep);
     }
 
-    routineHarvester(creep);
     creepWork(creep);
   }
 }
