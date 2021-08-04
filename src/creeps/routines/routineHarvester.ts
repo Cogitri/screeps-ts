@@ -5,27 +5,47 @@ export default function (creep: Creep): void {
   const pathColor = "#ffaa00";
 
   if (!creep.memory.working) {
-    if (checkCreepCapacity(creep)) {
-      routineFarm(creep);
+    if (checkSpawnCapacity(creep)) {
+      routineUpgrade(creep);
     } else {
-      if (checkSpawnCapacity(creep)) {
-        routineUpgrade(creep);
+      if (checkCreepCapacity(creep)) {
+        routineFarm(creep);
       } else {
-        const target = creep.room.find(FIND_STRUCTURES, {
+        // the creep looks for the nearest container.
+        // the container the creep uses.
+        const container = creep.pos.findClosestByPath(FIND_STRUCTURES, {
           filter: structure => {
             return (
-              (structure.structureType === STRUCTURE_EXTENSION || structure.structureType === STRUCTURE_SPAWN) &&
-              structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+              structure.structureType === STRUCTURE_CONTAINER &&
+              structure.store.getFreeCapacity(RESOURCE_ENERGY) >= creep.store.getUsedCapacity()
             );
           }
         });
-
-        if (target.length > 0) {
-          if (creep.transfer(target[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        // check if there are any containers
+        if (container !== undefined && container != null) {
+          if (creep.transfer(container, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
             creep.memory.lockTask = false;
-            creep.say("✈️ deliver");
-            creep.moveTo(target[0], { visualizePathStyle: { stroke: pathColor } });
-            creep.memory.target = target[0];
+            creep.memory.target = container;
+            creep.say("⛴︎ deliver");
+            creep.moveTo(container, { visualizePathStyle: { stroke: pathColor } });
+          }
+          // if there are no containers the creep will go to the spawn.
+        } else {
+          const target = creep.room.find(FIND_STRUCTURES, {
+            filter: structure => {
+              return (
+                (structure.structureType === STRUCTURE_EXTENSION || structure.structureType === STRUCTURE_SPAWN) &&
+                structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+              );
+            }
+          });
+
+          if (target.length > 0) {
+            if (creep.transfer(target[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+              creep.memory.lockTask = false;
+              creep.say("⛴︎ deliver");
+              creep.moveTo(target[0], { visualizePathStyle: { stroke: pathColor } });
+            }
           }
         }
       }
