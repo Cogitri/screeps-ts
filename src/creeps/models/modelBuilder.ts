@@ -5,7 +5,7 @@ export function spawnBuilder(spawn: StructureSpawn): void {
   spawn.spawnCreep(body, name, { memory: { role: "builder", room: "", working: false, lockTask: false } });
   if (spawn.spawning) {
     console.log("TEST");
-    var spawningCreep = Game.creeps[spawn.spawning.name];
+    const spawningCreep = Game.creeps[spawn.spawning.name];
     spawn.room.visual.text("🛠️" + spawningCreep.memory.role, spawn.pos.x + 1, spawn.pos.y, {
       align: "left",
       opacity: 0.8
