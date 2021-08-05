@@ -61,9 +61,7 @@ function checkExtensionsCapacity(creep: Creep): boolean {
   });
 
   if (extensions.length) {
-    console.log("Free Extensions");
     return false;
   }
-  console.log("NO Free Extensions");
   return true;
 }
