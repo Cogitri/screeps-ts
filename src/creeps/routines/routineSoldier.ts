@@ -1,4 +1,3 @@
-import routineHarvester from "./routineHarvester";
 import routineTransporter from "./routineTransporter";
 
 export default function (creep: Creep): void {
