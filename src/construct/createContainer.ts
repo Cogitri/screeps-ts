@@ -121,7 +121,7 @@ export default function (spawn: StructureSpawn): void {
             STRUCTURE_CONTAINER
           );
           Logger.info(
-            `Placed a Container Construction site at:  ${xPositionsAvailable[amountContainer]}, ${yPositionsAvailable[amountContainer]}`
+            `Placed a Container Construction site at:  ${xBuildPlaceAvailable[amountContainer]}, ${yBuildPlaceAvailable[amountContainer]}`
           );
         }
       }
