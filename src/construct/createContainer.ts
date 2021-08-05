@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-for-in-array */
-export default function (): void {
+export default function (spawn: StructureSpawn): void {
   // Container placement here
-  const energySources = Game.rooms.spawn.find(FIND_SOURCES_ACTIVE);
+  const energySources = spawn.room.find(FIND_SOURCES_ACTIVE);
   for (const i in energySources) {
     const position = energySources[i].pos;
     const xSource: number = position.x;
     const ySource: number = position.y;
-    const terrain = new Room.Terrain(Game.rooms.spawn.name);
+    const terrain = new Room.Terrain(spawn.room.name);
     const xArray: number[] = [-1, -1, -1, 0, 0, 1, 1, 1];
     const yArray: number[] = [-1, 0, 1, -1, 1, -1, 0, 1];
     const xPositionsAvailable: number[] = [];
