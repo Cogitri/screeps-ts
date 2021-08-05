@@ -39,28 +39,21 @@ export default function (creep: Creep): void {
  */
 function shouldFightEnemy(enemy: AnyCreep, us: AnyCreep): boolean {
   // Don't fight powercreeps unless it's neccessary as we can't determine their body parts
-  if (enemy as PowerCreep) {
-    if (us as PowerCreep) {
+  // Hack to determine whether the enemy is a PowerCreep since we can't use instanceof
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  if (!(enemy as any).body) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    if (!(us as any).body) {
       if (enemy.hits - us.hits > HP_THRESHOLD) {
         return false;
       }
+      return true;
     }
-    return true;
+    return false;
   }
-
   // We need the body object to determince calcs, so a PowerCreep Soldier has less checks
-  try {
-    us = us as Creep;
-    enemy = enemy as Creep;
-  } catch (e) {
-    if (enemy.hits - us.hits > HP_THRESHOLD) {
-      return false;
-    }
-    return true;
-  }
-
-  const enemyBodyCare = enemy.body.filter(p => p.type === "attack" || p.type === "tough");
-  const usBodyCare = us.body.filter(p => p.type === "attack" || p.type === "tough");
+  const enemyBodyCare = (enemy as Creep).body.filter(p => p.type === "attack" || p.type === "tough");
+  const usBodyCare = (us as Creep).body.filter(p => p.type === "attack" || p.type === "tough");
 
   if (enemyBodyCare.length > usBodyCare.length && enemy.hits > us.hits) {
     return false;
