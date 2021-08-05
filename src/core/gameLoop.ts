@@ -5,7 +5,6 @@ import creepWork from "./creepWork";
 import pickupenergy from "./pickupenergy";
 import routineTower from "./routineTower";
 import { visualizeControllerProgress } from "../utils/vizControllerLvl";
-import vizCostumUI from "utils/vizCostumUI";
 
 export default function (): void {
   // Refresh variables in memory
@@ -14,7 +13,6 @@ export default function (): void {
   // Iterate over all owned spawns
   for (const spawn in Game.spawns) {
     createConstructions(Game.spawns[spawn]);
-    vizCostumUI(Game.spawns[spawn].room);
     // Check if creep is already spawning (avoids bug)
     if (!Game.spawns[spawn].spawning) {
       creepSpawn(Game.spawns[spawn]);
