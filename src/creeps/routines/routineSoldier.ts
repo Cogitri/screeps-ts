@@ -21,9 +21,37 @@ export default function (creep: Creep): void {
     return;
   }
 
-  if (creep.attack(enemy) === ERR_NOT_IN_RANGE) {
+  if (creep.attack(enemy) === ERR_NOT_IN_RANGE && shouldFightEnemy(enemy, creep)) {
     creep.say("⚔️ attack");
     movePath(creep, enemy, pathColor);
     creep.memory.target = enemy;
+  }
+}
+
+/**
+ * Helper function to determine whether we should fight an enemy or not
+ *
+ * @param enemy The enemy to be fought with
+ *
+ * @returns True if we should fight the enemy, false if we shouldn't
+ */
+function shouldFightEnemy(enemy: AnyCreep, us: AnyCreep): boolean {
+  // Don't fight powercreeps unless it's neccessary as we can't determine their body parts
+  if (enemy instanceof PowerCreep) {
+    return false;
+  }
+
+  try {
+    us = us as Creep;
+  } catch (e) {
+    return true;
+  }
+
+  if (
+    enemy.body.filter(p => p.type === "attack" || p.type === "tough").length >
+      us.body.filter(p => p.type === "attack" || p.type === "tough").length &&
+    enemy.hits > us.hits
+  ) {
+    return false;
   }
 }
