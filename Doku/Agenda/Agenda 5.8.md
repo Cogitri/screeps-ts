@@ -1,7 +1,7 @@
 # Agenda Donnerstag, 5.8.21
 Sprint 
 * 11:45 Daily Scum Timebox: 15 Min.
-* 12:00 Refinment
+* 12:00 Refinement
 * 16 Uhr Sprintwechsel Timebox: 2 Std.
 	* Sprint Review: 30 Minuten
 		* Teilnehmer: gesamtes Team + Stakeholder
