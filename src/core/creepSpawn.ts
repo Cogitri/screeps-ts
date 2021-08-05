@@ -1,4 +1,3 @@
-import { isNull } from "lodash";
 import { spawnBuilder } from ".././creeps/models/modelBuilder";
 import { spawnHarvester } from ".././creeps/models/modelHarvester";
 import { spawnSoldier } from ".././creeps/models/modelSoldier";
@@ -33,50 +32,5 @@ export default function (spawn: StructureSpawn): void {
   // check number of creeps and check if creep is already spawning (avoids bug)
   if (soldiers.length < 1) {
     spawnSoldier(spawn);
-  }
-
-  /*console.log(spawn.spawning);
-
-  console.log(!spawn.spawning);
-
-  console.log(!!spawn.spawning);*/
-  /*
-  console.log("!(spawn.spawning == null): " + !(spawn.spawning == null));
-
-  console.log("!(spawn.spawning === null): " + !(spawn.spawning === null));
-
-  console.log("!(spawn.spawning != null): " + !(spawn.spawning != null));
-
-  console.log("!(spawn.spawning !== null): " + !(spawn.spawning !== null));
-
-  console.log("spawn.spawning == null: " + spawn.spawning == null);
-
-  console.log("spawn.spawning === null: " + spawn.spawning === null);
-
-  console.log("spawn.spawning != null: " + spawn.spawning != null);
-
-  console.log("spawn.spawning !== null: " + spawn.spawning !== null);
-*/
-  /*
-  if(Game.spawns['Spawn1'].spawning) {
-    var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
-    Game.spawns['Spawn1'].room.visual.text(
-        '🛠️' + spawningCreep.memory.role,
-        Game.spawns['Spawn1'].pos.x + 1,
-        Game.spawns['Spawn1'].pos.y,
-        {align: 'left', opacity: 0.8});
-  }
-  */
-
-  console.log(spawn?.spawning);
-  console.log(spawn?.spawning != null);
-
-  if (spawn.spawning) {
-    console.log("yay");
-    const spawningCreep = Game.creeps[spawn.spawning.name];
-    spawn.room.visual.text("🛠️" + spawningCreep.memory.role, spawn.pos.x + 1, spawn.pos.y, {
-      align: "left",
-      opacity: 0.8
-    });
   }
 }

@@ -14,6 +14,17 @@ export default function (): void {
     if (!Game.spawns[spawn].spawning) {
       creepSpawn(Game.spawns[spawn]);
     }
+
+    const spawningProcess = Game.spawns[spawn].spawning;
+    if (spawningProcess != null) {
+      const spawningCreep = Game.creeps[spawningProcess.name];
+      Game.spawns[spawn].room.visual.text(
+        "🛠️" + spawningCreep.memory.role,
+        Game.spawns[spawn].pos.x + 1,
+        Game.spawns[spawn].pos.y,
+        { align: "left", opacity: 0.8 }
+      );
+    }
   }
 
   for (const creepName in Game.creeps) {
