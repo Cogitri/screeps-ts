@@ -55,13 +55,13 @@ export default function (spawn: StructureSpawn): void {
                 }
                 break;
               case 1:
-                if (terrain.get(xPositionsAvailable[k] - 1, yPositionsAvailable[k] - 1) !== 1) {
+                if (terrain.get(xPositionsAvailable[k] - 1, yPositionsAvailable[k] + 1) !== 1) {
                   xBuildPlaceAvailable.push(xPositionsAvailable[k] - 1);
                   yBuildPlaceAvailable.push(yPositionsAvailable[k] + 1);
                 }
                 break;
               default:
-                if (terrain.get(xPositionsAvailable[k] - 1, yPositionsAvailable[k] - 1) !== 1) {
+                if (terrain.get(xPositionsAvailable[k] - 1, yPositionsAvailable[k]) !== 1) {
                   xBuildPlaceAvailable.push(xPositionsAvailable[k] - 1);
                   yBuildPlaceAvailable.push(yPositionsAvailable[k]);
                 }
@@ -71,19 +71,19 @@ export default function (spawn: StructureSpawn): void {
           case 1:
             switch (yPositionsAvailable[k] - ySource) {
               case -1:
-                if (terrain.get(xPositionsAvailable[k] - 1, yPositionsAvailable[k] - 1) !== 1) {
+                if (terrain.get(xPositionsAvailable[k] + 1, yPositionsAvailable[k] - 1) !== 1) {
                   xBuildPlaceAvailable.push(xPositionsAvailable[k] + 1);
                   yBuildPlaceAvailable.push(yPositionsAvailable[k] - 1);
                 }
                 break;
               case 1:
-                if (terrain.get(xPositionsAvailable[k] - 1, yPositionsAvailable[k] - 1) !== 1) {
+                if (terrain.get(xPositionsAvailable[k] + 1, yPositionsAvailable[k] + 1) !== 1) {
                   xBuildPlaceAvailable.push(xPositionsAvailable[k] + 1);
                   yBuildPlaceAvailable.push(yPositionsAvailable[k] + 1);
                 }
                 break;
               default:
-                if (terrain.get(xPositionsAvailable[k] - 1, yPositionsAvailable[k] - 1) !== 1) {
+                if (terrain.get(xPositionsAvailable[k] + 1, yPositionsAvailable[k]) !== 1) {
                   xBuildPlaceAvailable.push(xPositionsAvailable[k] + 1);
                   yBuildPlaceAvailable.push(yPositionsAvailable[k]);
                 }
@@ -93,13 +93,13 @@ export default function (spawn: StructureSpawn): void {
           default:
             switch (yPositionsAvailable[k] - ySource) {
               case -1:
-                if (terrain.get(xPositionsAvailable[k] - 1, yPositionsAvailable[k] - 1) !== 1) {
+                if (terrain.get(xPositionsAvailable[k], yPositionsAvailable[k] - 1) !== 1) {
                   xBuildPlaceAvailable.push(xPositionsAvailable[k]);
                   yBuildPlaceAvailable.push(yPositionsAvailable[k] - 1);
                 }
                 break;
               case 1:
-                if (terrain.get(xPositionsAvailable[k] - 1, yPositionsAvailable[k] - 1) !== 1) {
+                if (terrain.get(xPositionsAvailable[k], yPositionsAvailable[k] + 1) !== 1) {
                   xBuildPlaceAvailable.push(xPositionsAvailable[k]);
                   yBuildPlaceAvailable.push(yPositionsAvailable[k] + 1);
                 }
