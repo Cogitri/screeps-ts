@@ -34,7 +34,7 @@ declare global {
     interface Global {
       log: any;
       findRole: (role: string) => void;
-      logLevel: (l: LogLevel) => void;
+      logLevel: (l: keyof typeof LogLevel) => void;
     }
   }
 }
@@ -42,10 +42,15 @@ declare global {
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
 export const loop = ErrorMapper.wrapLoop(() => {
-  global.logLevel = (l: LogLevel) => {
-    Logger.logLevel = l;
-    Memory.logLevel = l;
-    return `LOG LEVEL NOW SET TO ${Logger.logLevel}`;
+  global.logLevel = (ls: keyof typeof LogLevel) => {
+    if (Object.values(LogLevel).some(ll => ll === ls.toUpperCase())) {
+      const l: LogLevel = LogLevel[ls.toString().toUpperCase() as keyof typeof LogLevel];
+      Logger.logLevel = l;
+      Memory.logLevel = l;
+      return `LOG LEVEL NOW SET TO ${Logger.logLevel}`;
+    } else {
+      return `Unknown log level set`;
+    }
   };
 
   // Automatically delete memory of missing creeps
