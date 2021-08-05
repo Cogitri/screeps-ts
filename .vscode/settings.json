@@ -6,7 +6,11 @@
     "editor.formatOnSave": true
   },
   "[typescript]": {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.associations": {
+    "*.spec.ts": "typescript",
   },
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
