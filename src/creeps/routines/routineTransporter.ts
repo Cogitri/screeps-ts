@@ -7,11 +7,16 @@ export default function (creep: Creep): void {
     if (checkCreepCapacity(creep)) {
       routineWithdraw(creep);
     } else {
-      if (checkSpawnCapacity(creep)) {
+      if (checkSpawnCapacity(creep) && checkExtensionsCapacity(creep)) {
         routineUpgrade(creep);
       } else {
         const target = creep.room.find(FIND_STRUCTURES, {
-          filter: structure => structure.structureType === STRUCTURE_SPAWN
+          filter: structure => {
+            return (
+              (structure.structureType === STRUCTURE_SPAWN || structure.structureType === STRUCTURE_EXTENSION) &&
+              structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+            );
+          }
         });
 
         if (target.length > 0) {
@@ -38,4 +43,22 @@ function checkSpawnCapacity(creep: Creep): boolean {
     return true;
   }
   return false;
+}
+
+/**
+ *  Checks if there are Extensions with free Capacity
+ * @param creep
+ * @returns True if there ist no Capacity in any Extensions
+ */
+function checkExtensionsCapacity(creep: Creep): boolean {
+  const extensions = creep.room.find(FIND_STRUCTURES, {
+    filter: s => s.structureType === STRUCTURE_EXTENSION && s.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+  });
+
+  if (extensions.length) {
+    console.log("Free Extensions");
+    return false;
+  }
+  console.log("NO Free Extensions");
+  return true;
 }
