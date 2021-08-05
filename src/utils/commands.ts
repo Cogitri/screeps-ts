@@ -23,6 +23,13 @@ export function logLevel(ls: keyof typeof LogLevel): string {
     Memory.logLevel = l;
     return `LOG LEVEL NOW SET TO ${LogLevel[Logger.logLevel]}`;
   } else {
-    return `Unknown log level set`;
+    let logLevelArr = "";
+    Object.keys(LogLevel)
+      .filter(k => isNaN(Number(k)))
+      .forEach(l => {
+        logLevelArr += `${l}, `;
+      });
+    logLevelArr = logLevelArr.substring(0, logLevelArr.length - 2);
+    return `Unknown log level entered, available log levels are: ${logLevelArr}`;
   }
 }
