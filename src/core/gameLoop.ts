@@ -5,6 +5,7 @@ import creepWork from "./creepWork";
 import pickupenergy from "./pickupenergy";
 import routineTower from "./routineTower";
 import { visualizeControllerProgress } from "../utils/vizControllerLvl";
+import { visualizeSpawnerProgress } from "../utils/vizSpawner";
 
 export default function (): void {
   // Refresh variables in memory
@@ -17,6 +18,8 @@ export default function (): void {
     if (!Game.spawns[spawn].spawning) {
       creepSpawn(Game.spawns[spawn]);
     }
+    visualizeSpawnerProgress(spawn);
+
     const tower = Game.spawns[spawn].room.find(FIND_STRUCTURES, {
       filter: s => s.structureType === STRUCTURE_TOWER
     });
