@@ -1,7 +1,9 @@
-import { mockInstanceOf } from "screeps-jest";
+import { mockInstanceOf, mockStructure } from "screeps-jest";
 import routineSoldier from "./routineSoldier";
 
 const pathColor = "#ff3333";
+
+const spawn = mockStructure(STRUCTURE_SPAWN);
 
 describe("Soldier role", () => {
   describe("fighting", () => {
@@ -300,5 +302,41 @@ describe("Soldier role", () => {
       expect(us.attack).toHaveBeenCalledWith(enemy);
     });
   });
+  describe("peace", () => {
+    it("should transport when no enemies are in the room", () => {
+      const us = mockInstanceOf<Creep>({
+        my: true,
+        body: [
+          {
+            type: "attack",
+            hits: 100
+          },
+          {
+            type: "tough",
+            hits: 100
+          }
+        ],
+        hits: 1000,
+        getActiveBodyparts: () => 10,
+        memory: { role: "soldier", working: false },
+        store: { getFreeCapacity: () => 0 },
+        room: {
+          energyAvailable: 5,
+          energyCapacityAvailable: 100,
+          find: () => STRUCTURE_SPAWN
+        },
+        pos: {
+          x: 0,
+          y: 0,
+          findClosestByPath: () => null
+        },
+        move: () => OK,
+        transfer: () => OK
+      });
+
+      routineSoldier(us);
+
+      expect(us.transfer).toBeCalled();
+    });
+  });
 });
-// describe("idling", () => {});
