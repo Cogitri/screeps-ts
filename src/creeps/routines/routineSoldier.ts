@@ -42,11 +42,9 @@ function shouldFightEnemy(enemy: AnyCreep, us: AnyCreep): boolean {
   // Hack to determine whether the enemy is a PowerCreep since we can't use instanceof
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   if (!(enemy as any).body) {
+    // Give us a little advantage as PowerCreeps are probably stronger
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    if (!(us as any).body) {
-      if (enemy.hits - us.hits > HP_THRESHOLD) {
-        return false;
-      }
+    if (us.hits - enemy.hits > HP_THRESHOLD) {
       return true;
     }
     return false;
