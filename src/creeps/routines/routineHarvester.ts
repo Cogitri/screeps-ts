@@ -23,7 +23,7 @@ export default function (creep: Creep): void {
         if (target.length > 0) {
           if (creep.transfer(target[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
             creep.memory.lockTask = false;
-            creep.say("⛴︎ deliver");
+            creep.say("deliver");
             creep.moveTo(target[0], { visualizePathStyle: { stroke: pathColor } });
             creep.memory.target = target[0];
           }

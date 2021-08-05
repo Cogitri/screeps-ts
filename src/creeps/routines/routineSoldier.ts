@@ -1,3 +1,5 @@
+import routineHarvester from "./routineHarvester";
+
 export default function (creep: Creep): void {
   const pathColor = "#ff3333";
 
@@ -17,9 +19,7 @@ export default function (creep: Creep): void {
   if (!enemy) {
     // TODO: Refer to harvesting routine or return energy to base
     if (creep.memory.working) {
-      // Harvest stuff
-    } else {
-      // Return goods to base
+      routineHarvester(creep);
     }
     return;
   }
