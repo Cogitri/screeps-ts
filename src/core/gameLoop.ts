@@ -17,8 +17,6 @@ export default function (): void {
 
     const spawningProcess = Game.spawns[spawn].spawning;
     if (spawningProcess != null) {
-      const spawningCreep = Game.creeps[spawningProcess.name];
-
       // Calculate percentage of the time that already passed
       const timeLeft = spawningProcess.needTime - spawningProcess.remainingTime;
       const percentDone = (100 / spawningProcess.needTime) * timeLeft;
