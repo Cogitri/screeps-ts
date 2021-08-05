@@ -45,3 +45,14 @@ export function findCreep(name: string): string {
   }
   return "Der gesuchte Screep wurde nicht gefunden.";
 }
+
+// enable text visuals
+export function toggleTextViz(): string {
+  if (global.textViz) {
+    global.textViz = false;
+    return "Disabled all textual room visuals";
+  } else {
+    global.textViz = true;
+    return "Enabled all textual room visuals";
+  }
+}
