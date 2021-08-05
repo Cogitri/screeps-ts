@@ -1,5 +1,7 @@
 import { movePath } from "utils/vizPath";
 import routineTransporter from "./routineTransporter";
+const BODY_PART_THRESHOLD = 5;
+const HP_THRESHOLD = 200;
 
 export default function (creep: Creep): void {
   const pathColor = "#ff3333";
@@ -37,21 +39,40 @@ export default function (creep: Creep): void {
  */
 function shouldFightEnemy(enemy: AnyCreep, us: AnyCreep): boolean {
   // Don't fight powercreeps unless it's neccessary as we can't determine their body parts
-  if (enemy instanceof PowerCreep) {
-    return false;
-  }
-
-  try {
-    us = us as Creep;
-  } catch (e) {
+  if (enemy as PowerCreep) {
+    if (us as PowerCreep) {
+      if (enemy.hits - us.hits > HP_THRESHOLD) {
+        return false;
+      }
+    }
     return true;
   }
 
-  if (
-    enemy.body.filter(p => p.type === "attack" || p.type === "tough").length >
-      us.body.filter(p => p.type === "attack" || p.type === "tough").length &&
-    enemy.hits > us.hits
-  ) {
+  // We need the body object to determince calcs, so a PowerCreep Soldier has less checks
+  try {
+    us = us as Creep;
+    enemy = enemy as Creep;
+  } catch (e) {
+    if (enemy.hits - us.hits > HP_THRESHOLD) {
+      return false;
+    }
+    return true;
+  }
+
+  const enemyBodyCare = enemy.body.filter(p => p.type === "attack" || p.type === "tough");
+  const usBodyCare = us.body.filter(p => p.type === "attack" || p.type === "tough");
+
+  if (enemyBodyCare.length > usBodyCare.length && enemy.hits > us.hits) {
     return false;
   }
+
+  if (enemyBodyCare.length - usBodyCare.length > BODY_PART_THRESHOLD) {
+    return false;
+  }
+
+  if (enemy.hits - us.hits > HP_THRESHOLD) {
+    return false;
+  }
+
+  return true;
 }
