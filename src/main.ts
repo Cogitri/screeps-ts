@@ -47,7 +47,7 @@ export const loop = ErrorMapper.wrapLoop(() => {
       const l: LogLevel = LogLevel[ls.toString().toUpperCase() as keyof typeof LogLevel];
       Logger.logLevel = l;
       Memory.logLevel = l;
-      return `LOG LEVEL NOW SET TO ${Logger.logLevel}`;
+      return `LOG LEVEL NOW SET TO ${LogLevel[Logger.logLevel]}`;
     } else {
       return `Unknown log level set`;
     }
