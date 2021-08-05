@@ -16,13 +16,38 @@ export default function (creep: Creep): void {
 
   const targets = creep.room.find(FIND_CONSTRUCTION_SITES);
 
+  // check for different constructions for prioritizing
+  const walls = creep.room.find(FIND_CONSTRUCTION_SITES, {
+    filter: s => s.structureType === STRUCTURE_WALL
+  });
+  const ramparts = creep.room.find(FIND_CONSTRUCTION_SITES, {
+    filter: s => s.structureType === STRUCTURE_RAMPART
+  });
+  const roads = creep.room.find(FIND_CONSTRUCTION_SITES, {
+    filter: s => s.structureType === STRUCTURE_ROAD
+  });
+  const buildings = creep.room.find(FIND_CONSTRUCTION_SITES, {
+    filter: s =>
+      s.structureType !== STRUCTURE_RAMPART && s.structureType !== STRUCTURE_ROAD && s.structureType !== STRUCTURE_WALL
+  });
+
   if (!creep.memory.working) {
     if (checkCreepCapacity(creep)) {
       routineFarm(creep);
     } else if (checkDamagedStructure(damagedStructure[0])) {
       repair(creep, damagedStructure[0]);
     } else if (checkConstructionSite(targets[0])) {
-      build(creep, targets[0]);
+      // build(creep, targets[0]);
+      // build in priority: buildings first, then roads, then ramparts, and then walls
+      if (buildings.length) {
+        build(creep, buildings[0]);
+      } else if (roads.length) {
+        build(creep, roads[0]);
+      } else if (ramparts.length) {
+        build(creep, ramparts[0]);
+      } else if (walls.length) {
+        build(creep, walls[0]);
+      }
     } else {
       routineTransporter(creep);
     }
