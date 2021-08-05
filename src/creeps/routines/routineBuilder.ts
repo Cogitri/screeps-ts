@@ -1,5 +1,6 @@
 import routineFarm from "./routineFarm";
 import routineHarvester from "./routineHarvester";
+import routineTransporter from "./routineTransporter";
 
 export default function (creep: Creep): void {
   const damagedStructure = creep.room.find(FIND_STRUCTURES, {
@@ -18,7 +19,7 @@ export default function (creep: Creep): void {
     } else if (checkConstructionSite(targets[0])) {
       build(creep, targets[0]);
     } else {
-      routineHarvester(creep);
+      routineTransporter(creep);
     }
   }
 }
