@@ -18,12 +18,43 @@ export default function (): void {
     const spawningProcess = Game.spawns[spawn].spawning;
     if (spawningProcess != null) {
       const spawningCreep = Game.creeps[spawningProcess.name];
+      // TODO: Prozent des abgeschlossenen Spawning-Prozesses
+
+      const timeNeededInTotal = spawningProcess.needTime;
+      const timeRemaining = spawningProcess.remainingTime;
+      const timeLeft = timeNeededInTotal - timeRemaining;
+      const percentDone = (100 / timeNeededInTotal) * timeLeft;
+
       Game.spawns[spawn].room.visual.text(
-        "🛠️" + spawningCreep.memory.role,
+        "⏳ " + `${percentDone.toFixed(2)}%`,
+        Game.spawns[spawn].pos.x - 1.25,
+        Game.spawns[spawn].pos.y + 1.5,
+        { align: "left", opacity: 0.8, font: 0.5 }
+      );
+
+      // 🛠️
+      Game.spawns[spawn].room.visual.text(
+        "🧬 " + spawningProcess.name,
+        Game.spawns[spawn].pos.x - 1.25,
+        Game.spawns[spawn].pos.y + 2.25,
+        { align: "left", opacity: 0.8, font: 0.5 }
+      );
+      /*
+      Game.spawns[spawn].room.visual.text(
+        "⏳ " + `${percentDone.toFixed(2)}%`,
         Game.spawns[spawn].pos.x + 1,
         Game.spawns[spawn].pos.y,
-        { align: "left", opacity: 0.8 }
+        { align: "left", opacity: 0.8, font: 0.5 }
       );
+
+      // 🛠️
+      Game.spawns[spawn].room.visual.text(
+        "🧬" + spawningProcess.name,
+        Game.spawns[spawn].pos.x + 1,
+        Game.spawns[spawn].pos.y + 0.75,
+        { align: "left", opacity: 0.8, font: 0.5 }
+      );
+      */
     }
   }
 
