@@ -6,6 +6,5 @@ export default function (spawn: StructureSpawn): void {
   buildRoadToController(spawn);
   buildRoadToSource(spawn);
   createRampart(spawn);
-  // TEST THE CONTAINER CONSTRUCTION
   createContainer(spawn);
 }
