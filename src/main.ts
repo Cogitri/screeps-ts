@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import { LogLevel, Logger } from "utils/logger";
+import { logLevel, showRole } from "./utils/commands";
 import { ErrorMapper } from "utils/ErrorMapper";
+import { LogLevel } from "utils/logger";
 import gameLoop from "./core/gameLoop";
-import { showRole } from "./utils/commands";
 
 declare global {
   /*
@@ -42,16 +42,7 @@ declare global {
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
 export const loop = ErrorMapper.wrapLoop(() => {
-  global.logLevel = (ls: keyof typeof LogLevel) => {
-    if (Object.values(LogLevel).some(ll => ll === ls.toUpperCase())) {
-      const l: LogLevel = LogLevel[ls.toString().toUpperCase() as keyof typeof LogLevel];
-      Logger.logLevel = l;
-      Memory.logLevel = l;
-      return `LOG LEVEL NOW SET TO ${LogLevel[Logger.logLevel]}`;
-    } else {
-      return `Unknown log level set`;
-    }
-  };
+  global.logLevel = logLevel;
 
   // Automatically delete memory of missing creeps
   global.findRole = showRole;
