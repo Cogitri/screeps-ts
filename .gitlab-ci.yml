@@ -20,6 +20,13 @@ lint:
   script:
     - yarn lint
 
+
+test:
+  stage: test
+  needs: ["install_deps"]
+  script:
+    - yarn test
+
 deploy_to_screeps:
   stage: deploy
   needs: ["install_deps"]

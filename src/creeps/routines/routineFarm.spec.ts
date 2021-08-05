@@ -17,7 +17,7 @@ describe("Farming role", () => {
 
       routineFarm(creep);
       expect(creep.harvest).toHaveBeenCalledWith(source1);
-      expect(creep.say).toHaveBeenCalledWith("⛏");
+      expect(creep.say).toHaveBeenCalledWith("⛏️");
     });
   });
 });
