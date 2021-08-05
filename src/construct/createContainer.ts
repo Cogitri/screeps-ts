@@ -103,7 +103,6 @@ export default function (spawn: StructureSpawn): void {
                 break;
               default:
                 // Not possible, because it's position of the energy source
-                console.log("Container placement has reached a position it shouldn't");
                 break;
             }
             break;
