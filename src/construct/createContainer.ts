@@ -4,7 +4,7 @@
 export default function (spawn: StructureSpawn): void {
   // Container placement here
   // Amount of Containers that should be built
-  const c = 0; // CHANGE HERE
+  const amountContainer = 0; // CHANGE HERE
 
   const energySources = spawn.room.find(FIND_SOURCES_ACTIVE);
   for (const source of energySources) {
@@ -20,7 +20,7 @@ export default function (spawn: StructureSpawn): void {
     });
 
     // If the amount of Containers is too low, the process of placing them begins
-    if (checkConstructions.length <= c && checkContainer.length <= c) {
+    if (checkConstructions.length <= amountContainer && checkContainer.length <= amountContainer) {
       const terrain = new Room.Terrain(spawn.room.name);
       const xArray: number[] = [-1, -1, -1, 0, 0, 1, 1, 1];
       const yArray: number[] = [-1, 0, 1, -1, 1, -1, 0, 1];
@@ -110,14 +110,18 @@ export default function (spawn: StructureSpawn): void {
       }
       // Building the containers. for now only one is built per energy source.
 
-      if (xBuildPlaceAvailable.length > c) {
-        if (terrain.get(xBuildPlaceAvailable[c], yBuildPlaceAvailable[c]) !== 1) {
-          spawn.room.createConstructionSite(xBuildPlaceAvailable[c], yBuildPlaceAvailable[c], STRUCTURE_CONTAINER);
+      if (xBuildPlaceAvailable.length > amountContainer) {
+        if (terrain.get(xBuildPlaceAvailable[amountContainer], yBuildPlaceAvailable[amountContainer]) !== 1) {
+          spawn.room.createConstructionSite(
+            xBuildPlaceAvailable[amountContainer],
+            yBuildPlaceAvailable[amountContainer],
+            STRUCTURE_CONTAINER
+          );
           console.log(
             "Placed a Container Construction site at: ",
-            xPositionsAvailable[c],
+            xPositionsAvailable[amountContainer],
             ", ",
-            yPositionsAvailable[c]
+            yPositionsAvailable[amountContainer]
           );
         }
       }
