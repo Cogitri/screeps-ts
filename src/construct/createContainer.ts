@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
+import { Logger } from "utils/logger";
+
 /* eslint-disable @typescript-eslint/no-for-in-array */
 export default function (spawn: StructureSpawn): void {
   // Container placement here
@@ -117,7 +120,7 @@ export default function (spawn: StructureSpawn): void {
             yBuildPlaceAvailable[amountContainer],
             STRUCTURE_CONTAINER
           );
-          console.log(
+          Logger.info(
             "Placed a Container Construction site at: ",
             xPositionsAvailable[amountContainer],
             ", ",
