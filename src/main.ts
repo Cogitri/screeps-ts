@@ -45,7 +45,7 @@ export const loop = ErrorMapper.wrapLoop(() => {
   global.logLevel = (l: LogLevel) => {
     Logger.logLevel = l;
     Memory.logLevel = l;
-    console.log(`LOG LEVEL NOW SET TO ${Logger.logLevel}`);
+    return `LOG LEVEL NOW SET TO ${Logger.logLevel}`;
   };
 
   // Automatically delete memory of missing creeps
