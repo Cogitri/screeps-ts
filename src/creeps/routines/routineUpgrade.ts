@@ -10,7 +10,12 @@ export default function (creep: Creep): void {
   if (creep.upgradeController(controller) === ERR_NOT_IN_RANGE) {
     creep.memory.lockTask = true;
     creep.say("⚡ upgrade");
-    creep.moveTo(controller, { visualizePathStyle: { stroke: pathColor } });
+    if (global.pathViz) {
+      creep.moveTo(controller, { visualizePathStyle: { stroke: pathColor } });
+    } else {
+      creep.moveTo(controller);
+    }
+
     creep.memory.target = controller;
   }
 }

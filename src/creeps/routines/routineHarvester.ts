@@ -53,7 +53,7 @@ function moveCreep(creep: Creep, goal: AnyStructure) {
   if (creep.transfer(goal, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
     creep.memory.lockTask = false;
     creep.say("⛴︎ deliver");
-    creep.moveTo(goal, { visualizePathStyle: { stroke: pathColor } });
+    global.pathViz ? creep.moveTo(goal, { visualizePathStyle: { stroke: pathColor } }) : creep.moveTo(goal);
   }
 }
 

@@ -6,6 +6,10 @@ export default function (creep: Creep): void {
 
   if (creep.withdraw(containers[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
     creep.say("📤 withdraw");
-    creep.moveTo(containers[0], { visualizePathStyle: { stroke: pathColor } });
+    if (global.pathViz) {
+      creep.moveTo(containers[0], { visualizePathStyle: { stroke: pathColor } });
+    } else {
+      creep.moveTo(containers[0]);
+    }
   }
 }

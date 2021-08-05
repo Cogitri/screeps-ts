@@ -56,3 +56,14 @@ export function toggleTextViz(): string {
     return "Enabled all textual room visuals";
   }
 }
+
+// enable path visuals
+export function togglePathViz(): string {
+  if (global.pathViz) {
+    global.pathViz = false;
+    return "Disabled all path visuals";
+  } else {
+    global.pathViz = true;
+    return "Enabled all path visuals";
+  }
+}
