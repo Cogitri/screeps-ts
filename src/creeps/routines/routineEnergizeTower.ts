@@ -6,6 +6,10 @@ export default function (creep: Creep): void {
 
   if (creep.transfer(tower[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
     creep.say("transfer");
-    creep.moveTo(tower[0], { visualizePathStyle: { stroke: pathColor } });
+    if (global.pathViz) {
+      creep.moveTo(tower[0], { visualizePathStyle: { stroke: pathColor } });
+    } else {
+      creep.moveTo(tower[0]);
+    }
   }
 }

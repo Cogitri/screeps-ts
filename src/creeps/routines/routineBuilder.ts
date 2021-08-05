@@ -34,7 +34,11 @@ function build(creep: Creep, target: ConstructionSite): void {
   if (creep.build(target) === ERR_NOT_IN_RANGE) {
     creep.memory.lockTask = true;
     creep.say("⚒️ build");
-    creep.moveTo(target, { visualizePathStyle: { stroke: pathColor } });
+    if (global.pathViz) {
+      creep.moveTo(target, { visualizePathStyle: { stroke: pathColor } });
+    } else {
+      creep.moveTo(target);
+    }
   }
 }
 
@@ -44,7 +48,11 @@ function repair(creep: Creep, damagedStructure: AnyStructure): void {
   if (creep.repair(damagedStructure) === ERR_NOT_IN_RANGE) {
     creep.memory.lockTask = true;
     creep.say("🛠️ repair");
-    creep.moveTo(damagedStructure, { visualizePathStyle: { stroke: pathColor } });
+    if (global.pathViz) {
+      creep.moveTo(damagedStructure, { visualizePathStyle: { stroke: pathColor } });
+    } else {
+      creep.moveTo(damagedStructure);
+    }
   }
 }
 
