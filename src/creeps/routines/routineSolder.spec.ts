@@ -1,9 +1,7 @@
-import { mockInstanceOf, mockStructure } from "screeps-jest";
+import { mockInstanceOf } from "screeps-jest";
 import routineSoldier from "./routineSoldier";
 
 const pathColor = "#ff3333";
-
-const spawn = mockStructure(STRUCTURE_SPAWN);
 
 describe("Soldier role", () => {
   describe("fighting", () => {
