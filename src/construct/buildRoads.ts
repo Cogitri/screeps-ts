@@ -1,5 +1,3 @@
-import { Logger } from "utils/logger";
-
 export function buildRoadToController(spawn: StructureSpawn): void {
   const room = spawn.room;
   const constructionSites = spawn.room.find(FIND_MY_CONSTRUCTION_SITES);
