@@ -1,5 +1,5 @@
-import { mockInstanceOf, mockStructure } from "screeps-jest";
 import { TestUtil } from "utils/testUtils";
+import { mockInstanceOf } from "screeps-jest";
 import routineUpgrader from "./routineUpgrader";
 
 const container1 = mockInstanceOf<StructureContainer>({ id: "container1" as Id<StructureContainer> });
