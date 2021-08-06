@@ -36,8 +36,16 @@ export default function (creep: Creep): void {
       }
     } else if (targets.length !== 0) {
       buildByPriority(creep);
+      if (creep.memory.currentTask !== "build") {
+        Logger.info(`${creep.name} switched to build routine`);
+        creep.memory.currentTask = "build";
+      }
     } else {
       routineTransporter(creep);
+      if (creep.memory.currentTask !== "transport") {
+        Logger.info(`${creep.name} switched to transporter routine`);
+        creep.memory.currentTask = "transport";
+      }
     }
   }
 }
