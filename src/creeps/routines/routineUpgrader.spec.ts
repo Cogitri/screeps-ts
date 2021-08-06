@@ -31,18 +31,20 @@ describe("Upgrader role", () => {
       expect(creep.withdraw).toHaveBeenCalledWith(container1, RESOURCE_ENERGY);
       expect(creep.say).toHaveBeenCalledWith("📤 withdraw");
     });
-    /* it("Upgrades the controller", () => {
-      const creep = testUtil.mockCreep(undefined, {
-        find: () => [controller, container1, container2],
-        energyAvailable: 50,
-        energyCapacityAvailable: 100,
-        withdraw: () => OK,
-        moveTo: () => OK
-      });
+    it("Upgrades the controller", () => {
+      const creep = testUtil.mockCreep(
+        {
+          upgradeController: () => ERR_NOT_IN_RANGE, // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          store: { getFreeCapacity: () => 0, energy: 50 } as any,
+          withdraw: () => OK,
+          moveTo: () => OK
+        },
+        { controller, find: () => [container1, container2], energyAvailable: 50, energyCapacityAvailable: 100 }
+      );
 
       routineUpgrader(creep);
-      expect(creep.upgradeController).toHaveBeenCalledWith(controller, RESOURCE_ENERGY);
+      expect(creep.upgradeController).toHaveBeenCalledWith(controller);
       expect(creep.say).toHaveBeenCalledWith("⚡");
-    });*/
+    });
   });
 });
