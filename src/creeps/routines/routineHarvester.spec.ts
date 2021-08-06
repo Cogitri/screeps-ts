@@ -21,17 +21,23 @@ describe("Harvester role", () => {
         {
           upgradeController: () => ERR_NOT_IN_RANGE,
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          store: { getFreeCapacity: () => 50, energy: 0 } as any
+          store: { getFreeCapacity: () => 50, energy: 0 } as any,
+          harvest: () => ERR_NOT_IN_RANGE,
+          moveTo: () => OK
         },
         {
           find: () => [source1, source2, spawn],
           energyAvailable: 50,
           energyCapacityAvailable: 0,
           controller: mockStructure(STRUCTURE_CONTROLLER)
+        },
+        {
+          findClosestByPath: () => null
         }
       );
 
       rountineHarvest(creep);
+      expect(creep.memory.isWorking).toBeFalsy();
       expect(creep.harvest).toHaveBeenCalledWith(source1);
       expect(creep.say).toHaveBeenCalledWith("⛏️");
     });

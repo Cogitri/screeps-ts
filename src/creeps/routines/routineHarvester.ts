@@ -30,7 +30,7 @@ export default function (creep: Creep): void {
       }
     });
     // check if there are any containers
-    if (container !== undefined && container != null) {
+    if (container !== null) {
       // check if the container is closer than the spwan based on the cost.
       if (PathFinder.search(creep.pos, container.pos).cost < PathFinder.search(creep.pos, target[0].pos).cost) {
         moveCreep(creep, container);

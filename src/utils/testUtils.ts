@@ -35,12 +35,12 @@ export class TestUtil {
   public mockCreep(
     extraOpts: Partial<Creep> | undefined = undefined,
     roomOpts: Partial<Room> | undefined = undefined,
-    posOpts: Partial<Position> | undefined = undefined
+    posOpts: Partial<RoomPosition> | undefined = undefined
   ): Creep {
     return mockInstanceOf<Creep>({
       store: { getFreeCapacity: () => 0, energy: 50 },
       room: roomOpts,
-      memory: { isWorking: false },
+      memory: { isWorking: false, announceTask: false },
       transfer: () => OK,
       harvest: () => OK,
       say: () => OK,
