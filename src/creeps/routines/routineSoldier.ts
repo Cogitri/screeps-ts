@@ -1,4 +1,5 @@
 import routineTransporter from "./routineTransporter";
+import { movePath } from "utils/vizPath";
 
 export default function (creep: Creep): void {
   const pathColor = "#ff3333";
@@ -22,11 +23,7 @@ export default function (creep: Creep): void {
 
   if (creep.attack(enemy) === ERR_NOT_IN_RANGE) {
     creep.say("⚔️ attack");
-    if (global.pathViz) {
-      creep.moveTo(enemy, { visualizePathStyle: { stroke: pathColor } });
-    } else {
-      creep.moveTo(enemy);
-    }
+    movePath(creep, enemy, pathColor);
     creep.memory.target = enemy;
   }
 }

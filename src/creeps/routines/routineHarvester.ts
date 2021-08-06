@@ -1,5 +1,6 @@
 import routineFarm from "./routineFarm";
 import routineUpgrade from "./routineUpgrade";
+import { movePath } from "utils/vizPath";
 
 const pathColor = "#ffaa00";
 export default function (creep: Creep): void {
@@ -53,7 +54,7 @@ function moveCreep(creep: Creep, goal: AnyStructure) {
   if (creep.transfer(goal, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
     creep.memory.lockTask = false;
     creep.say("⛴︎ deliver");
-    global.pathViz ? creep.moveTo(goal, { visualizePathStyle: { stroke: pathColor } }) : creep.moveTo(goal);
+    movePath(creep, goal, pathColor);
   }
 }
 

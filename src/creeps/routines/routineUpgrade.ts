@@ -1,3 +1,5 @@
+import { movePath } from "utils/vizPath";
+
 export default function (creep: Creep): void {
   const pathColor = "#00e600";
 
@@ -10,11 +12,7 @@ export default function (creep: Creep): void {
   if (creep.upgradeController(controller) === ERR_NOT_IN_RANGE) {
     creep.memory.lockTask = true;
     creep.say("⚡ upgrade");
-    if (global.pathViz) {
-      creep.moveTo(controller, { visualizePathStyle: { stroke: pathColor } });
-    } else {
-      creep.moveTo(controller);
-    }
+    movePath(creep, controller, pathColor);
 
     creep.memory.target = controller;
   }

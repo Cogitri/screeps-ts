@@ -1,3 +1,5 @@
+import { movePath } from "utils/vizPath";
+
 export default function (creep: Creep): void {
   const pathColor = "#33d6ff";
   const containers = creep.room.find(FIND_STRUCTURES, {
@@ -5,11 +7,7 @@ export default function (creep: Creep): void {
   });
 
   if (creep.withdraw(containers[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-    creep.say("📤 withdraw");
-    if (global.pathViz) {
-      creep.moveTo(containers[0], { visualizePathStyle: { stroke: pathColor } });
-    } else {
-      creep.moveTo(containers[0]);
-    }
+    creep.say("📤  withdraw");
+    movePath(creep, containers[0], pathColor);
   }
 }
