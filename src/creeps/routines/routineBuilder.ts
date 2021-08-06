@@ -89,10 +89,6 @@ function checkDamagedStructure(damagedStructure: AnyStructure): boolean {
  */
 function buildByPriority(creep: Creep): void {
   // check for different constructions
-  const walli = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
-    filter: s => s.structureType === STRUCTURE_WALL
-  });
-
   const walls = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
     filter: s => s.structureType === STRUCTURE_WALL
   });
