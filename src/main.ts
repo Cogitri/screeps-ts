@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-namespace */
+import { LogLevel, Logger } from "utils/logger";
 import { findCreep, help, logLevel, showRole, togglePathViz, toggleTextViz } from "./utils/commands";
 import { CreepRoles } from "utils/globalConsts";
 import { ErrorMapper } from "utils/ErrorMapper";
-import { LogLevel } from "utils/logger";
 import gameLoop from "./core/gameLoop";
 
 declare global {
@@ -67,3 +67,5 @@ export const loop = ErrorMapper.wrapLoop(() => {
   }
   gameLoop();
 });
+// needs to be outside of any Game Loop to be executed only when new code is Uploaded. https://wiki.screepspl.us/index.php/Global_reset
+Logger.info(help());
