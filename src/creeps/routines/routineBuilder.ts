@@ -1,4 +1,5 @@
 import { PathColors } from "utils/globalConsts";
+import { Logger } from "utils/logger";
 import { movePath } from "./../../utils/vizPath";
 import routineFarm from "./routineFarm";
 import routineTransporter from "./routineTransporter";
@@ -16,16 +17,28 @@ export default function (creep: Creep): void {
   });
 
   const targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   if (!creep.memory.working) {
     if (checkCreepCapacity(creep)) {
       routineFarm(creep);
+      if (creep.memory.currentTask !== "Farm") {
+        Logger.info(`Switched to Farm Routine`);
+        creep.memory.currentTask = "Farm";
+      }
     } else if (checkDamagedStructure(damagedStructure[0])) {
       repair(creep, damagedStructure[0]);
+      if (creep.memory.currentTask !== "Repair") {
+        Logger.info(`Switched to Repair Routine`);
+        creep.memory.currentTask = "Repair";
+      }
     } else if (checkConstructionSite(targets[0])) {
       buildByPriority(creep);
     } else {
       routineTransporter(creep);
+      if (creep.memory.currentTask !== "Transport") {
+        Logger.info(`Switched to Transporter Routine`);
+        creep.memory.currentTask = "Transport";
+      }
     }
   }
 }

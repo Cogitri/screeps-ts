@@ -35,6 +35,7 @@ declare global {
     working: boolean;
     lockTask: boolean;
     target: Structure | Source | Mineral | Creep | null;
+    currentTask: string;
   }
 
   // Syntax for adding proprties to `global` (ex "global.log")

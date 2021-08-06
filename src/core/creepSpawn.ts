@@ -1,4 +1,5 @@
 import globalConsts, { CreepRoles } from "utils/globalConsts";
+import { Logger } from "utils/logger";
 import { spawnBuilder } from ".././creeps/models/modelBuilder";
 import { spawnHarvester } from ".././creeps/models/modelHarvester";
 import { spawnSoldier } from ".././creeps/models/modelSoldier";
@@ -17,6 +18,7 @@ export default function (spawn: StructureSpawn): void {
   const builderCount = creepCount.get(CreepRoles.ROLE_BUILDER);
   if (builderCount) {
     if (builders.length < builderCount) {
+      Logger.info("Spawning a Builder");
       spawnBuilder(spawn);
     }
   }
@@ -30,6 +32,7 @@ export default function (spawn: StructureSpawn): void {
   const harvesterCount = creepCount.get(CreepRoles.ROLE_HARVESTER);
   if (harvesterCount) {
     if (harvesters.length < harvesterCount) {
+      Logger.info("Spawning a Harvester");
       spawnHarvester(spawn);
     }
   }
@@ -40,6 +43,7 @@ export default function (spawn: StructureSpawn): void {
   const soldierCount = creepCount.get(CreepRoles.ROLE_SOLDIER);
   if (soldierCount) {
     if (soldiers.length < soldierCount) {
+      Logger.info("Spawning a Soldier");
       spawnSoldier(spawn);
     }
   }
@@ -52,6 +56,7 @@ export default function (spawn: StructureSpawn): void {
   const transporterCount = creepCount.get(CreepRoles.ROLE_TRANSPORTER);
   if (transporterCount) {
     if (transporters.length < transporterCount) {
+      Logger.info("Spawning a Transporter");
       spawnTransporter(spawn);
     }
   }
