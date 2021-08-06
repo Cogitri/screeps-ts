@@ -8,6 +8,7 @@ import routineTower from "../creeps/routines/routineTower";
 import { visualizeControllerProgress } from "../utils/vizControllerLvl";
 import { visualizeSpawnerProgress } from "../utils/vizSpawner";
 import { Logger } from "utils/logger";
+import { defaultCreepCount } from "utils/globalConsts";
 
 export default function (): void {
   // Refresh variables in memory
@@ -48,6 +49,9 @@ function refreshMemory(): void {
     Memory.logLevel = Logger.logLevel;
   } else {
     Logger.logLevel = Memory.logLevel;
+  }
+  if (!Memory.creepCount) {
+    Memory.creepCount = defaultCreepCount();
   }
 }
 

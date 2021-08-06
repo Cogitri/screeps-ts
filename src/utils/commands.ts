@@ -1,3 +1,4 @@
+import { CreepRoles } from "./globalConsts";
 import { LogLevel, Logger } from "./logger";
 
 export function showRole(role: string): string {
@@ -77,5 +78,28 @@ export function togglePathViz(): string {
   } else {
     global.pathViz = true;
     return "Enabled all path visuals";
+  }
+}
+export function changeCreepCount(role: string, count: string): string {
+  if (Object.values<string>(CreepRoles).includes(role)) {
+    const countAsNumber = parseInt(count, 10);
+    if (countAsNumber >= 0) {
+      const map = new Map(Object.entries(Memory.creepCount));
+      map.set(role, countAsNumber);
+
+      Memory.creepCount = Object.fromEntries(map);
+      return `Creep count for role ${role} set to ${countAsNumber}`;
+    } else {
+      return `Please enter a positiv number`;
+    }
+  } else {
+    let roleArray = "";
+    Object.keys(CreepRoles)
+      .filter(k => isNaN(Number(k)))
+      .forEach(l => {
+        roleArray += `${l}, `;
+      });
+    roleArray = roleArray.substring(0, roleArray.length - 2);
+    return `Please enter a valid Creep role. The current roles are: ${roleArray} `;
   }
 }

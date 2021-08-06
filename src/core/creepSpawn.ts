@@ -1,4 +1,4 @@
-import { CreepRoles } from "utils/globalConsts";
+import { CreepRoles, defaultCreepCount } from "utils/globalConsts";
 import { spawnBuilder } from ".././creeps/models/modelBuilder";
 import { spawnHarvester } from ".././creeps/models/modelHarvester";
 import { spawnSoldier } from ".././creeps/models/modelSoldier";

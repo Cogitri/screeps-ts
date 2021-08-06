@@ -4,10 +4,12 @@ export enum CreepRoles {
   ROLE_TRANSPORTER = "transporter",
   ROLE_SOLDIER = "soldier"
 }
+
 export default {
   /** Minimum Tower Capacity */
   TARGET_TOWER_CAPACITY: 300
 };
+
 export enum PathColors {
   PATHCOLOR_BUILDER = "#ffff33", // yellow
   PATHCOLOR_ENERGIZE_TOWER = "#ff5533", // neon orange
@@ -19,4 +21,14 @@ export enum PathColors {
   PATHCOLOR_TRANSPORT = "#33d6ff", // light blue
   PATHCOLOR_UPGRADE = "#00e600", // light green
   PATHCOLOR_WITHDRAW = "#ff3080" // pink
+}
+
+export function defaultCreepCount(): { [k: string]: number } {
+  const map = new Map<string, number>();
+  map.set(CreepRoles.ROLE_HARVESTER, 3);
+  map.set(CreepRoles.ROLE_BUILDER, 3);
+  map.set(CreepRoles.ROLE_TRANSPORTER, 3);
+  map.set(CreepRoles.ROLE_SOLDIER, 3);
+
+  return Object.fromEntries(map);
 }
