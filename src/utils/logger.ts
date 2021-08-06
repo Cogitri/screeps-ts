@@ -6,7 +6,7 @@ export enum LogLevel {
 }
 
 export class Logger {
-  private static _logLevel: LogLevel = LogLevel.DEBUG;
+  private static _logLevel: LogLevel = LogLevel.INFO;
 
   /**
    * Logs message with the DEBUG tag
@@ -66,6 +66,8 @@ export class Logger {
 
   // Helper function
   private static composeMsg(level: keyof typeof LogLevel, ...message: unknown[]) {
+    // We obv need console.log here
+    // eslint-disable-next-line no-console
     console.log(`[${level}]: ${message.toString()}`);
   }
 

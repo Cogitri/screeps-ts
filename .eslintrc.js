@@ -63,7 +63,7 @@ module.exports = {
     "no-bitwise": "error",
     "no-caller": "error",
     "no-cond-assign": "error",
-    "no-console": "off",
+    "no-console": process.env.NODE_ENV === "production" ? "error" : "warn",
     "no-eval": "error",
     "no-invalid-this": "off",
     "no-multiple-empty-lines": "off",
