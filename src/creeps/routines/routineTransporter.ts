@@ -1,8 +1,8 @@
 import globalConsts from "utils/globalConsts";
+import { movePath } from "utils/vizPath";
 import routineEnergizeTower from "./routineEnergizeTower";
 import routineUpgrade from "./routineUpgrade";
 import routineWithdraw from "./routineWithdraw";
-import { movePath } from "utils/vizPath";
 
 export default function (creep: Creep): void {
   const pathColor = "#33d6ff";

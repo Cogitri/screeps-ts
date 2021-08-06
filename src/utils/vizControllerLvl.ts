@@ -6,14 +6,14 @@ export function visualizeControllerProgress(room: Room): void {
     const totalToUpgrade = roomController.progress + roomController.progressTotal;
 
     if (global.textViz) {
-      new RoomVisual().text(
+      room.visual.text(
         `${((roomController.progress / totalToUpgrade) * 100).toFixed(2)}% to next Level`,
         xCoordinate,
         yCoordinate,
         { color: "white", font: 0.8 }
       );
     } else {
-      new RoomVisual().text("", xCoordinate, yCoordinate);
+      room.visual.text("", xCoordinate, yCoordinate);
     }
   }
 }

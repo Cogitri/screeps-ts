@@ -1,5 +1,5 @@
-import routineTransporter from "./routineTransporter";
 import { movePath } from "utils/vizPath";
+import routineTransporter from "./routineTransporter";
 
 export default function (creep: Creep): void {
   const pathColor = "#ff3333";

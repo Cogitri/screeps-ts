@@ -1,6 +1,6 @@
+import { movePath } from "./../../utils/vizPath";
 import routineFarm from "./routineFarm";
 import routineTransporter from "./routineTransporter";
-import { movePath } from "utils/vizPath";
 
 export default function (creep: Creep): void {
   const damagedStructure = creep.room.find(FIND_STRUCTURES, {
@@ -45,11 +45,7 @@ function repair(creep: Creep, damagedStructure: AnyStructure): void {
   if (creep.repair(damagedStructure) === ERR_NOT_IN_RANGE) {
     creep.memory.lockTask = true;
     creep.say("🛠️ repair");
-    if (global.pathViz) {
-      creep.moveTo(damagedStructure, { visualizePathStyle: { stroke: pathColor } });
-    } else {
-      creep.moveTo(damagedStructure);
-    }
+    movePath(creep, damagedStructure, pathColor);
   }
 }
 

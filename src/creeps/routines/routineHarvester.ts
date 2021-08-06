@@ -1,6 +1,6 @@
+import { movePath } from "./../../utils/vizPath";
 import routineFarm from "./routineFarm";
 import routineUpgrade from "./routineUpgrade";
-import { movePath } from "utils/vizPath";
 
 const pathColor = "#ffaa00";
 export default function (creep: Creep): void {

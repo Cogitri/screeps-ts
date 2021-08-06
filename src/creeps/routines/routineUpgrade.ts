@@ -1,4 +1,4 @@
-import { movePath } from "utils/vizPath";
+import { movePath } from "./../../utils/vizPath";
 
 export default function (creep: Creep): void {
   const pathColor = "#00e600";
