@@ -2,8 +2,6 @@ import { CreepRoles } from "utils/globalConsts";
 import { TestUtil } from "utils/testUtils";
 import routineSoldier from "./routineSoldier";
 
-const pathColor = "#ff3333";
-
 describe("routineSoldier", () => {
   let testUtil: TestUtil;
 
