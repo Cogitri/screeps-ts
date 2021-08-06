@@ -15,16 +15,14 @@ export default function (creep: Creep): void {
 
   const targets = creep.room.find(FIND_CONSTRUCTION_SITES);
 
-  if (!creep.memory.working) {
-    if (checkCreepCapacity(creep)) {
-      routineFarm(creep);
-    } else if (checkDamagedStructure(damagedStructure[0])) {
-      repair(creep, damagedStructure[0]);
-    } else if (checkConstructionSite(targets[0])) {
-      build(creep, targets[0]);
-    } else {
-      routineTransporter(creep);
-    }
+  if (checkCreepCapacity(creep)) {
+    routineFarm(creep);
+  } else if (checkDamagedStructure(damagedStructure[0])) {
+    repair(creep, damagedStructure[0]);
+  } else if (checkConstructionSite(targets[0])) {
+    build(creep, targets[0]);
+  } else {
+    routineTransporter(creep);
   }
 }
 
@@ -32,7 +30,7 @@ export default function (creep: Creep): void {
 function build(creep: Creep, target: ConstructionSite): void {
   const pathColor = "#ffff33";
   if (creep.build(target) === ERR_NOT_IN_RANGE) {
-    creep.memory.lockTask = true;
+    creep.memory.isWorking = true;
     creep.say("⚒️ build");
     creep.moveTo(target, { visualizePathStyle: { stroke: pathColor } });
   }
@@ -42,7 +40,7 @@ function build(creep: Creep, target: ConstructionSite): void {
 function repair(creep: Creep, damagedStructure: AnyStructure): void {
   const pathColor = "#ffff33";
   if (creep.repair(damagedStructure) === ERR_NOT_IN_RANGE) {
-    creep.memory.lockTask = true;
+    creep.memory.isWorking = true;
     creep.say("🛠️ repair");
     creep.moveTo(damagedStructure, { visualizePathStyle: { stroke: pathColor } });
   }
@@ -60,15 +58,16 @@ function checkConstructionSite(target: ConstructionSite): boolean {
 // Checks if the creep capacity is full or empty
 // Releases the locked task when capacity is empty
 function checkCreepCapacity(creep: Creep): boolean {
-  if (creep.store.getFreeCapacity() > 0 && !creep.memory.lockTask) {
-    return true;
+  if (creep.store.getFreeCapacity() === 0 && !creep.memory.isWorking) {
+    creep.memory.isWorking = true;
+    return false;
   }
 
-  if (creep.store[RESOURCE_ENERGY] === 0 && creep.memory.lockTask) {
-    creep.memory.lockTask = false;
+  if (creep.store[RESOURCE_ENERGY] === 0 && creep.memory.isWorking) {
+    creep.memory.isWorking = false;
     return true;
   }
-  return false;
+  return true;
 }
 
 // Checks if the damagedStructure is not NULL

@@ -5,32 +5,31 @@ import routineWithdraw from "./routineWithdraw";
 
 export default function (creep: Creep): void {
   const pathColor = "#33d6ff";
-  if (!creep.memory.working) {
-    if (checkCreepCapacity(creep)) {
-      routineWithdraw(creep);
-    } else {
-      if (checkSpawnCapacity(creep) && checkExtensionsCapacity(creep)) {
-        if (TOWER_CAPACITY < globalConsts.TARGET_TOWER_CAPACITY) {
-          routineEnergizeTower(creep);
-        } else {
-          routineUpgrade(creep);
-        }
-      } else {
-        const target = creep.room.find(FIND_STRUCTURES, {
-          filter: structure => {
-            return (
-              (structure.structureType === STRUCTURE_SPAWN || structure.structureType === STRUCTURE_EXTENSION) &&
-              structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-            );
-          }
-        });
 
-        if (target.length > 0) {
-          if (creep.transfer(target[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-            creep.memory.lockTask = false;
-            creep.say("✈️ deliver");
-            creep.moveTo(target[0], { visualizePathStyle: { stroke: pathColor } });
-          }
+  if (checkCreepCapacity(creep)) {
+    routineWithdraw(creep);
+  } else {
+    if (checkSpawnCapacity(creep) && checkExtensionsCapacity(creep)) {
+      if (TOWER_CAPACITY < globalConsts.TARGET_TOWER_CAPACITY) {
+        routineEnergizeTower(creep);
+      } else {
+        routineUpgrade(creep);
+      }
+    } else {
+      const target = creep.room.find(FIND_STRUCTURES, {
+        filter: structure => {
+          return (
+            (structure.structureType === STRUCTURE_SPAWN || structure.structureType === STRUCTURE_EXTENSION) &&
+            structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+          );
+        }
+      });
+
+      if (target.length > 0) {
+        if (creep.transfer(target[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+          creep.memory.isWorking = false;
+          creep.say("✈️ deliver");
+          creep.moveTo(target[0], { visualizePathStyle: { stroke: pathColor } });
         }
       }
     }
@@ -38,10 +37,16 @@ export default function (creep: Creep): void {
 }
 
 function checkCreepCapacity(creep: Creep): boolean {
-  if (creep.store.getFreeCapacity() > 0 && !creep.memory.lockTask) {
+  if (creep.store.getFreeCapacity() === 0 && !creep.memory.isWorking) {
+    creep.memory.isWorking = true;
+    return false;
+  }
+
+  if (creep.store[RESOURCE_ENERGY] === 0 && creep.memory.isWorking) {
+    creep.memory.isWorking = false;
     return true;
   }
-  return false;
+  return true;
 }
 
 function checkSpawnCapacity(creep: Creep): boolean {

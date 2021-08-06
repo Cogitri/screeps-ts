@@ -33,7 +33,7 @@ export default function (): void {
     if (Game.spawns.Spawn1.room.controller !== undefined) {
       visualizeControllerProgress(Game.spawns.Spawn1.room);
     }
-    if (!creep.memory.working) {
+    if (!creep.memory.isWorking) {
       // pickupEnergy routine started with this function. place wherever it's needed.
       pickupEnergy(creep);
     }

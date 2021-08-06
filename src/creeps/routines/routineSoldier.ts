@@ -3,8 +3,8 @@ import routineTransporter from "./routineTransporter";
 export default function (creep: Creep): void {
   const pathColor = "#ff3333";
 
-  if (creep.memory.working && creep.store[RESOURCE_ENERGY] === 0) {
-    creep.memory.working = false;
+  if (creep.memory.isWorking && creep.store[RESOURCE_ENERGY] === 0) {
+    creep.memory.isWorking = false;
   }
 
   // Find closest enemy alive
@@ -14,7 +14,7 @@ export default function (creep: Creep): void {
   // Return to fallback and go harvest when there are no enemies or the enemy is dead
   if (!enemy) {
     // TODO: Refer to harvesting routine or return energy to base
-    if (!creep.memory.working) {
+    if (!creep.memory.isWorking) {
       routineTransporter(creep);
     }
     return;
