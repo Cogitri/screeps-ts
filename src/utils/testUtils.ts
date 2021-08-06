@@ -28,7 +28,7 @@ export class TestUtil {
       room: {
         name: "test"
       },
-      extraOpts
+      ...extraOpts
     });
   }
 
