@@ -10,7 +10,7 @@ export function buildRoadToController(spawn: StructureSpawn): void {
       // pop the last element of the array because its the controller position
       path.pop();
       // checks if there are enought contsruction sites for the path
-      if (100 - constructionSites.length >= path.length) {
+      if (MAX_CONSTRUCTION_SITES - constructionSites.length >= path.length) {
         // looping trough each step and place a new road on its position
         path.forEach(step => {
           const posX = step.x;
@@ -32,7 +32,7 @@ export function buildRoadToSource(spawn: StructureSpawn): void {
     // pop the last element of the array because its the controller position
     path.pop();
     const constructionSites = spawn.room.find(FIND_MY_CONSTRUCTION_SITES);
-    if (100 - constructionSites.length >= path.length) {
+    if (MAX_CONSTRUCTION_SITES - constructionSites.length >= path.length) {
       path.forEach(step => {
         const posX = step.x;
         const posY = step.y;

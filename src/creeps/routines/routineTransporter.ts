@@ -1,3 +1,4 @@
+import globalConsts from "utils/globalConsts";
 import routineEnergizeTower from "./routineEnergizeTower";
 import routineUpgrade from "./routineUpgrade";
 import routineWithdraw from "./routineWithdraw";
@@ -9,7 +10,7 @@ export default function (creep: Creep): void {
       routineWithdraw(creep);
     } else {
       if (checkSpawnCapacity(creep) && checkExtensionsCapacity(creep)) {
-        if (TOWER_CAPACITY < 300) {
+        if (TOWER_CAPACITY < globalConsts.TARGET_TOWER_CAPACITY) {
           routineEnergizeTower(creep);
         } else {
           routineUpgrade(creep);

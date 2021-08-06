@@ -4,7 +4,6 @@ export default function (tower: StructureTower): void {
   if (enemy) {
     tower.attack(enemy);
   } else if (woundedCreep.length) {
-    console.log(woundedCreep[0]);
     tower.heal(woundedCreep[0]);
   } else {
     const structure = tower.room.find(FIND_STRUCTURES, {

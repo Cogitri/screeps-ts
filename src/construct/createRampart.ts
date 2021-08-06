@@ -3,11 +3,14 @@ export default function (spawn: StructureSpawn): void {
   if (controllerLvl && controllerLvl >= 2) {
     const room = spawn.room;
     const look = room.lookAt(spawn.pos);
-    look.forEach(function (lookObject) {
+    let checkSpawn = true;
+    look.forEach(lookObject => {
       if (lookObject.type === LOOK_STRUCTURES && lookObject[LOOK_STRUCTURES]?.structureType === "rampart") {
-        return;
+        checkSpawn = false;
       }
     });
-    room.createConstructionSite(spawn.pos, STRUCTURE_RAMPART);
+    if (checkSpawn) {
+      room.createConstructionSite(spawn.pos, STRUCTURE_RAMPART);
+    }
   }
 }

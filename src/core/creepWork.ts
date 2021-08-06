@@ -1,14 +1,8 @@
+import { CreepTypes } from "utils/globalConsts";
 import routineBuilder from "creeps/routines/routineBuilder";
 import routineHarvester from "creeps/routines/routineHarvester";
 import routineSoldier from "creeps/routines/routineSoldier";
 import routineTransporter from "creeps/routines/routineTransporter";
-
-enum CreepTypes {
-  ROLE_HARVESTER = "harvester",
-  ROLE_BUILDER = "builder",
-  ROLE_TRANSPORTER = "transporter",
-  ROLE_SOLDIER = "soldier"
-}
 
 export default function (creep: Creep): void {
   switch (creep.memory.role) {

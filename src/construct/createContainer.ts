@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-for-in-array */
 
 import { Logger } from "utils/logger";
 
-/* eslint-disable @typescript-eslint/no-for-in-array */
 export default function (spawn: StructureSpawn): void {
-  // Container placement here
   // Amount of Containers that should be built
-  const amountContainer = 0; // CHANGE HERE
+  const amountContainer = 1; // CHANGE HERE
 
   const energySources = spawn.room.find(FIND_SOURCES_ACTIVE);
   for (const source of energySources) {
@@ -23,7 +22,7 @@ export default function (spawn: StructureSpawn): void {
     });
 
     // If the amount of Containers is too low, the process of placing them begins
-    if (checkConstructions.length <= amountContainer && checkContainer.length <= amountContainer) {
+    if (checkConstructions.length < amountContainer && checkContainer.length < amountContainer) {
       const terrain = new Room.Terrain(spawn.room.name);
       const xArray: number[] = [-1, -1, -1, 0, 0, 1, 1, 1];
       const yArray: number[] = [-1, 0, 1, -1, 1, -1, 0, 1];
@@ -32,7 +31,7 @@ export default function (spawn: StructureSpawn): void {
 
       // checks if the spaces right next to the source are plain/empty
       for (let l = 0; l < 8; l++) {
-        if (terrain.get(xSource - xArray[l], ySource - yArray[l]) !== 1) {
+        if (terrain.get(xSource - xArray[l], ySource - yArray[l]) !== TERRAIN_MASK_WALL) {
           xPositionsAvailable.push(xSource - xArray[l]);
           yPositionsAvailable.push(ySource - yArray[l]);
         }
@@ -49,19 +48,19 @@ export default function (spawn: StructureSpawn): void {
             switch (yPositionsAvailable[k] - ySource) {
               case -1:
                 // Checks, if it is possible to build at the Position
-                if (terrain.get(xPositionsAvailable[k] - 1, yPositionsAvailable[k] - 1) !== 1) {
+                if (terrain.get(xPositionsAvailable[k] - 1, yPositionsAvailable[k] - 1) !== TERRAIN_MASK_WALL) {
                   xBuildPlaceAvailable.push(xPositionsAvailable[k] - 1);
                   yBuildPlaceAvailable.push(yPositionsAvailable[k] - 1);
                 }
                 break;
               case 1:
-                if (terrain.get(xPositionsAvailable[k] - 1, yPositionsAvailable[k] + 1) !== 1) {
+                if (terrain.get(xPositionsAvailable[k] - 1, yPositionsAvailable[k] + 1) !== TERRAIN_MASK_WALL) {
                   xBuildPlaceAvailable.push(xPositionsAvailable[k] - 1);
                   yBuildPlaceAvailable.push(yPositionsAvailable[k] + 1);
                 }
                 break;
               default:
-                if (terrain.get(xPositionsAvailable[k] - 1, yPositionsAvailable[k]) !== 1) {
+                if (terrain.get(xPositionsAvailable[k] - 1, yPositionsAvailable[k]) !== TERRAIN_MASK_WALL) {
                   xBuildPlaceAvailable.push(xPositionsAvailable[k] - 1);
                   yBuildPlaceAvailable.push(yPositionsAvailable[k]);
                 }
@@ -71,19 +70,19 @@ export default function (spawn: StructureSpawn): void {
           case 1:
             switch (yPositionsAvailable[k] - ySource) {
               case -1:
-                if (terrain.get(xPositionsAvailable[k] + 1, yPositionsAvailable[k] - 1) !== 1) {
+                if (terrain.get(xPositionsAvailable[k] + 1, yPositionsAvailable[k] - 1) !== TERRAIN_MASK_WALL) {
                   xBuildPlaceAvailable.push(xPositionsAvailable[k] + 1);
                   yBuildPlaceAvailable.push(yPositionsAvailable[k] - 1);
                 }
                 break;
               case 1:
-                if (terrain.get(xPositionsAvailable[k] + 1, yPositionsAvailable[k] + 1) !== 1) {
+                if (terrain.get(xPositionsAvailable[k] + 1, yPositionsAvailable[k] + 1) !== TERRAIN_MASK_WALL) {
                   xBuildPlaceAvailable.push(xPositionsAvailable[k] + 1);
                   yBuildPlaceAvailable.push(yPositionsAvailable[k] + 1);
                 }
                 break;
               default:
-                if (terrain.get(xPositionsAvailable[k] + 1, yPositionsAvailable[k]) !== 1) {
+                if (terrain.get(xPositionsAvailable[k] + 1, yPositionsAvailable[k]) !== TERRAIN_MASK_WALL) {
                   xBuildPlaceAvailable.push(xPositionsAvailable[k] + 1);
                   yBuildPlaceAvailable.push(yPositionsAvailable[k]);
                 }
@@ -93,13 +92,13 @@ export default function (spawn: StructureSpawn): void {
           default:
             switch (yPositionsAvailable[k] - ySource) {
               case -1:
-                if (terrain.get(xPositionsAvailable[k], yPositionsAvailable[k] - 1) !== 1) {
+                if (terrain.get(xPositionsAvailable[k], yPositionsAvailable[k] - 1) !== TERRAIN_MASK_WALL) {
                   xBuildPlaceAvailable.push(xPositionsAvailable[k]);
                   yBuildPlaceAvailable.push(yPositionsAvailable[k] - 1);
                 }
                 break;
               case 1:
-                if (terrain.get(xPositionsAvailable[k], yPositionsAvailable[k] + 1) !== 1) {
+                if (terrain.get(xPositionsAvailable[k], yPositionsAvailable[k] + 1) !== TERRAIN_MASK_WALL) {
                   xBuildPlaceAvailable.push(xPositionsAvailable[k]);
                   yBuildPlaceAvailable.push(yPositionsAvailable[k] + 1);
                 }
@@ -112,16 +111,20 @@ export default function (spawn: StructureSpawn): void {
         }
       }
       // Building the containers. for now only one is built per energy source.
-
-      if (xBuildPlaceAvailable.length > amountContainer) {
-        if (terrain.get(xBuildPlaceAvailable[amountContainer], yBuildPlaceAvailable[amountContainer]) !== 1) {
+      if (xBuildPlaceAvailable.length >= amountContainer) {
+        if (
+          terrain.get(xBuildPlaceAvailable[amountContainer - 1], yBuildPlaceAvailable[amountContainer - 1]) !==
+          TERRAIN_MASK_WALL
+        ) {
           spawn.room.createConstructionSite(
-            xBuildPlaceAvailable[amountContainer],
-            yBuildPlaceAvailable[amountContainer],
+            xBuildPlaceAvailable[amountContainer - 1],
+            yBuildPlaceAvailable[amountContainer - 1],
             STRUCTURE_CONTAINER
           );
           Logger.info(
-            `Placed a Container Construction site at:  ${xBuildPlaceAvailable[amountContainer]}, ${yBuildPlaceAvailable[amountContainer]}`
+            `Placed a Container Construction site at:  ${xBuildPlaceAvailable[amountContainer - 1]}, ${
+              yBuildPlaceAvailable[amountContainer - 1]
+            }`
           );
         }
       }

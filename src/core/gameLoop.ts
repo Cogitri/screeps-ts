@@ -2,8 +2,8 @@ import { Logger } from "utils/logger";
 import createConstructions from "./createConstructions";
 import creepSpawn from "./creepSpawn";
 import creepWork from "./creepWork";
-import pickupenergy from "./pickupenergy";
-import routineTower from "./routineTower";
+import pickupEnergy from "../creeps/routines/pickupEnergy";
+import routineTower from "../creeps/routines/routineTower";
 import { visualizeControllerProgress } from "../utils/vizControllerLvl";
 import { visualizeSpawnerProgress } from "../utils/vizSpawner";
 
@@ -35,7 +35,7 @@ export default function (): void {
     }
     if (!creep.memory.working) {
       // pickupEnergy routine started with this function. place wherever it's needed.
-      pickupenergy(creep);
+      pickupEnergy(creep);
     }
     creepWork(creep);
   }
