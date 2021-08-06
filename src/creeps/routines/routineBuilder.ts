@@ -6,7 +6,7 @@ export default function (creep: Creep): void {
     filter: s =>
       (s.structureType === STRUCTURE_WALL && s.hits < 0.001 * s.hitsMax) ||
       (s.structureType === STRUCTURE_RAMPART && s.hits < 0.01 * s.hitsMax) ||
-      (s.structureType === STRUCTURE_ROAD && s.hits < 0.1 * s.hitsMax) ||
+      (s.structureType === STRUCTURE_ROAD && s.hits < 0.25 * s.hitsMax) ||
       (s.structureType !== STRUCTURE_RAMPART &&
         s.structureType !== STRUCTURE_WALL &&
         s.structureType !== STRUCTURE_ROAD &&
