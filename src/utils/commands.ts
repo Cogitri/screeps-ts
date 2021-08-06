@@ -15,6 +15,10 @@ export function showRole(role: string): string {
   }
 }
 
+/**
+ * Lists all implemented commands. Besides being a command itself, gets called on script start
+ * @returns string that lists all implemented commands
+ */
 export function help(): string {
   return `The following commands are currently provided: \n
           help(): shows a list of all commands\n
