@@ -66,6 +66,8 @@ export class Logger {
 
   // Helper function
   private static composeMsg(level: keyof typeof LogLevel, ...message: unknown[]) {
+    // We obv need console.log here
+    // eslint-disable-next-line no-console
     console.log(`[${level}]: ${message.toString()}`);
   }
 
