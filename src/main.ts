@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import { LogLevel, Logger } from "utils/logger";
 import { findCreep, help, logLevel, showRole, togglePathViz, toggleTextViz } from "./utils/commands";
+import gameLoop, { init } from "core/gameLoop";
 import { CreepRoles } from "utils/globalConsts";
 import { ErrorMapper } from "utils/ErrorMapper";
-import gameLoop, { init } from "./core/gameLoop";
+import { LogLevel } from "utils/logger";
 
 declare global {
   /**
