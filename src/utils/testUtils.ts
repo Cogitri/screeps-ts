@@ -81,11 +81,13 @@ export class TestUtil {
   ): Creep {
     return mockInstanceOf<Creep>({
       store: { getFreeCapacity: () => 0, energy: 50 },
+      body: this.composeBody(1),
       memory: { lockTask: false, working: false },
       room: undefined,
       transfer: () => OK,
       harvest: () => OK,
       say: () => OK,
+      moveTo: () => OK,
       pos: {
         findClosestByPath: () => {
           return mockInstanceOf<StructureContainer>({
@@ -133,5 +135,53 @@ export class TestUtil {
       },
       ...extraOpts
     });
+  }
+
+  /**
+   * Helper function to compose a default body with X amount of all parts
+   *
+   * @param {number} parts Number representing how many body parts should be added
+   */
+
+  public composeBody(parts: number): BodyPartDefinition[] {
+    const arr: BodyPartDefinition[] = [];
+    for (let i = 0; i < parts; i++) {
+      arr.push(
+        {
+          type: "attack",
+          hits: 100
+        },
+        {
+          type: "carry",
+          hits: 100
+        },
+        {
+          type: "claim",
+          hits: 100
+        },
+        {
+          type: "heal",
+          hits: 100
+        },
+        {
+          type: "move",
+          hits: 100
+        },
+        {
+          type: "ranged_attack",
+          hits: 100
+        },
+        {
+          type: "tough",
+          hits: 100
+        },
+        {
+          type: "work",
+          hits: 100
+        }
+      );
+    }
+
+    return arr;
   }
 }

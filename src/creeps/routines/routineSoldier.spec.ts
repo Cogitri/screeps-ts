@@ -1,6 +1,5 @@
 import { CreepRoles } from "utils/globalConsts";
 import { TestUtil } from "utils/testUtils";
-import { movePath } from "utils/vizPath";
 import routineSoldier from "./routineSoldier";
 
 const pathColor = "#ff3333";
@@ -16,8 +15,6 @@ describe("routineSoldier", () => {
       const enemy = testUtil.mockCreep({
         my: false,
         hits: 1,
-        body: composeBody(1),
-
         pos: {
           x: 100,
           y: 100
@@ -26,7 +23,7 @@ describe("routineSoldier", () => {
 
       const us = testUtil.mockCreep(
         {
-          body: composeBody(2),
+          body: testUtil.composeBody(2),
           room: {
             find: () => [enemy]
           },
@@ -34,8 +31,7 @@ describe("routineSoldier", () => {
           memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
           // eslint-disable-next-line @typescript-eslint/no-unsafe-return
           store: { getFreeCapacity: () => 50 },
-          moveTo: () => OK,
-          say: () => OK,
+
           attack: () => ERR_NOT_IN_RANGE
         },
         {
@@ -52,7 +48,6 @@ describe("routineSoldier", () => {
       const enemy = testUtil.mockCreep({
         my: false,
         hits: 100000,
-        body: composeBody(1),
         pos: {
           x: 100,
           y: 100
@@ -61,7 +56,7 @@ describe("routineSoldier", () => {
 
       const us = testUtil.mockCreep(
         {
-          body: composeBody(2),
+          body: testUtil.composeBody(20),
           hits: 10,
           memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
           store: { getFreeCapacity: () => 50 },
@@ -86,7 +81,7 @@ describe("routineSoldier", () => {
       const enemy = testUtil.mockCreep({
         my: false,
         hits: 1,
-        body: composeBody(100),
+        body: testUtil.composeBody(100),
         pos: {
           x: 100,
           y: 100
@@ -95,7 +90,6 @@ describe("routineSoldier", () => {
 
       const us = testUtil.mockCreep(
         {
-          body: composeBody(2),
           hits: 10,
           memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
           room: {
@@ -122,7 +116,7 @@ describe("routineSoldier", () => {
         {
           my: false,
           hits: 1000,
-          body: composeBody(100)
+          body: testUtil.composeBody(100)
         },
         {
           x: 100,
@@ -132,7 +126,6 @@ describe("routineSoldier", () => {
 
       const us = testUtil.mockCreep(
         {
-          body: composeBody(2),
           hits: 10,
           memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
           room: {
@@ -166,7 +159,6 @@ describe("routineSoldier", () => {
 
       const us = testUtil.mockCreep(
         {
-          body: composeBody(2),
           hits: 10,
           memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
           store: { getFreeCapacity: () => 50 },
@@ -195,15 +187,13 @@ describe("routineSoldier", () => {
 
       const us = testUtil.mockCreep(
         {
-          body: composeBody(2),
           hits: 1000,
           memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
           store: { getFreeCapacity: () => 50 },
           room: {
             find: () => [enemy]
           },
-          moveTo: () => OK,
-          say: () => OK,
+
           attack: () => ERR_NOT_IN_RANGE
         },
         {
@@ -226,7 +216,6 @@ describe("routineSoldier", () => {
 
       const us = testUtil.mockCreep(
         {
-          body: composeBody(2),
           hits: 1000,
           memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
           store: { getFreeCapacity: () => 50 },
@@ -248,12 +237,11 @@ describe("routineSoldier", () => {
       const enemy = testUtil.mockCreep({
         my: false,
         hits: 10000,
-        body: composeBody(200)
+        body: testUtil.composeBody(200)
       });
 
       const us = testUtil.mockCreep(
         {
-          body: composeBody(2),
           hits: 1000,
           memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
           store: { getFreeCapacity: () => 50 },
@@ -277,7 +265,6 @@ describe("routineSoldier", () => {
       const us = testUtil.mockCreep(
         {
           my: true,
-          body: composeBody(2),
           hits: 1000,
           memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
           store: { getFreeCapacity: () => 0 },
@@ -300,19 +287,3 @@ describe("routineSoldier", () => {
     });
   });
 });
-
-function composeBody(parts: number): BodyPartDefinition[] {
-  const arr: BodyPartDefinition[] = [];
-  for (let i = 0; i < parts; i++) {
-    arr.push({
-      type: "attack",
-      hits: 100
-    });
-    arr.push({
-      type: "tough",
-      hits: 100
-    });
-  }
-
-  return arr;
-}
