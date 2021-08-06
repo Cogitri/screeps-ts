@@ -89,27 +89,27 @@ function checkDamagedStructure(damagedStructure: AnyStructure): boolean {
  */
 function buildByPriority(creep: Creep): void {
   // check for different constructions
-  const walls = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
+  const wall = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
     filter: s => s.structureType === STRUCTURE_WALL
   });
-  const ramparts = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
+  const rampart = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
     filter: s => s.structureType === STRUCTURE_RAMPART
   });
-  const roads = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
+  const road = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
     filter: s => s.structureType === STRUCTURE_ROAD
   });
-  const buildings = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
+  const building = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
     filter: s =>
       s.structureType !== STRUCTURE_RAMPART && s.structureType !== STRUCTURE_ROAD && s.structureType !== STRUCTURE_WALL
   });
 
-  if (buildings) {
-    build(creep, buildings);
-  } else if (roads) {
-    build(creep, roads);
-  } else if (ramparts) {
-    build(creep, ramparts);
-  } else if (walls) {
-    build(creep, walls);
+  if (building) {
+    build(creep, building);
+  } else if (road) {
+    build(creep, road);
+  } else if (rampart) {
+    build(creep, rampart);
+  } else if (wall) {
+    build(creep, wall);
   }
 }
