@@ -39,7 +39,7 @@ export class TestUtil {
     return mockInstanceOf<Creep>({
       store: { getFreeCapacity: () => 0, energy: 50 },
       room: roomOpts,
-      memory: { isWorking: false, announceTask: false },
+      memory: { isWorking: false, announcedTask: false },
       transfer: () => OK,
       harvest: () => OK,
       say: () => OK,

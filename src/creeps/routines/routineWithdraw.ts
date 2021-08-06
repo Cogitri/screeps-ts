@@ -5,9 +5,9 @@ export default function (creep: Creep): void {
   });
 
   if (creep.withdraw(containers[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-    if (creep.memory.announceTask) {
+    if (creep.memory.announcedTask) {
       creep.say("📤 withdraw");
-      creep.memory.announceTask = true;
+      creep.memory.announcedTask = true;
     }
     creep.moveTo(containers[0], { visualizePathStyle: { stroke: pathColor } });
   }

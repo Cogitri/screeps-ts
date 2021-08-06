@@ -30,7 +30,7 @@ declare global {
     role: CreepRoles;
     room: string;
     isWorking: boolean;
-    announceTask: boolean;
+    announcedTask: boolean;
     target: Structure | Source | Mineral | Creep | null;
   }
 

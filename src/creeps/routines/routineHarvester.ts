@@ -50,9 +50,9 @@ export default function (creep: Creep): void {
 
 function moveCreep(creep: Creep, goal: AnyStructure) {
   if (creep.transfer(goal, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-    if (!creep.memory.announceTask) {
+    if (!creep.memory.announcedTask) {
       creep.say("⛴︎ deliver");
-      creep.memory.announceTask = true;
+      creep.memory.announcedTask = true;
     }
     creep.moveTo(goal, { visualizePathStyle: { stroke: pathColor } });
   }

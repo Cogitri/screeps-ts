@@ -31,9 +31,9 @@ export default function (creep: Creep): void {
 function build(creep: Creep, target: ConstructionSite): void {
   const pathColor = "#ffff33";
   if (creep.build(target) === ERR_NOT_IN_RANGE) {
-    if (!creep.memory.announceTask) {
+    if (!creep.memory.announcedTask) {
       creep.say("⚒️ build");
-      creep.memory.announceTask = true;
+      creep.memory.announcedTask = true;
     }
     creep.moveTo(target, { visualizePathStyle: { stroke: pathColor } });
   }
@@ -43,9 +43,9 @@ function build(creep: Creep, target: ConstructionSite): void {
 function repair(creep: Creep, damagedStructure: AnyStructure): void {
   const pathColor = "#ffff33";
   if (creep.repair(damagedStructure) === ERR_NOT_IN_RANGE) {
-    if (!creep.memory.announceTask) {
+    if (!creep.memory.announcedTask) {
       creep.say("🛠️ repair");
-      creep.memory.announceTask = true;
+      creep.memory.announcedTask = true;
     }
     creep.moveTo(damagedStructure, { visualizePathStyle: { stroke: pathColor } });
   }
@@ -56,13 +56,13 @@ function repair(creep: Creep, damagedStructure: AnyStructure): void {
 function checkCreepCapacity(creep: Creep): boolean {
   if (creep.store.getFreeCapacity() === 0 && !creep.memory.isWorking) {
     creep.memory.isWorking = true;
-    creep.memory.announceTask = false;
+    creep.memory.announcedTask = false;
     return false;
   }
 
   if (creep.store[RESOURCE_ENERGY] === 0 && creep.memory.isWorking) {
     creep.memory.isWorking = false;
-    creep.memory.announceTask = false;
+    creep.memory.announcedTask = false;
     return true;
   }
   return true;

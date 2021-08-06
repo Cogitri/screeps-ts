@@ -21,9 +21,9 @@ export default function (creep: Creep): void {
   }
 
   if (creep.attack(enemy) === ERR_NOT_IN_RANGE) {
-    if (!creep.memory.announceTask) {
+    if (!creep.memory.announcedTask) {
       creep.say("⚔️ attack");
-      creep.memory.announceTask = true;
+      creep.memory.announcedTask = true;
     }
     creep.moveTo(enemy, { visualizePathStyle: { stroke: pathColor } });
     creep.memory.target = enemy;

@@ -26,9 +26,9 @@ export default function (creep: Creep): void {
 
       if (target.length > 0) {
         if (creep.transfer(target[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          if (!creep.memory.announceTask) {
+          if (!creep.memory.announcedTask) {
             creep.say("✈️ deliver");
-            creep.memory.announceTask = true;
+            creep.memory.announcedTask = true;
           }
           creep.moveTo(target[0], { visualizePathStyle: { stroke: pathColor } });
         }
@@ -40,13 +40,13 @@ export default function (creep: Creep): void {
 function checkCreepCapacity(creep: Creep): boolean {
   if (creep.store.getFreeCapacity() === 0 && creep.memory.isWorking) {
     creep.memory.isWorking = true;
-    creep.memory.announceTask = false;
+    creep.memory.announcedTask = false;
     return true;
   }
 
   if (creep.memory.isWorking && creep.store[RESOURCE_ENERGY] === 0) {
     creep.memory.isWorking = false;
-    creep.memory.announceTask = false;
+    creep.memory.announcedTask = false;
     return false;
   }
   return true;
