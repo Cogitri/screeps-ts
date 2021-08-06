@@ -1,9 +1,15 @@
+import { TestUtil } from "utils/testUtils";
 import { spawnTransporter } from "./modelTransporter";
-import { testInit } from "./testUtil";
 
 describe("modelHarvester", () => {
+  let testUtil: TestUtil;
+
+  beforeEach(() => {
+    testUtil = new TestUtil();
+  });
+
   it("spawns a harvester creep", () => {
-    const spawn = testInit();
+    const spawn = testUtil.mockSpawn();
 
     spawnTransporter(spawn);
     Game.time = 2;

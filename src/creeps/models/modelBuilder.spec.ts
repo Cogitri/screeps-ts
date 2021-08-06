@@ -1,9 +1,15 @@
+import { TestUtil } from "utils/testUtils";
 import { spawnBuilder } from "./modelBuilder";
-import { testInit } from "./testUtil";
 
 describe("modelBuilder", () => {
+  let testUtil: TestUtil;
+
+  beforeEach(() => {
+    testUtil = new TestUtil();
+  });
+
   it("spawns a builder creep", () => {
-    const spawn = testInit();
+    const spawn = testUtil.mockSpawn({});
 
     spawnBuilder(spawn);
     Game.time = 2;
