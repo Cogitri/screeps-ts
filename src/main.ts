@@ -56,6 +56,10 @@ declare global {
 global.textViz = true;
 global.pathViz = true;
 
+Logger.info(`Screeps AEM Project developed by Team 8`);
+Logger.info(
+  `SM: Rasmus Thomsen, PO: Thorben Rolf, Developers: Filip Bruel, Janis Ciemnyjewski, Katharina Sprotte, Lara Laskowsky, Mattis Kunstmann, Mika Schrader, Paul Voss, Tim Brueggemann `
+);
 export const loop = ErrorMapper.wrapLoop(() => {
   global.help = help;
   global.logLevel = logLevel;
