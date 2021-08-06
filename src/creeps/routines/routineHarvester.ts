@@ -50,11 +50,9 @@ export default function (creep: Creep): void {
               moveCreep(creep, target[0]);
             }
           }
-          // if there are no containers the creep will go to the spawn.
+          // if there are no containers the creep will drop the energy
         } else {
-          if (target.length > 0) {
-            moveCreep(creep, target[0]);
-          }
+          creep.drop(RESOURCE_ENERGY);
         }
       }
     }
