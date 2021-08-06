@@ -1,8 +1,26 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { mockGlobal, mockInstanceOf } from "screeps-jest";
-import { Position } from "source-map";
 
+// cp from lib lel :)
+// eslint-disable-next-line @typescript-eslint/ban-types
+type DeepPartialObject<T extends object> = {
+  [P in keyof T]?: DeepPartial<T[P]>;
+} & { [key: string]: any };
+
+type DeepPartial<T> = T extends (infer U)[]
+  ? DeepPartial<U>[]
+  : T extends AnyObj
+  ? T extends boolean
+    ? boolean // \
+    : T extends number
+    ? number //   > No type assertion needed to mock a tagged primitive
+    : T extends string
+    ? string // /
+    : DeepPartialObject<T>
+  : T;
+
+type AnyObj = Record<string, any>;
 export class TestUtil {
   public constructor() {
     mockGlobal<Game>("Game", {
@@ -16,7 +34,7 @@ export class TestUtil {
     });
   }
 
-  public mockSpawn(extraOpts: Partial<StructureSpawn> | undefined = undefined): StructureSpawn {
+  public mockSpawn(extraOpts: DeepPartialObject<StructureSpawn> | undefined = undefined): StructureSpawn {
     return mockInstanceOf<StructureSpawn>({
       spawnCreep: (body: BodyPartConstant[], name: string, opts?: SpawnOptions | undefined) => {
         Game.creeps[name] = mockInstanceOf<Creep>({
@@ -33,13 +51,11 @@ export class TestUtil {
   }
 
   public mockCreep(
-    extraOpts: Partial<Creep> | undefined = undefined,
-    roomOpts: Partial<Room> | undefined = undefined,
-    posOpts: Partial<RoomPosition> | undefined = undefined
+    extraOpts: DeepPartialObject<Creep> | undefined = undefined,
+    posOpts: DeepPartialObject<RoomPosition> | undefined = undefined
   ): Creep {
     return mockInstanceOf<Creep>({
       store: { getFreeCapacity: () => 0, energy: 50 },
-      room: roomOpts,
       memory: { lockTask: false, working: false },
       transfer: () => OK,
       harvest: () => OK,
@@ -52,7 +68,6 @@ export class TestUtil {
         },
         x: 0,
         y: 0,
-
         ...posOpts
       },
       ...extraOpts
