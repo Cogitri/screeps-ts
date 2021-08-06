@@ -73,4 +73,29 @@ export class TestUtil {
       ...extraOpts
     });
   }
+
+  public mockPowerCreep(
+    extraOpts: DeepPartialObject<PowerCreep> | undefined = undefined,
+    posOpts: DeepPartialObject<RoomPosition> | undefined = undefined
+  ): PowerCreep {
+    return mockInstanceOf<PowerCreep>({
+      body: undefined,
+      store: { getFreeCapacity: () => 0, energy: 50 },
+      memory: { lockTask: false, working: false },
+      transfer: () => OK,
+      harvest: () => OK,
+      say: () => OK,
+      pos: {
+        findClosestByPath: () => {
+          return mockInstanceOf<StructureContainer>({
+            pos: { x: 0, y: 0 }
+          });
+        },
+        x: 0,
+        y: 0,
+        ...posOpts
+      },
+      ...extraOpts
+    });
+  }
 }

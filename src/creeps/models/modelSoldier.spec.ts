@@ -1,14 +1,14 @@
 import { TestUtil } from "utils/testUtils";
 import { spawnSoldier } from "./modelSoldier";
 
-describe("modelHarvester", () => {
+describe("modelSoldier", () => {
   let testUtil: TestUtil;
 
   beforeEach(() => {
     testUtil = new TestUtil();
   });
 
-  it("spawns a harvester creep", () => {
+  it("spawns a soldier creep", () => {
     const spawn = testUtil.mockSpawn();
 
     spawnSoldier(spawn);
