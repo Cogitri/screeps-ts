@@ -81,7 +81,7 @@ export class TestUtil {
   ): Creep {
     return mockInstanceOf<Creep>({
       store: { getFreeCapacity: () => 0, energy: 50 },
-      body: this.composeBody(1),
+      body: this.composeBody(),
       memory: { lockTask: false, working: false },
       room: undefined,
       transfer: () => OK,
@@ -140,10 +140,12 @@ export class TestUtil {
   /**
    * Helper function to compose a default body with X amount of all parts
    *
-   * @param {number} parts Number representing how many body parts should be added
+   * @param {number} parts Number representing how many body parts should be added (defaults to 1)
+   *
+   * @returns Array of body parts
    */
 
-  public composeBody(parts: number): BodyPartDefinition[] {
+  public composeBody(parts = 1): BodyPartDefinition[] {
     const arr: BodyPartDefinition[] = [];
     for (let i = 0; i < parts; i++) {
       arr.push(
