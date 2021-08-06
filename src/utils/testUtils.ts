@@ -35,7 +35,7 @@ export class TestUtil {
   public mockCreep(
     extraOpts: Partial<Creep> | undefined = undefined,
     roomOpts: Partial<Room> | undefined = undefined,
-    posOpts: Partial<Position> | undefined = undefined
+    posOpts: Partial<RoomPosition> | undefined = undefined
   ): Creep {
     return mockInstanceOf<Creep>({
       store: { getFreeCapacity: () => 0, energy: 50 },
