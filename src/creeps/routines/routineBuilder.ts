@@ -82,7 +82,7 @@ function checkDamagedStructure(damagedStructure: AnyStructure): boolean {
 }
 
 /**
- * Builds the construction sites by order of priority:
+ * Builds the constructionsites by order of priority:
  * first buildings, then roads, then ramparts and then walls
  *
  * @param creep
