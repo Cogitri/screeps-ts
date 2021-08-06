@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import { findCreep, logLevel, showRole, togglePathViz, toggleTextViz } from "./utils/commands";
+import { findCreep, help, logLevel, showRole, togglePathViz, toggleTextViz } from "./utils/commands";
 import { CreepRoles } from "utils/globalConsts";
 import { ErrorMapper } from "utils/ErrorMapper";
 import { LogLevel } from "utils/logger";
@@ -42,6 +42,7 @@ declare global {
       toggleTextViz: () => string;
       togglePathViz: () => string;
       findRole: (role: string) => string;
+      help: () => string;
       logLevel: (l: keyof typeof LogLevel) => void;
       sayHello: (name: string) => string;
     }
@@ -51,6 +52,7 @@ global.textViz = true;
 global.pathViz = true;
 
 export const loop = ErrorMapper.wrapLoop(() => {
+  global.help = help;
   global.logLevel = logLevel;
   global.findRole = showRole;
   global.sayHello = findCreep;

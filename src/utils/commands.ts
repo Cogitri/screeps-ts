@@ -15,6 +15,13 @@ export function showRole(role: string): string {
   }
 }
 
+export function help() : string {
+  return `The following commands are currently provided: \n
+          help(): shows a list of all commands\n
+          logLevel(): adjusts the log level. Must provide a desired level ('debug', 'info', 'warn', 'error')\n
+          findRole(): finds creeps of provided role. e.g. 'harvester'`;
+}
+
 export function logLevel(ls: keyof typeof LogLevel): string {
   if (Object.values(LogLevel).some(ll => ll === ls.toUpperCase())) {
     const l: LogLevel = LogLevel[ls.toString().toUpperCase() as keyof typeof LogLevel];
