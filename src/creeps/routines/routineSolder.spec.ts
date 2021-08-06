@@ -1,4 +1,5 @@
 import { mockInstanceOf } from "screeps-jest";
+import { CreepRoles } from "utils/globalConsts";
 import routineSoldier from "./routineSoldier";
 
 const pathColor = "#ff3333";
@@ -19,7 +20,7 @@ describe("Soldier role", () => {
       const us = mockInstanceOf<Creep>({
         body: composeBody(2),
         hits: 10,
-        memory: { role: "soldier", working: false },
+        memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
         store: { getFreeCapacity: () => 50 },
         room: {
           find: () => [enemy]
@@ -53,7 +54,7 @@ describe("Soldier role", () => {
       const us = mockInstanceOf<Creep>({
         body: composeBody(2),
         hits: 10,
-        memory: { role: "soldier", working: false },
+        memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
         store: { getFreeCapacity: () => 50 },
         room: {
           find: () => [enemy]
@@ -87,7 +88,7 @@ describe("Soldier role", () => {
       const us = mockInstanceOf<Creep>({
         body: composeBody(2),
         hits: 10,
-        memory: { role: "soldier", working: false },
+        memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
         store: { getFreeCapacity: () => 50 },
         room: {
           find: () => [enemy]
@@ -121,7 +122,7 @@ describe("Soldier role", () => {
       const us = mockInstanceOf<Creep>({
         body: composeBody(2),
         hits: 10,
-        memory: { role: "soldier", working: false },
+        memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
         store: { getFreeCapacity: () => 50 },
         room: {
           find: () => [enemy]
@@ -155,7 +156,7 @@ describe("Soldier role", () => {
       const us = mockInstanceOf<Creep>({
         body: composeBody(2),
         hits: 10,
-        memory: { role: "soldier", working: false },
+        memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
         store: { getFreeCapacity: () => 50 },
         room: {
           find: () => [enemy]
@@ -189,7 +190,7 @@ describe("Soldier role", () => {
       const us = mockInstanceOf<Creep>({
         body: composeBody(2),
         hits: 1000,
-        memory: { role: "soldier", working: false },
+        memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
         store: { getFreeCapacity: () => 50 },
         room: {
           find: () => [enemy]
@@ -225,7 +226,7 @@ describe("Soldier role", () => {
       const us = mockInstanceOf<Creep>({
         body: composeBody(2),
         hits: 1000,
-        memory: { role: "soldier", working: false },
+        memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
         store: { getFreeCapacity: () => 50 },
         room: {
           find: () => [enemy]
@@ -256,7 +257,7 @@ describe("Soldier role", () => {
       const us = mockInstanceOf<Creep>({
         body: composeBody(2),
         hits: 1000,
-        memory: { role: "soldier", working: false },
+        memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
         store: { getFreeCapacity: () => 50 },
         room: {
           find: () => [enemy]
@@ -280,7 +281,7 @@ describe("Soldier role", () => {
         my: true,
         body: composeBody(2),
         hits: 1000,
-        memory: { role: "soldier", working: false },
+        memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
         store: { getFreeCapacity: () => 0 },
         room: {
           energyAvailable: 5,
