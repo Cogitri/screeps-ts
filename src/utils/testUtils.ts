@@ -3,6 +3,7 @@
 import { mockGlobal, mockInstanceOf } from "screeps-jest";
 
 // cp from lib lel :)
+// Needed as we must pass `DeepPartialObject<T>` as a type but can't import it
 // eslint-disable-next-line @typescript-eslint/ban-types
 type DeepPartialObject<T extends object> = {
   [P in keyof T]?: DeepPartial<T[P]>;
@@ -21,6 +22,13 @@ type DeepPartial<T> = T extends (infer U)[]
   : T;
 
 type AnyObj = Record<string, any>;
+
+/**
+ * Class to help with mocking
+ *
+ * How to:
+ * call `let testUtil; beforeEach(() => testUtil = new TestUtil());` in the most upper `describe` block of the test
+ */
 export class TestUtil {
   public constructor() {
     mockGlobal<Game>("Game", {
@@ -34,6 +42,14 @@ export class TestUtil {
     });
   }
 
+  /**
+   * Used to mock the Spawn structure
+   *
+   * Refer to function implementation for defaults
+   *
+   * @param {DeepPartialObject<StructureSpawn>} extraOpts Object of all options that apply to the default `mockInstanceOf<Spawn>()` object aswell
+   * @returns The mocked Spawn
+   */
   public mockSpawn(extraOpts: DeepPartialObject<StructureSpawn> | undefined = undefined): StructureSpawn {
     return mockInstanceOf<StructureSpawn>({
       spawnCreep: (body: BodyPartConstant[], name: string, opts?: SpawnOptions | undefined) => {
@@ -50,6 +66,15 @@ export class TestUtil {
     });
   }
 
+  /**
+   * Helper function to mock default Creep instances
+   *
+   * Refer to function implementation for defaults
+   *
+   * @param {DeepPartialObject<Creep>} extraOpts Object of all options that apply to the default `mockInstanceOf<Creep>()` object aswell, **expect pos**
+   * @param {DeepPartialObject<RoomPosition>} posOpts Object that defines the `pos` object of the creep
+   * @returns The mocked Creep
+   */
   public mockCreep(
     extraOpts: DeepPartialObject<Creep> | undefined = undefined,
     posOpts: DeepPartialObject<RoomPosition> | undefined = undefined
@@ -75,6 +100,15 @@ export class TestUtil {
     });
   }
 
+  /**
+   * Helper function to mock PowerCreeps instances
+   *
+   * Refer to function implementation for defaults
+   *
+   * @param {DeepPartialObject<PowerCreep>} extraOpts Object of all options that apply to the default `mockInstanceOf<PowerCreep>()` object aswell, **expect pos**
+   * @param {DeepPartialObject<RoomPosition>} posOpts Object that defines the `pos` object of the creep
+   * @returns The mocked PowerCreep
+   */
   public mockPowerCreep(
     extraOpts: DeepPartialObject<PowerCreep> | undefined = undefined,
     posOpts: DeepPartialObject<RoomPosition> | undefined = undefined
