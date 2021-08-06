@@ -6,7 +6,7 @@ export enum LogLevel {
 }
 
 export class Logger {
-  private static _logLevel: LogLevel = LogLevel.DEBUG;
+  private static _logLevel: LogLevel = LogLevel.INFO;
 
   /**
    * Logs message with the DEBUG tag
