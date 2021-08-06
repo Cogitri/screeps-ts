@@ -31,7 +31,7 @@ export default function (): void {
   for (const creepName in Game.creeps) {
     const creep = Game.creeps[creepName];
     if (Game.spawns.Spawn1.room.controller !== undefined) {
-      visualizeControllerProgress(Game.spawns.Spawn1.room.controller, Game.spawns.Spawn1.room.name);
+      visualizeControllerProgress(Game.spawns.Spawn1.room);
     }
     if (!creep.memory.working) {
       // pickupEnergy routine started with this function. place wherever it's needed.
