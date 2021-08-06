@@ -1,3 +1,4 @@
+import { CreepRoles } from "utils/globalConsts";
 import { Logger } from "utils/logger";
 import createConstructions from "./createConstructions";
 import creepSpawn from "./creepSpawn";
@@ -33,7 +34,7 @@ export default function (): void {
     if (Game.spawns.Spawn1.room.controller !== undefined) {
       visualizeControllerProgress(Game.spawns.Spawn1.room.controller);
     }
-    if (!creep.memory.working) {
+    if (!creep.memory.isWorking && creep.memory.role !== CreepRoles.ROLE_HARVESTER) {
       // pickupEnergy routine started with this function. place wherever it's needed.
       pickupEnergy(creep);
     }

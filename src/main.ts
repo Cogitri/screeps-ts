@@ -29,8 +29,8 @@ declare global {
   interface CreepMemory {
     role: CreepRoles;
     room: string;
-    working: boolean;
-    lockTask: boolean;
+    isWorking: boolean;
+    announceTask: boolean;
     target: Structure | Source | Mineral | Creep | null;
   }
 

@@ -5,7 +5,11 @@ export default function (creep: Creep): void {
   });
 
   if (creep.transfer(tower[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-    creep.say("transfer");
+    if (!creep.memory.announceTask) {
+      creep.say("transfer");
+      creep.memory.announceTask = true;
+    }
+
     creep.moveTo(tower[0], { visualizePathStyle: { stroke: pathColor } });
   }
 }

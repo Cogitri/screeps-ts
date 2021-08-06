@@ -8,8 +8,10 @@ export default function (creep: Creep): void {
   }
 
   if (creep.upgradeController(controller) === ERR_NOT_IN_RANGE) {
-    creep.memory.lockTask = true;
-    creep.say("⚡ upgrade");
+    if (!creep.memory.announceTask) {
+      creep.say("⚡ upgrade");
+      creep.memory.announceTask = true;
+    }
     creep.moveTo(controller, { visualizePathStyle: { stroke: pathColor } });
     creep.memory.target = controller;
   }
