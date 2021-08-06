@@ -14,7 +14,7 @@ describe("Farming role", () => {
 
   describe("run", () => {
     it("harvests the first source", () => {
-      const creep = testUtil.mockCreep(undefined, { find: () => [source1, source2] });
+      const creep = testUtil.mockCreep({ room: { find: () => [source1, source2] } });
 
       routineFarm(creep);
       expect(creep.harvest).toHaveBeenCalledWith(source1);

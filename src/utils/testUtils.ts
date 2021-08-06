@@ -57,6 +57,7 @@ export class TestUtil {
     return mockInstanceOf<Creep>({
       store: { getFreeCapacity: () => 0, energy: 50 },
       memory: { lockTask: false, working: false },
+      room: undefined,
       transfer: () => OK,
       harvest: () => OK,
       say: () => OK,
@@ -81,6 +82,7 @@ export class TestUtil {
     return mockInstanceOf<PowerCreep>({
       body: undefined,
       store: { getFreeCapacity: () => 0, energy: 50 },
+      room: undefined,
       memory: { lockTask: false, working: false },
       transfer: () => OK,
       harvest: () => OK,

@@ -17,19 +17,17 @@ describe("Harvester role", () => {
 
   describe("run", () => {
     it("harvests the first source", () => {
-      const creep = testUtil.mockCreep(
-        {
-          upgradeController: () => ERR_NOT_IN_RANGE,
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          store: { getFreeCapacity: () => 50, energy: 0 } as any
-        },
-        {
+      const creep = testUtil.mockCreep({
+        upgradeController: () => ERR_NOT_IN_RANGE,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        store: { getFreeCapacity: () => 50, energy: 0 },
+        room: {
           find: () => [source1, source2, spawn],
           energyAvailable: 50,
           energyCapacityAvailable: 0,
           controller: mockStructure(STRUCTURE_CONTROLLER)
         }
-      );
+      });
 
       rountineHarvest(creep);
       expect(creep.harvest).toHaveBeenCalledWith(source1);
@@ -37,10 +35,12 @@ describe("Harvester role", () => {
     });
 
     it("Upgrades the spawn when its full and the spawn can be filled", () => {
-      const creep = testUtil.mockCreep(undefined, {
-        find: () => [spawn, source1, source2],
-        energyAvailable: 50,
-        energyCapacityAvailable: 100
+      const creep = testUtil.mockCreep({
+        room: {
+          find: () => [spawn, source1, source2],
+          energyAvailable: 50,
+          energyCapacityAvailable: 100
+        }
       });
 
       rountineHarvest(creep);

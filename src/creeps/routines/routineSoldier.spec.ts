@@ -1,8 +1,6 @@
 import { CreepRoles } from "utils/globalConsts";
-import { mockInstanceOf } from "screeps-jest";
-import routineSoldier from "./routineSoldier";
 import { TestUtil } from "utils/testUtils";
-import exp from "constants";
+import routineSoldier from "./routineSoldier";
 
 const pathColor = "#ff3333";
 
