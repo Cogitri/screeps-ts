@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { mockGlobal, mockInstanceOf } from "screeps-jest";
-import { Position } from "source-map";
 
 export class TestUtil {
   public constructor() {
