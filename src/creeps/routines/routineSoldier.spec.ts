@@ -1,5 +1,6 @@
 import { CreepRoles } from "utils/globalConsts";
 import { TestUtil } from "utils/testUtils";
+import { movePath } from "utils/vizPath";
 import routineSoldier from "./routineSoldier";
 
 const pathColor = "#ff3333";
@@ -44,7 +45,7 @@ describe("routineSoldier", () => {
 
       routineSoldier(us);
 
-      expect(us.moveTo).toHaveBeenCalledWith(enemy, { visualizePathStyle: { stroke: pathColor } });
+      expect(us.moveTo).toHaveBeenCalledWith(enemy);
       expect(us.say).toHaveBeenCalledWith("⚔️ attack");
     });
     it("should *not* move to an enemy with way more health", () => {
@@ -212,7 +213,7 @@ describe("routineSoldier", () => {
 
       routineSoldier(us);
 
-      expect(us.moveTo).toHaveBeenCalledWith(enemy, { visualizePathStyle: { stroke: pathColor } });
+      expect(us.moveTo).toHaveBeenCalledWith(enemy);
       expect(us.say).toHaveBeenCalledWith("⚔️ attack");
     });
   });
