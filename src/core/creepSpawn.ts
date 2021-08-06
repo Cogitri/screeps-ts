@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 import globalConsts, { CreepRoles } from "utils/globalConsts";
 
 import { Logger } from "utils/logger";
+=======
+import { spawnUpgrader } from "creeps/models/modelUpgrader";
+import { CreepRoles } from "utils/globalConsts";
+>>>>>>> 8d563b7 (#83 moved checkCreepCapacity in its own routine, added Upgraderrole, wrote test for modelUpgrader and partial tests for routineUpgrader)
 import { spawnBuilder } from ".././creeps/models/modelBuilder";
 import { spawnHarvester } from ".././creeps/models/modelHarvester";
 import { spawnSoldier } from ".././creeps/models/modelSoldier";
@@ -73,5 +78,10 @@ export default function (spawn: StructureSpawn): void {
       Logger.info("Spawning a Transporter");
       spawnTransporter(spawn);
     }
+  }
+  const upgraders = _.filter(Game.creeps, creep => creep.memory.role === CreepRoles.ROLE_UPGRADER);
+  // check number of creeps
+  if (upgraders.length < 1) {
+    spawnUpgrader(spawn);
   }
 }

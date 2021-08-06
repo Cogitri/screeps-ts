@@ -3,6 +3,7 @@ import routineBuilder from "creeps/routines/routineBuilder";
 import routineHarvester from "creeps/routines/routineHarvester";
 import routineSoldier from "creeps/routines/routineSoldier";
 import routineTransporter from "creeps/routines/routineTransporter";
+import routineUpgrader from "creeps/routines/routineUpgrader";
 
 export default function (creep: Creep): void {
   switch (creep.memory.role) {
@@ -17,6 +18,9 @@ export default function (creep: Creep): void {
       break;
     case CreepRoles.ROLE_TRANSPORTER:
       routineTransporter(creep);
+      break;
+    case CreepRoles.ROLE_UPGRADER:
+      routineUpgrader(creep);
       break;
     default:
       break;

@@ -1,6 +1,8 @@
 import globalConsts, { PathColors } from "utils/globalConsts";
 import { Logger } from "utils/logger";
 import { movePath } from "utils/vizPath";
+// eslint-disable-next-line sort-imports
+import checkCreepCapacity from "./checkCreepCapacity";
 import routineEnergizeTower from "./routineEnergizeTower";
 import routineUpgrade from "./routineUpgrade";
 import routineWithdraw from "./routineWithdraw";
@@ -52,13 +54,6 @@ export default function (creep: Creep): void {
       }
     }
   }
-}
-
-function checkCreepCapacity(creep: Creep): boolean {
-  if (creep.store.getFreeCapacity() > 0 && !creep.memory.lockTask) {
-    return true;
-  }
-  return false;
 }
 
 function checkSpawnCapacity(creep: Creep): boolean {

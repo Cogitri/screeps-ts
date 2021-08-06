@@ -1,5 +1,6 @@
 import { Logger } from "utils/logger";
 import { PathColors } from "utils/globalConsts";
+import checkCreepCapacity from "./checkCreepCapacity";
 import { movePath } from "./../../utils/vizPath";
 import routineFarm from "./routineFarm";
 import routineUpgrade from "./routineUpgrade";
@@ -65,21 +66,6 @@ function moveCreep(creep: Creep, goal: AnyStructure) {
     creep.say("⛴︎ deliver");
     movePath(creep, goal, PathColors.PATHCOLOR_HARVESTER);
   }
-}
-
-// Checks if the creep capacity is full or empty
-// Releases the locked task when capacity is empty
-function checkCreepCapacity(creep: Creep): boolean {
-  if (creep.store.getFreeCapacity() > 0 && !creep.memory.lockTask) {
-    return true;
-  }
-
-  if (creep.store[RESOURCE_ENERGY] === 0 && creep.memory.lockTask) {
-    creep.memory.lockTask = false;
-    return true;
-  }
-
-  return false;
 }
 
 // Checks spawn capacity to determine if harvester should upgrade controller

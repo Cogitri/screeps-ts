@@ -2,7 +2,8 @@ export enum CreepRoles {
   ROLE_HARVESTER = "harvester",
   ROLE_BUILDER = "builder",
   ROLE_TRANSPORTER = "transporter",
-  ROLE_SOLDIER = "soldier"
+  ROLE_SOLDIER = "soldier",
+  ROLE_UPGRADER = "upgrader"
 }
 
 export default {

@@ -1,0 +1,48 @@
+import { mockInstanceOf, mockStructure } from "screeps-jest";
+import { TestUtil } from "utils/testUtils";
+import routineUpgrader from "./routineUpgrader";
+
+const container1 = mockInstanceOf<StructureContainer>({ id: "container1" as Id<StructureContainer> });
+const container2 = mockInstanceOf<StructureContainer>({ id: "container2" as Id<StructureContainer> });
+const controller = mockInstanceOf<StructureController>({
+  pos: { x: 0, y: 0 }
+});
+
+describe("Upgrader role", () => {
+  let testUtil: TestUtil;
+
+  beforeEach(() => {
+    testUtil = new TestUtil();
+  });
+
+  describe("run", () => {
+    it("withdraws energy from container", () => {
+      const creep = testUtil.mockCreep(
+        {
+          upgradeController: () => OK, // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          store: { getFreeCapacity: () => 50, energy: 0 } as any,
+          withdraw: () => ERR_NOT_IN_RANGE,
+          moveTo: () => OK
+        },
+        { controller, find: () => [container1, container2] }
+      );
+
+      routineUpgrader(creep);
+      expect(creep.withdraw).toHaveBeenCalledWith(container1, RESOURCE_ENERGY);
+      expect(creep.say).toHaveBeenCalledWith("📤 withdraw");
+    });
+    /* it("Upgrades the controller", () => {
+      const creep = testUtil.mockCreep(undefined, {
+        find: () => [controller, container1, container2],
+        energyAvailable: 50,
+        energyCapacityAvailable: 100,
+        withdraw: () => OK,
+        moveTo: () => OK
+      });
+
+      routineUpgrader(creep);
+      expect(creep.upgradeController).toHaveBeenCalledWith(controller, RESOURCE_ENERGY);
+      expect(creep.say).toHaveBeenCalledWith("⚡");
+    });*/
+  });
+});

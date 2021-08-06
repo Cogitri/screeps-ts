@@ -1,6 +1,7 @@
 import { Logger } from "utils/logger";
 import { PathColors } from "utils/globalConsts";
 import { movePath } from "./../../utils/vizPath";
+import checkCreepCapacity from "./checkCreepCapacity";
 import routineFarm from "./routineFarm";
 import routineTransporter from "./routineTransporter";
 
