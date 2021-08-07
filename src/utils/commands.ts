@@ -1,5 +1,5 @@
-import { CreepRoles } from "./globalConsts";
 import { LogLevel, Logger } from "./logger";
+import { CreepRoles } from "./globalConsts";
 
 export function showRole(role: string): string {
   let found = 0;

@@ -40,6 +40,9 @@ export class TestUtil {
     mockGlobal<PathFinder>("PathFinder", {
       search: () => OK
     });
+    mockGlobal<Memory>("Memory", {
+      creepCount: {}
+    });
   }
 
   /**
