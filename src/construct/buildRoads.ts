@@ -28,7 +28,7 @@ export function buildRoadToController(spawn: StructureSpawn): void {
 
 /**
  * Construct construction sites on the shortest path between the given spawn and all resource objects in the room of the spawn
- * @param spawn the spawn from which the roads shoul be build
+ * @param spawn the spawn from which the roads should be build
  */
 export function buildRoadToSource(spawn: StructureSpawn): void {
   const sources = spawn.room.find(FIND_SOURCES);
@@ -88,9 +88,9 @@ function checkForStructure(x: number, y: number, room: Room): boolean {
   let isBlocked = false;
   look.forEach(obj => {
     if (
-      obj.type === "structure" ||
-      (obj.type === "terrain" && obj.terrain === "wall") ||
-      obj.type === "constructionSite"
+      obj.type === LOOK_STRUCTURES ||
+      (obj.type === LOOK_TERRAIN && obj.terrain === "wall") ||
+      obj.type === LOOK_CONSTRUCTION_SITES
     ) {
       isBlocked = true;
     }
