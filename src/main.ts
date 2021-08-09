@@ -58,7 +58,6 @@ global.textViz = true;
 global.pathViz = true;
 
 export const loop = ErrorMapper.wrapLoop(() => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   global.help = help;
   global.logLevel = logLevel;
   global.findRole = showRole;
