@@ -1,6 +1,7 @@
 import { CreepRoles } from "utils/globalConsts";
 import routineBuilder from "creeps/routines/routineBuilder";
 import routineHarvester from "creeps/routines/routineHarvester";
+import routineRepairer from "creeps/routines/routineRepairer";
 import routineSoldier from "creeps/routines/routineSoldier";
 import routineTransporter from "creeps/routines/routineTransporter";
 import routineUpgrader from "creeps/routines/routineUpgrader";
@@ -21,6 +22,9 @@ export default function (creep: Creep): void {
       break;
     case CreepRoles.ROLE_UPGRADER:
       routineUpgrader(creep);
+      break;
+    case CreepRoles.ROLE_REPAIRER:
+      routineRepairer(creep);
       break;
     default:
       break;

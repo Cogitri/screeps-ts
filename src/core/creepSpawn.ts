@@ -2,6 +2,7 @@ import globalConsts, { CreepRoles } from "utils/globalConsts";
 import { Logger } from "utils/logger";
 import { spawnBuilder } from ".././creeps/models/modelBuilder";
 import { spawnHarvester } from ".././creeps/models/modelHarvester";
+import { spawnRepairer } from "creeps/models/modelRepairer";
 import { spawnSoldier } from ".././creeps/models/modelSoldier";
 import { spawnTransporter } from ".././creeps/models/modelTransporter";
 import { spawnUpgrader } from "creeps/models/modelUpgrader";

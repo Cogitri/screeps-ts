@@ -3,7 +3,8 @@ export enum CreepRoles {
   ROLE_BUILDER = "builder",
   ROLE_TRANSPORTER = "transporter",
   ROLE_SOLDIER = "soldier",
-  ROLE_UPGRADER = "upgrader"
+  ROLE_UPGRADER = "upgrader",
+  ROLE_REPAIRER = "repairer"
 }
 
 export default {
@@ -14,7 +15,8 @@ export default {
     [CreepRoles.ROLE_BUILDER, 3],
     [CreepRoles.ROLE_SOLDIER, 1],
     [CreepRoles.ROLE_TRANSPORTER, 3],
-    [CreepRoles.ROLE_UPGRADER, 2]
+    [CreepRoles.ROLE_UPGRADER, 2],
+    [CreepRoles.ROLE_REPAIRER, 1]
   ])
 };
 
