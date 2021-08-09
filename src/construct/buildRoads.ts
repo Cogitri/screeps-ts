@@ -34,23 +34,23 @@ export function buildRoadToSource(spawn: StructureSpawn): void {
   const sources = spawn.room.find(FIND_SOURCES);
   // looping through each source to find the path between source and spawn
   sources.forEach(source => {
-    const path = spawn.room.findPath(spawn.pos, source.pos);
-    // pop the last element of the array because its the controller position
-    path.pop();
-    const constructionSites = spawn.room.find(FIND_MY_CONSTRUCTION_SITES);
-    if (MAX_CONSTRUCTION_SITES - constructionSites.length >= path.length) {
-      path.forEach(step => {
-        const posX = step.x;
-        const posY = step.y;
-        if (!checkForStructure(posX, posY, spawn.room)) {
-          const map = new Map(Object.entries(Memory.pathToSources));
-          if (map.has(source.id) && map.get(source.id)) {
+    const map = new Map<string, boolean>(Object.entries(Memory.pathToSources));
+    if (map.has(source.id.toString()) && map.get(source.id)) {
+      const path = spawn.room.findPath(spawn.pos, source.pos);
+      // pop the last element of the array because its the controller position
+      path.pop();
+      const constructionSites = spawn.room.find(FIND_MY_CONSTRUCTION_SITES);
+      if (MAX_CONSTRUCTION_SITES - constructionSites.length >= path.length) {
+        path.forEach(step => {
+          const posX = step.x;
+          const posY = step.y;
+          if (!checkForStructure(posX, posY, spawn.room)) {
             spawn.room.createConstructionSite(posX, posY, STRUCTURE_ROAD);
-            map.set(source.id, true);
+            map.set(source.id.toString(), true);
             Memory.pathToSources = Object.fromEntries(map);
           }
-        }
-      });
+        });
+      }
     }
   });
 }
