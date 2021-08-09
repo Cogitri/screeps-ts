@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Logger } from "utils/logger";
 import { PathColors } from "utils/globalConsts";
 import checkCreepCapacity from "./checkCreepCapacity";

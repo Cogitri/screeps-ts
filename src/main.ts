@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-namespace */
 import { LogLevel, Logger } from "utils/logger";
 import { changeCreepCount, findCreep, help, logLevel, showRole, togglePathViz, toggleTextViz } from "./utils/commands";
