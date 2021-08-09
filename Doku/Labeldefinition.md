@@ -38,7 +38,7 @@ Wird vom PO beim Erstellen des Vorgangs gesetzt, wenn dieser einen Fehler behand
 
 Dieser Vorgang ist eine Story, mit mehreren Unteraufgaben.
 
-Wird vom PO beim erstellen des Vorgangs gesetzt. Unteraufgaben werden entweder als Checkboxen in der Beschreibung ergänzt, oder es werden Vorgänge angelegt, die mit der Story verknüpft werden.
+Wird vom PO beim Erstellen des Vorgangs gesetzt. Unteraufgaben werden entweder als Checkboxen in der Beschreibung ergänzt, oder es werden Vorgänge angelegt, die mit der Story verknüpft werden.
 
 ### P-Low
 
