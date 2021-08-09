@@ -47,7 +47,11 @@ export function buildRoadToSource(spawn: StructureSpawn): void {
           if (!checkForStructure(posX, posY, spawn.room)) {
             spawn.room.createConstructionSite(posX, posY, STRUCTURE_ROAD);
             map.set(source.id.toString(), true);
-            Memory.pathToSources = Object.fromEntries(map);
+            const object: { [k: string]: boolean } = {};
+            Object.entries(map).forEach(([k, v]) => {
+              object[k] = v as boolean;
+            });
+            Memory.pathToSources = object;
           }
         });
       }
@@ -66,13 +70,13 @@ export function buildRoadAroundSpawn(spawn: StructureSpawn): void {
     const xArray: number[] = [-1, -1, -1, 0, 0, 1, 1, 1];
     const yArray: number[] = [-1, 0, 1, -1, 1, -1, 0, 1];
 
-    for (const i of xArray) {
+    xArray.forEach((v, i) => {
       const posX = spawnX + xArray[i];
       const posY = spawnY + yArray[i];
       if (!checkForStructure(posX, posY, spawn.room)) {
         spawn.room.createConstructionSite(posX, posY, STRUCTURE_ROAD);
       }
-    }
+    });
   }
 }
 
