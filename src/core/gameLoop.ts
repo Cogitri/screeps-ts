@@ -67,4 +67,5 @@ function refreshMemory(): void {
 export function init(): void {
   Logger.info(printAuthors());
   Logger.info(help());
+  Memory.pathToSources = {};
 }
