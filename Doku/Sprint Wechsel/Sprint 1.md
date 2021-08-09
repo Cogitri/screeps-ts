@@ -74,7 +74,7 @@ Wir legen regelmäßig neue Vorgänge im GitLab an und beschreiben diese sinnvol
 
 ### Ist die Priorisierung nachvollziehbar?
 
-Beim anlegen der Vorgänge werden diesen eine Priorität zugeordent, diese hängt davon ab ob es eine Wichtige Funktion, oder dieser Vorgang schnells möglich abgearbeitet werden sollte, da dieser andere Blockiert. Wir haben dafür die Label P-Low, P-Med und P-High angelegt, damit die Prioritäten für die Entwickler sichtbar ist.
+Beim Anlegen der Vorgänge werden diesen eine Priorität zugeordnet. Diese hängt davon ab, ob es eine Wichtige Funktion, oder dieser Vorgang schnellstmöglich abgearbeitet werden sollte, da dieser andere Blockiert. Wir haben dafür die Label P-Low, P-Med und P-High angelegt, damit die Prioritäten für die Entwickler sichtbar ist.
 
 ### Ist das Feedback vom Kunden/User ins Product Backlog eingeflossen?
 
