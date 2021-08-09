@@ -5,7 +5,7 @@ import createConstructions from "./createConstructions";
 import creepSpawn from "./creepSpawn";
 import creepWork from "./creepWork";
 import globalConsts from "utils/globalConsts";
-import { help } from "utils/commands";
+import { help, printAuthors } from "utils/commands";
 import pickupEnergy from "../creeps/routines/pickupEnergy";
 import routineTower from "../creeps/routines/routineTower";
 import { visualizeControllerProgress } from "../utils/vizControllerLvl";
@@ -63,4 +63,5 @@ function refreshMemory(): void {
  */
 export function init(): void {
   Logger.info(help());
+  Logger.info(printAuthors());
 }

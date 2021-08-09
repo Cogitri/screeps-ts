@@ -107,3 +107,8 @@ export function changeCreepCount(role: string, count: number): string {
     return `Please enter a valid Creep role. The current roles are: ${roleArray} `;
   }
 }
+
+export function printAuthors(): string {
+  return `Screeps AEM Project developed by Team 8\n
+    SM: Rasmus Thomsen, PO: Thorben Rolf, Developers: Dennis Schuetz, Janis Ciemnyjewski, Katharina Sprotte, Lara Laskowsky, Mattis Kunstmann, Mika Schrader, Paul Voss, Tim Brueggemann`;
+}
