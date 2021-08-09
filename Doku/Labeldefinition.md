@@ -26,7 +26,7 @@ Wird vom PO gesetzt, wenn der Vorgang abgenommen und in den Master gemergt wurde
 
 Der Vorgang ist ein Fehler durch den das Programm abstürzt oder die Arbeit aller Entwickler massiv blockiert wird.
 
-Wird vom PO beim erstellen des Vorgangs gesetzt, wenn dieser einen Fehler beheben soll der das Programm zum abstürzen bringt, oder alle Entwickler durch diesen blockiert werden.
+Wird vom PO beim Erstellen des Vorgangs gesetzt, wenn dieser einen Fehler beheben soll, der das Programm zum Abstürzen bringt, oder alle Entwickler durch diesen blockiert werden.
 
 ### Fehler
 
