@@ -46,7 +46,6 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "source-map": "~0.6.1",
-    "yarn": "^1.22.11"
+    "source-map": "~0.6.1"
   }
 }
