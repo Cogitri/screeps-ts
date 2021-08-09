@@ -17,34 +17,29 @@ describe("Upgrader role", () => {
 
   describe("run", () => {
     it("withdraws energy from container", () => {
-      const creep = testUtil.mockCreep(
-        {
-          upgradeController: () => OK, // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          store: { getFreeCapacity: () => 50, energy: 0 } as any,
-          withdraw: () => ERR_NOT_IN_RANGE,
-          moveTo: () => OK
-        },
-        { controller, find: () => [container1, container2] }
-      );
+      const creep = testUtil.mockCreep({
+        upgradeController: () => OK, // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        store: { getFreeCapacity: () => 50, energy: 0 } as any,
+        withdraw: () => ERR_NOT_IN_RANGE,
+        room: { controller, find: () => [container1, container2] }
+      });
 
       routineUpgrader(creep);
-      expect(creep.withdraw).toHaveBeenCalledWith(container1, RESOURCE_ENERGY);
+      // Siehe unseren Mock dazu in testUtils.ts, wir retrunen das hier von findClosestByPath.
+      expect(creep.withdraw).toHaveBeenCalledWith({ pos: { x: 0, y: 0 } }, RESOURCE_ENERGY);
       expect(creep.say).toHaveBeenCalledWith("📤 withdraw");
     });
     it("Upgrades the controller", () => {
-      const creep = testUtil.mockCreep(
-        {
-          upgradeController: () => ERR_NOT_IN_RANGE, // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          store: { getFreeCapacity: () => 0, energy: 50 } as any,
-          withdraw: () => OK,
-          moveTo: () => OK
-        },
-        { controller, find: () => [container1, container2], energyAvailable: 50, energyCapacityAvailable: 100 }
-      );
+      const creep = testUtil.mockCreep({
+        upgradeController: () => ERR_NOT_IN_RANGE, // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        store: { getFreeCapacity: () => 0, energy: 50 } as any,
+        withdraw: () => OK,
+        room: { controller, find: () => [container1, container2], energyAvailable: 50, energyCapacityAvailable: 100 }
+      });
 
       routineUpgrader(creep);
       expect(creep.upgradeController).toHaveBeenCalledWith(controller);
-      expect(creep.say).toHaveBeenCalledWith("⚡");
+      expect(creep.say).toHaveBeenCalledWith("⚡ upgrade");
     });
   });
 });

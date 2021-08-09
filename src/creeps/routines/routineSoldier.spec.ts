@@ -264,7 +264,7 @@ describe("routineSoldier", () => {
           my: true,
           hits: 1000,
           memory: { role: CreepRoles.ROLE_SOLDIER, working: false, currentTask: "attack" },
-          store: { getFreeCapacity: () => 0 },
+          store: { getFreeCapacity: () => 0, energy: 5 },
           room: {
             energyAvailable: 5,
             energyCapacityAvailable: 100,
