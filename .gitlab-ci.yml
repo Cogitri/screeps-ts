@@ -24,4 +24,5 @@ deploy_to_screeps:
   script:
     - cp screeps.sample.json screeps.json
     - sed -i "s/\"YOUR_TOKEN\"/\"$SCREEPS_MASTER_DEPLOY\"/g" ./screeps.json
+    - yarn
     - yarn push-main
