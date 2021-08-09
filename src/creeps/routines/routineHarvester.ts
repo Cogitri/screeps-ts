@@ -13,6 +13,10 @@ export default function (creep: Creep): void {
         creep.memory.currentTask = "upgrade";
       }
     } else {
+      if (creep.memory.currentTask !== "farm") {
+        Logger.info(`${creep.name} switched to farm routine`);
+        creep.memory.currentTask = "farm";
+      }
       if (checkCreepCapacity(creep)) {
         routineFarm(creep);
       } else {
