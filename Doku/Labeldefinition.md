@@ -28,6 +28,18 @@ Der Vorgang ist ein Fehler durch den das Programm abstürzt oder die Arbeit alle
 
 Wird vom PO beim erstellen des Vorgangs gesetzt, wenn dieser einen Fehler beheben soll der das Programm zum abstürzen bringt, oder alle Entwickler durch diesen blockiert werden.
 
+### Fehler
+
+Der Vorgang ist eine Fehler im Programm.
+
+Wird vom PO beim erstellen des Vorgangs gesetzt, wenn dieser einen Fehler behandlen soll.
+
+### Storie
+
+Dieser Vorgang ist eine Story, mit mehreren Unteraufgaben.
+
+Wird vom PO beim erstellen des Vorgangs gesetzt. Unteraufgaben werden entweder als Checkboxen in der Beschreibung ergänzt, oder es werden Vorgänge angelegt, die mit der Story verknüpft werden.
+
 ### P-Low
 
 Der Vorgang hat eine Niedriege Priorität für das Produkt Ziel.
