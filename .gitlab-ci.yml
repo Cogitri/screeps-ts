@@ -6,21 +6,18 @@ stages:
 
 lint:
   stage: test
-  needs: ["install_deps"]
   script:
     - yarn
     - yarn lint
 
 test:
   stage: test
-  needs: ["install_deps"]
   script:
     - yarn
     - yarn test
 
 deploy_to_screeps:
   stage: deploy
-  needs: ["install_deps"]
   only:
     refs:
       - master
