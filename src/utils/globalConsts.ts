@@ -13,7 +13,8 @@ export default {
     [CreepRoles.ROLE_HARVESTER, 3],
     [CreepRoles.ROLE_BUILDER, 3],
     [CreepRoles.ROLE_SOLDIER, 1],
-    [CreepRoles.ROLE_TRANSPORTER, 3]
+    [CreepRoles.ROLE_TRANSPORTER, 3],
+    [CreepRoles.ROLE_UPGRADER, 2]
   ])
 };
 
