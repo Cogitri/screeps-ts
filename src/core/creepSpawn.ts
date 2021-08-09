@@ -1,4 +1,5 @@
 import globalConsts, { CreepRoles } from "utils/globalConsts";
+
 import { Logger } from "utils/logger";
 import { spawnBuilder } from ".././creeps/models/modelBuilder";
 import { spawnHarvester } from ".././creeps/models/modelHarvester";
@@ -11,9 +12,13 @@ export default function (spawn: StructureSpawn): void {
     creepCount = globalConsts.DEFAULT_CREEP_COUNT;
   }
 
-  const builders = Object.values(
-    Object.fromEntries(Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === CreepRoles.ROLE_BUILDER))
-  );
+  let object: { [k: string]: [string, Creep] } = {};
+  Object.entries(
+    Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === CreepRoles.ROLE_BUILDER)
+  ).forEach(([k, v]) => {
+    object[k] = v as [string, Creep];
+  });
+  const builders = Object.values(object);
   // check number of creeps
   const builderCount = creepCount.get(CreepRoles.ROLE_BUILDER);
   if (builderCount) {
@@ -23,11 +28,13 @@ export default function (spawn: StructureSpawn): void {
     }
   }
 
-  const harvesters = Object.values(
-    Object.fromEntries(
-      Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === CreepRoles.ROLE_HARVESTER)
-    )
-  );
+  object = {};
+  Object.entries(
+    Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === CreepRoles.ROLE_HARVESTER)
+  ).forEach(([k, v]) => {
+    object[k] = v as [string, Creep];
+  });
+  const harvesters = Object.values(object);
   // check number of creeps
   const harvesterCount = creepCount.get(CreepRoles.ROLE_HARVESTER);
   if (harvesterCount) {
@@ -36,9 +43,14 @@ export default function (spawn: StructureSpawn): void {
       spawnHarvester(spawn);
     }
   }
-  const soldiers = Object.values(
-    Object.fromEntries(Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === CreepRoles.ROLE_SOLDIER))
-  );
+
+  object = {};
+  Object.entries(
+    Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === CreepRoles.ROLE_SOLDIER)
+  ).forEach(([k, v]) => {
+    object[k] = v as [string, Creep];
+  });
+  const soldiers = Object.values(object);
   // check number of creeps
   const soldierCount = creepCount.get(CreepRoles.ROLE_SOLDIER);
   if (soldierCount) {
@@ -47,11 +59,13 @@ export default function (spawn: StructureSpawn): void {
       spawnSoldier(spawn);
     }
   }
-  const transporters = Object.values(
-    Object.fromEntries(
-      Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === CreepRoles.ROLE_TRANSPORTER)
-    )
-  );
+  object = {};
+  Object.entries(
+    Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === CreepRoles.ROLE_TRANSPORTER)
+  ).forEach(([k, v]) => {
+    object[k] = v as [string, Creep];
+  });
+  const transporters = Object.values(object);
   // check number of creeps
   const transporterCount = creepCount.get(CreepRoles.ROLE_TRANSPORTER);
   if (transporterCount) {
