@@ -73,20 +73,6 @@ function repair(creep: Creep): void {
   }
 }
 
-// Checks if the creep capacity is full or empty
-// Releases the locked task when capacity is empty
-function checkCreepCapacity(creep: Creep): boolean {
-  if (creep.store.getFreeCapacity() > 0 && !creep.memory.lockTask) {
-    return true;
-  }
-
-  if (creep.store[RESOURCE_ENERGY] === 0 && creep.memory.lockTask) {
-    creep.memory.lockTask = false;
-    return true;
-  }
-  return false;
-}
-
 /**
  * Builds the constructionsites by order of priority:
  * first buildings, then roads, then ramparts and then walls
