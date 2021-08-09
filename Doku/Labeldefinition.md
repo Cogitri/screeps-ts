@@ -42,7 +42,7 @@ Wird vom PO beim Erstellen des Vorgangs gesetzt. Unteraufgaben werden entweder a
 
 ### P-Low
 
-Der Vorgang hat eine Niedriege Priorität für das Produkt Ziel.
+Der Vorgang hat eine niedriege Priorität für das Produkt Ziel.
 
 ### P-Med
 
