@@ -58,7 +58,7 @@ Es gab Probleme mit git bei Janis, da Visual Studio (nicht Code) im Hintergrund 
 
 ### Liegt eine Abschätzung der Projektrisiken vor?
 
-Wir haben uns darüber gedanken gemacht was dem erfolgreichen erzielen des Produktziel im Weg stehen könnte. Das größte aber auch unwahrscheinlichste Risiko ist es, dass die Server von Screeps probleme machen, wodurch zum einen die Entwickler nicht mehr nachvollziehen können ob ihre Änderungen funktionieren. Zum anderen könnte es passieren das wir in unserem "Master Raum" es nicht schaffen unser gesetztes Ziel von Controller-Level 4 erreichen. Dem Ziel des Controller-Levels könnte außerdem ein anderer Spieler im weg stehen in dem er uns angreift. Diesem Risiko sind wir allerdings entgangen, da es in dem Spiel sogennante Novizenräume gibt, die für eine Bestimmte Zeit vor dem eindringen anderer Spieler geschützt sind.
+Wir haben uns darüber Gedanken gemacht, was dem erfolgreichen erzielen des Produktziels im Weg stehen könnte. Das größte, aber auch unwahrscheinlichste, Risiko ist es, dass die Server von Screeps Probleme machen. Dadurch könnten zum einen die Entwickler nicht mehr nachvollziehen, ob ihre Änderungen funktionieren. Zum anderen könnte es passieren, dass wir in unserem "Master Raum" es nicht schaffen unser gesetztes Ziel von Controller-Level 4 erreichen. Dem Ziel des Controller-Levels könnte außerdem ein anderer Spieler im Weg stehen in dem er uns angreift. Diesem Risiko sind wir allerdings entgangen, da es in dem Spiel sogennante Novizenräume gibt. Diese sind für eine Bestimmte Zeit vor dem eindringen anderer Spieler geschützt.
 
 ### Liegt die Bewertung des aktuellen Projektstands im Vergleich zur Konkurrenz vor?
 
