@@ -46,7 +46,7 @@ Der Vorgang hat eine niedriege Priorität für das Produkt Ziel.
 
 ### P-Med
 
-Der Vorgang hat eine Mittlere Priorität für das Produkt Ziel.
+Der Vorgang hat eine mittlere Priorität für das Produkt Ziel.
 
 ### P-High
 
