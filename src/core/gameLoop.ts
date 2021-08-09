@@ -52,7 +52,10 @@ function refreshMemory(): void {
     Logger.logLevel = Memory.logLevel;
   }
   if (!Memory.creepCount) {
-    const object = Object.fromEntries(globalConsts.DEFAULT_CREEP_COUNT);
+    const object: { [k: string]: number } = {};
+    Object.entries(globalConsts.DEFAULT_CREEP_COUNT).forEach(([k, v]) => {
+      object[k] = v as number;
+    });
     Memory.creepCount = object;
   }
 }
