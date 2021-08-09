@@ -1,5 +1,4 @@
 import { buildRoadAroundSpawn, buildRoadToController, buildRoadToSource } from "construct/buildRoads";
-
 import createContainer from "construct/createContainer";
 import createRampart from "construct/createRampart";
 
