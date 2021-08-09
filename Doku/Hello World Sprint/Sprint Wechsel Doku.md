@@ -29,7 +29,7 @@ Da wir unsere Tickets in GitLab anlegen, haben wir nicht die Möglichkeit Task a
 
 #### Beginne mit den wichtigsten Inhalten
 
-Während des Kick-Off Events des ersten Sprints haben wir im Team uns überlegt was wir als ersten Umsetzten müssen, um darauf effizient in den folgenden Sprints aufzubauen.
+Während des Kick-Off Events des ersten Sprints haben wir uns im Team überlegt, was wir zuerst Umsetzten müssen. Damit wollten wir sicherstellen, dass wir effizient in die folgenden Sprints starten können.
 
 ##### Nutze bei Bedarf Epics, Stories, Tasks und Subtasks, um das Backlog zu strukturieren
 
