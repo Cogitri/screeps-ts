@@ -30,7 +30,7 @@ export default function (creep: Creep): void {
         if (creep.transfer(target[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
           creep.memory.isWorking = false;
           creep.say("✈️ deliver");
-          creep.moveTo(target[0], { visualizePathStyle: { stroke: pathColor } });
+          movePath(creep, target[0], pathColor);
         }
       }
     }
