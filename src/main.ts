@@ -48,7 +48,7 @@ declare global {
       help: () => string;
       logLevel: (l: keyof typeof LogLevel) => void;
       sayHello: (name: string) => string;
-      changeCreepCount: (role: string, count: string) => string;
+      changeCreepCount: (role: string, count: number) => string;
     }
   }
 }

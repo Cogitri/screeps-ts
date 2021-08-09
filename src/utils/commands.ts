@@ -80,16 +80,15 @@ export function togglePathViz(): string {
     return "Enabled all path visuals";
   }
 }
-export function changeCreepCount(role: string, count: string): string {
+export function changeCreepCount(role: string, count: number): string {
   if (Object.values<string>(CreepRoles).includes(role)) {
-    const countAsNumber = parseInt(count, 10);
-    if (!isNaN(countAsNumber)) {
-      if (countAsNumber >= 0) {
+    if (!isNaN(count)) {
+      if (count >= 0) {
         const map = new Map(Object.entries(Memory.creepCount));
-        map.set(role, countAsNumber);
+        map.set(role, count);
 
         Memory.creepCount = Object.fromEntries(map);
-        return `Creep count for role ${role} set to ${countAsNumber}`;
+        return `Creep count for role ${role} set to ${count}`;
       } else {
         return `Please enter a positiv number`;
       }
