@@ -5,7 +5,7 @@ import routineFarm from "./routineFarm";
 import routineTransporter from "./routineTransporter";
 
 export default function (creep: Creep): void {
-  // check for damaged strzuctures
+  // check for damaged structures
   const damagedStructures = creep.room.find(FIND_STRUCTURES, {
     filter: s =>
       (s.structureType === STRUCTURE_WALL && s.hits < 0.001 * s.hitsMax) ||
