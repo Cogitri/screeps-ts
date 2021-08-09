@@ -58,7 +58,7 @@ Der Vorgang beschreibt eine Aufgabe des POs.
 
 ### Scrum Master
 
-Der Vorgang beschreibt eine Aufgabe des Scrum Master's
+Der Vorgang beschreibt eine Aufgabe des Scrum Masters
 
 ### Story-Points: 1-20
 
