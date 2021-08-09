@@ -3,7 +3,6 @@ import { movePath } from "./../../utils/vizPath";
 import routineFarm from "./routineFarm";
 import routineUpgrade from "./routineUpgrade";
 
-const pathColor = "#ffaa00";
 export default function (creep: Creep): void {
   if (!creep.memory.working) {
     if (checkSpawnCapacity(creep)) {

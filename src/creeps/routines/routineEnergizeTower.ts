@@ -2,7 +2,6 @@ import { PathColors } from "utils/globalConsts";
 import { movePath } from "./../../utils/vizPath";
 
 export default function (creep: Creep): void {
-  const pathColor = "#33d6ff";
   const tower = creep.room.find(FIND_STRUCTURES, {
     filter: structure => structure.structureType === STRUCTURE_TOWER
   });
