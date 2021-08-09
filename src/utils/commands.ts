@@ -91,7 +91,7 @@ export function changeCreepCount(role: string, count: number): string {
         Memory.creepCount = Object.fromEntries(map);
         return `Creep count for role ${role} set to ${count}`;
       } else {
-        return `Please enter a positiv number`;
+        return `Please enter a positive number`;
       }
     } else {
       return "Please enter a valid number";

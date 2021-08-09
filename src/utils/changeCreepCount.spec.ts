@@ -74,7 +74,7 @@ describe("spawnCreeps", () => {
     expect(fncReturns).toMatch(new RegExp("Please enter a valid Creep role. The current roles are: ?"));
 
     fncReturns = changeCreepCount("harvester", -1);
-    expect(fncReturns).toMatch("Please enter a positiv number");
+    expect(fncReturns).toMatch("Please enter a positive number");
 
     fncReturns = changeCreepCount("harvester", "harvester" as any);
     expect(fncReturns).toMatch("Please enter a valid number");
