@@ -1,3 +1,5 @@
+import { movePath } from "./../../utils/vizPath";
+
 export default function (creep: Creep): void {
   const pathColor = "#33d6ff";
   const tower = creep.room.find(FIND_STRUCTURES, {
@@ -6,6 +8,6 @@ export default function (creep: Creep): void {
 
   if (creep.transfer(tower[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
     creep.say("transfer");
-    creep.moveTo(tower[0], { visualizePathStyle: { stroke: pathColor } });
+    movePath(creep, tower[0], pathColor);
   }
 }

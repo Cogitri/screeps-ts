@@ -1,3 +1,4 @@
+import { movePath } from "./../../utils/vizPath";
 import routineFarm from "./routineFarm";
 import routineTransporter from "./routineTransporter";
 
@@ -20,7 +21,7 @@ export default function (creep: Creep): void {
   } else if (checkDamagedStructure(damagedStructure[0])) {
     repair(creep, damagedStructure[0]);
   } else if (checkConstructionSite(targets[0])) {
-    build(creep, targets[0]);
+    buildByPriority(creep);
   } else {
     routineTransporter(creep);
   }
@@ -32,7 +33,7 @@ function build(creep: Creep, target: ConstructionSite): void {
   if (creep.build(target) === ERR_NOT_IN_RANGE) {
     creep.memory.isWorking = true;
     creep.say("⚒️ build");
-    creep.moveTo(target, { visualizePathStyle: { stroke: pathColor } });
+    movePath(creep, target, pathColor);
   }
 }
 
@@ -42,7 +43,7 @@ function repair(creep: Creep, damagedStructure: AnyStructure): void {
   if (creep.repair(damagedStructure) === ERR_NOT_IN_RANGE) {
     creep.memory.isWorking = true;
     creep.say("🛠️ repair");
-    creep.moveTo(damagedStructure, { visualizePathStyle: { stroke: pathColor } });
+    movePath(creep, damagedStructure, pathColor);
   }
 }
 
@@ -77,4 +78,37 @@ function checkDamagedStructure(damagedStructure: AnyStructure): boolean {
   }
 
   return true;
+}
+
+/**
+ * Builds the constructionsites by order of priority:
+ * first buildings, then roads, then ramparts and then walls
+ *
+ * @param creep
+ */
+function buildByPriority(creep: Creep): void {
+  // check for different constructions
+  const wall = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
+    filter: s => s.structureType === STRUCTURE_WALL
+  });
+  const rampart = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
+    filter: s => s.structureType === STRUCTURE_RAMPART
+  });
+  const road = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
+    filter: s => s.structureType === STRUCTURE_ROAD
+  });
+  const building = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
+    filter: s =>
+      s.structureType !== STRUCTURE_RAMPART && s.structureType !== STRUCTURE_ROAD && s.structureType !== STRUCTURE_WALL
+  });
+
+  if (building) {
+    build(creep, building);
+  } else if (road) {
+    build(creep, road);
+  } else if (rampart) {
+    build(creep, rampart);
+  } else if (wall) {
+    build(creep, wall);
+  }
 }

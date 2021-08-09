@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import { findCreep, logLevel, showRole } from "./utils/commands";
+import { findCreep, help, logLevel, showRole, togglePathViz, toggleTextViz } from "./utils/commands";
+import gameLoop, { init } from "core/gameLoop";
 import { CreepRoles } from "utils/globalConsts";
 import { ErrorMapper } from "utils/ErrorMapper";
 import { LogLevel } from "utils/logger";
-import gameLoop from "./core/gameLoop";
 
 declare global {
   /**
@@ -36,17 +36,27 @@ declare global {
   // Syntax for adding proprties to `global` (ex "global.log")
   namespace NodeJS {
     interface Global {
-      findRole: (role: string) => void;
+      textViz: boolean;
+      pathViz: boolean;
+      toggleTextViz: () => string;
+      togglePathViz: () => string;
+      findRole: (role: string) => string;
+      help: () => string;
       logLevel: (l: keyof typeof LogLevel) => void;
       sayHello: (name: string) => string;
     }
   }
 }
+global.textViz = true;
+global.pathViz = true;
 
 export const loop = ErrorMapper.wrapLoop(() => {
+  global.help = help;
   global.logLevel = logLevel;
   global.findRole = showRole;
   global.sayHello = findCreep;
+  global.toggleTextViz = toggleTextViz;
+  global.togglePathViz = togglePathViz;
 
   // Automatically delete memory of missing creeps
   for (const name in Memory.creeps) {
@@ -56,3 +66,5 @@ export const loop = ErrorMapper.wrapLoop(() => {
   }
   gameLoop();
 });
+
+init();
