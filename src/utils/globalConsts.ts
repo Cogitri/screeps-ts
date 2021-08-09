@@ -23,12 +23,12 @@ export enum PathColors {
   PATHCOLOR_WITHDRAW = "#ff3080" // pink
 }
 
-export function defaultCreepCount(): { [k: string]: number } {
-  const map = new Map<string, number>();
-  map.set(CreepRoles.ROLE_HARVESTER, 3);
-  map.set(CreepRoles.ROLE_BUILDER, 3);
-  map.set(CreepRoles.ROLE_TRANSPORTER, 3);
-  map.set(CreepRoles.ROLE_SOLDIER, 3);
-
-  return Object.fromEntries(map);
+export function defaultCreepCount(): Map<string, number> {
+  const map = new Map<string, number>([
+    [CreepRoles.ROLE_HARVESTER, 3],
+    [CreepRoles.ROLE_BUILDER, 3],
+    [CreepRoles.ROLE_SOLDIER, 1],
+    [CreepRoles.ROLE_TRANSPORTER, 3]
+  ]);
+  return map;
 }

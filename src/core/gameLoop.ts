@@ -1,14 +1,15 @@
 /* eslint-disable sort-imports */
+
+import { Logger } from "utils/logger";
 import createConstructions from "./createConstructions";
 import creepSpawn from "./creepSpawn";
 import creepWork from "./creepWork";
+import { defaultCreepCount } from "utils/globalConsts";
 import { help } from "utils/commands";
 import pickupEnergy from "../creeps/routines/pickupEnergy";
 import routineTower from "../creeps/routines/routineTower";
 import { visualizeControllerProgress } from "../utils/vizControllerLvl";
 import { visualizeSpawnerProgress } from "../utils/vizSpawner";
-import { Logger } from "utils/logger";
-import { defaultCreepCount } from "utils/globalConsts";
 
 export default function (): void {
   // Refresh variables in memory
@@ -51,7 +52,8 @@ function refreshMemory(): void {
     Logger.logLevel = Memory.logLevel;
   }
   if (!Memory.creepCount) {
-    Memory.creepCount = defaultCreepCount();
+    const object = Object.fromEntries(defaultCreepCount());
+    Memory.creepCount = object;
   }
 }
 

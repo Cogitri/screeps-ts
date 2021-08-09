@@ -1,11 +1,14 @@
-import { CreepRoles } from "utils/globalConsts";
+import { CreepRoles, defaultCreepCount } from "utils/globalConsts";
 import { spawnBuilder } from ".././creeps/models/modelBuilder";
 import { spawnHarvester } from ".././creeps/models/modelHarvester";
 import { spawnSoldier } from ".././creeps/models/modelSoldier";
 import { spawnTransporter } from ".././creeps/models/modelTransporter";
 
 export default function (spawn: StructureSpawn): void {
-  const creepCount = new Map(Object.entries(Memory.creepCount));
+  let creepCount = new Map(Object.entries(Memory.creepCount));
+  if (!creepCount.size) {
+    creepCount = defaultCreepCount();
+  }
 
   const builders = Object.values(
     Object.fromEntries(
@@ -40,7 +43,7 @@ export default function (spawn: StructureSpawn): void {
   // check number of creeps
   const soldierCount = creepCount.get(CreepRoles.ROLE_SOLDIER);
   if (soldierCount) {
-    if (soldiers.length < 1) {
+    if (soldiers.length < soldierCount) {
       spawnSoldier(spawn);
     }
   }
@@ -52,7 +55,7 @@ export default function (spawn: StructureSpawn): void {
   // check number of creeps
   const transporterCount = creepCount.get(CreepRoles.ROLE_TRANSPORTER);
   if (transporterCount) {
-    if (transporters.length < 1) {
+    if (transporters.length < transporterCount) {
       spawnTransporter(spawn);
     }
   }
