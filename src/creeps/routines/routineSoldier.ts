@@ -1,10 +1,13 @@
+import { Colors } from "utils/globalConsts";
 import { movePath } from "utils/vizPath";
 import routineTransporter from "./routineTransporter";
 const BODY_PART_THRESHOLD = 5;
 const HP_THRESHOLD = 200;
 
 export default function (creep: Creep): void {
-  const pathColor = "#ff3333";
+  if (creep.memory.working && creep.store[RESOURCE_ENERGY] === 0) {
+    creep.memory.working = false;
+  }
 
   // Find closest enemy alive
   // ! Can't find whether or not `FIND_HOSTILE_CREEPS` returns hostile PowerCreeps aswell
@@ -21,7 +24,7 @@ export default function (creep: Creep): void {
 
   if (creep.attack(enemy) === ERR_NOT_IN_RANGE && shouldFightEnemy(enemy, creep)) {
     creep.say("⚔️ attack");
-    movePath(creep, enemy, pathColor);
+    movePath(creep, enemy, Colors.PATHCOLOR_SOLDIER);
     creep.memory.target = enemy;
   }
 }
