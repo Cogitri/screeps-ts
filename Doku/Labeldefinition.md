@@ -50,7 +50,7 @@ Der Vorgang hat eine mittlere Priorität für das Produkt Ziel.
 
 ### P-High
 
-Der Vorgang hat eine Hohe Priorität für das Produkt Ziel, oder wird benötigt, damit weitere Vorgänge angefangen werden können.
+Der Vorgang hat eine hohe Priorität für das Produkt Ziel, oder wird benötigt, damit weitere Vorgänge angefangen werden können.
 
 ### PO
 
