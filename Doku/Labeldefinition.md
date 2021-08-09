@@ -18,7 +18,7 @@ Wird von einem Entwickler gesetzt, wenn es keine offenen Anmerkungen mehr aus de
 
 ### Abgeschlossen
 
-Der Vorgang ist Fertig bearbeitet und wurde in den Master gemerkt.
+Der Vorgang ist fertig bearbeitet und wurde in den Master gemerged.
 
 Wird vom PO gesetzt wenn der Vorgang abgenommen und in den Master gemergt wurde.
 
