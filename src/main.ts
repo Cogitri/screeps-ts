@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-namespace */
+import { LogLevel, Logger } from "utils/logger";
 import { changeCreepCount, findCreep, help, logLevel, showRole, togglePathViz, toggleTextViz } from "./utils/commands";
 import gameLoop, { init } from "core/gameLoop";
 import { CreepRoles } from "utils/globalConsts";
 import { ErrorMapper } from "utils/ErrorMapper";
-import { LogLevel } from "utils/logger";
 
 declare global {
   /**
@@ -68,6 +68,8 @@ export const loop = ErrorMapper.wrapLoop(() => {
   // Automatically delete memory of missing creeps
   for (const name in Memory.creeps) {
     if (!(name in Game.creeps)) {
+      Logger.info(`The ${Memory.creeps[name].role} named  ${name} died`);
+      //  ${Game.creeps[name].memory.role}
       delete Memory.creeps[name];
     }
   }

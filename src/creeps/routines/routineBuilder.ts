@@ -21,24 +21,20 @@ export default function (creep: Creep): void {
   if (!creep.memory.working) {
     if (checkCreepCapacity(creep)) {
       routineFarm(creep);
-      if (creep.memory.currentTask !== "Farm") {
-        Logger.info(`Switched to Farm Routine`);
-        creep.memory.currentTask = "Farm";
+      if (creep.memory.currentTask !== "farm") {
+        Logger.info(`${creep.name} switched to farm routine`);
+        creep.memory.currentTask = "farm";
       }
     } else if (checkDamagedStructure(damagedStructure[0])) {
       repair(creep, damagedStructure[0]);
-      if (creep.memory.currentTask !== "Repair") {
-        Logger.info(`Switched to Repair Routine`);
-        creep.memory.currentTask = "Repair";
+      if (creep.memory.currentTask !== "repair") {
+        Logger.info(`${creep.name} switched to repair routine`);
+        creep.memory.currentTask = "repair";
       }
     } else if (checkConstructionSite(targets[0])) {
       buildByPriority(creep);
     } else {
       routineTransporter(creep);
-      if (creep.memory.currentTask !== "Transport") {
-        Logger.info(`Switched to Transporter Routine`);
-        creep.memory.currentTask = "Transport";
-      }
     }
   }
 }

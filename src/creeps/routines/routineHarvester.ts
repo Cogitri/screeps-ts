@@ -1,3 +1,4 @@
+import { Logger } from "utils/logger";
 import { PathColors } from "utils/globalConsts";
 import { movePath } from "./../../utils/vizPath";
 import routineFarm from "./routineFarm";
@@ -7,6 +8,10 @@ export default function (creep: Creep): void {
   if (!creep.memory.working) {
     if (checkSpawnCapacity(creep)) {
       routineUpgrade(creep);
+      if (creep.memory.currentTask !== "upgrade") {
+        Logger.info(`${creep.name} switched to upgrade routine`);
+        creep.memory.currentTask = "upgrade";
+      }
     } else {
       if (checkCreepCapacity(creep)) {
         routineFarm(creep);
