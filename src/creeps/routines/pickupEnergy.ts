@@ -12,8 +12,7 @@ export default function (creep: Creep): void {
     // the harvester is the one dropping it so the creep would just be in a loop of dropping and picking up
     if (creep.memory.role !== "harvester") {
       movePath(creep, droppedEnergy[0], PathColors.PATHCOLOR_PICKUPENERGY);
-      const pickupDropped = creep.pickup(droppedEnergy[0]);
-      creep.say(pickupDropped.toString());
+      creep.pickup(droppedEnergy[0]);
     }
   }
 
