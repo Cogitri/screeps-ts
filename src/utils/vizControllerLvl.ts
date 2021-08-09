@@ -3,11 +3,10 @@ export function visualizeControllerProgress(room: Room): void {
   if (roomController !== undefined) {
     const xCoordinate = roomController.pos.x;
     const yCoordinate = roomController.pos.y;
-    const totalToUpgrade = roomController.progress + roomController.progressTotal;
 
     if (global.textViz) {
       room.visual.text(
-        `${((roomController.progress / totalToUpgrade) * 100).toFixed(2)}% to next Level`,
+        `${((roomController.progress / roomController.progressTotal) * 100).toFixed(2)}% to next Level`,
         xCoordinate,
         yCoordinate,
         { color: "white", font: 0.8 }
