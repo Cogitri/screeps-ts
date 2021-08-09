@@ -16,7 +16,7 @@ describe("spawnCreeps", () => {
 
     spawnBuilder(spawn);
     Game.time = 2;
-    changeCreepCount("builder", "5");
+    changeCreepCount("builder", 5);
     creepSpawn(spawn);
     creepSpawn(spawn);
     creepSpawn(spawn);
@@ -70,13 +70,13 @@ describe("spawnCreeps", () => {
   });
 
   it("call function with invalid role name", () => {
-    let fncReturns = changeCreepCount("wurst", "5");
+    let fncReturns = changeCreepCount("wurst", 5);
     expect(fncReturns).toMatch(new RegExp("Please enter a valid Creep role. The current roles are: ?"));
 
-    fncReturns = changeCreepCount("harvester", "-1");
+    fncReturns = changeCreepCount("harvester", -1);
     expect(fncReturns).toMatch("Please enter a positiv number");
 
-    fncReturns = changeCreepCount("harvester", "harvester");
+    fncReturns = changeCreepCount("harvester", "harvester" as any);
     expect(fncReturns).toMatch("Please enter a valid number");
   });
 });
