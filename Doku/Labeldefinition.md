@@ -32,7 +32,7 @@ Wird vom PO beim Erstellen des Vorgangs gesetzt, wenn dieser einen Fehler behebe
 
 Der Vorgang ist eine Fehler im Programm.
 
-Wird vom PO beim erstellen des Vorgangs gesetzt, wenn dieser einen Fehler behandlen soll.
+Wird vom PO beim Erstellen des Vorgangs gesetzt, wenn dieser einen Fehler behandlen soll.
 
 ### Storie
 
