@@ -1,5 +1,5 @@
+import { PathColors, Routines } from "utils/globalConsts";
 import { Logger } from "utils/logger";
-import { PathColors } from "utils/globalConsts";
 import checkCreepCapacity from "./checkCreepCapacity";
 import { movePath } from "./../../utils/vizPath";
 import routineFarm from "./routineFarm";
@@ -7,9 +7,9 @@ import routineFarm from "./routineFarm";
 export default function (creep: Creep): void {
   if (checkCreepCapacity(creep)) {
     routineFarm(creep);
-    if (creep.memory.currentTask !== "farm") {
+    if (creep.memory.currentTask !== Routines.Farmer) {
       Logger.info(`${creep.name} switched to farm routine`);
-      creep.memory.currentTask = "farm";
+      creep.memory.currentTask = Routines.Farmer;
     }
   } else {
     // the creep looks for the nearest container.

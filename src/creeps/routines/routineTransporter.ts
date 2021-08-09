@@ -1,8 +1,7 @@
-import globalConsts, { PathColors } from "utils/globalConsts";
+import globalConsts, { PathColors, Routines } from "utils/globalConsts";
 import { Logger } from "utils/logger";
-import { movePath } from "utils/vizPath";
-// eslint-disable-next-line sort-imports
 import checkCreepCapacity from "./checkCreepCapacity";
+import { movePath } from "utils/vizPath";
 import routineEnergizeTower from "./routineEnergizeTower";
 import routineUpgrade from "./routineUpgrade";
 import routineWithdraw from "./routineWithdraw";
@@ -10,29 +9,29 @@ import routineWithdraw from "./routineWithdraw";
 export default function (creep: Creep): void {
   if (checkCreepCapacity(creep)) {
     routineWithdraw(creep);
-    if (creep.memory.currentTask !== "withdraw") {
+    if (creep.memory.currentTask !== Routines.Withdraw) {
       Logger.info(`${creep.name} switched to withdraw routine`);
-      creep.memory.currentTask = "withdraw";
+      creep.memory.currentTask = Routines.Withdraw;
     }
   } else {
     if (checkSpawnCapacity(creep) && checkExtensionsCapacity(creep)) {
       if (TOWER_CAPACITY < globalConsts.TARGET_TOWER_CAPACITY) {
         routineEnergizeTower(creep);
-        if (creep.memory.currentTask !== "energize") {
+        if (creep.memory.currentTask !== Routines.Energize) {
           Logger.info(`${creep.name} switched to energize tower routine`);
-          creep.memory.currentTask = "energize";
+          creep.memory.currentTask = Routines.Energize;
         }
       } else {
         routineUpgrade(creep);
-        if (creep.memory.currentTask !== "upgrade") {
+        if (creep.memory.currentTask !== Routines.Upgrade) {
           Logger.info(` ${creep.name} switched to upgrade routine`);
-          creep.memory.currentTask = "upgrade";
+          creep.memory.currentTask = Routines.Upgrade;
         }
       }
     } else {
-      if (creep.memory.currentTask !== "transport") {
+      if (creep.memory.currentTask !== Routines.Transport) {
         Logger.info(`${creep.name} switched to transporter routine`);
-        creep.memory.currentTask = "transport";
+        creep.memory.currentTask = Routines.Transport;
       }
       const target = creep.room.find(FIND_STRUCTURES, {
         filter: structure => {

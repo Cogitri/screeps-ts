@@ -1,5 +1,5 @@
+import { PathColors, Routines } from "utils/globalConsts";
 import { Logger } from "utils/logger";
-import { PathColors } from "utils/globalConsts";
 import { movePath } from "utils/vizPath";
 import routineTransporter from "./routineTransporter";
 const BODY_PART_THRESHOLD = 5;
@@ -33,9 +33,9 @@ export default function (creep: Creep): void {
     }
     movePath(creep, enemy, PathColors.PATHCOLOR_SOLDIER);
     creep.memory.target = enemy;
-    if (creep.memory.currentTask !== "attack") {
+    if (creep.memory.currentTask !== Routines.Attack) {
       Logger.info(`${creep.name} switched to fighting routine`);
-      creep.memory.currentTask = "attack";
+      creep.memory.currentTask = Routines.Attack;
     }
   }
 }

@@ -7,6 +7,18 @@ export enum CreepRoles {
   ROLE_REPAIRER = "repairer"
 }
 
+export enum Routines {
+  None,
+  Farmer,
+  Repair,
+  Upgrade,
+  Attack,
+  Withdraw,
+  Energize,
+  Transport,
+  Build
+}
+
 export default {
   /** Minimum Tower Capacity */
   TARGET_TOWER_CAPACITY: 300,

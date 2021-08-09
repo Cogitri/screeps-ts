@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-
+import { CreepRoles, Routines } from "utils/globalConsts";
 import { LogLevel, Logger } from "utils/logger";
 import {
   changeBodyParts,
@@ -12,8 +12,6 @@ import {
   toggleTextViz
 } from "./utils/commands";
 import gameLoop, { init } from "core/gameLoop";
-
-import { CreepRoles } from "utils/globalConsts";
 import { ErrorMapper } from "utils/ErrorMapper";
 
 declare global {
@@ -48,7 +46,7 @@ declare global {
     isWorking: boolean;
     announcedTask: boolean;
     target: Structure | Source | Mineral | Creep | null;
-    currentTask: string;
+    currentTask: Routines;
   }
 
   // Syntax for adding proprties to `global` (ex "global.log")

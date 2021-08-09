@@ -1,4 +1,5 @@
 import { mockGlobal, mockInstanceOf } from "screeps-jest";
+import { Routines } from "./globalConsts";
 
 // cp from lib lel :)
 // Needed as we must pass `DeepPartialObject<T>` as a type but can't import it
@@ -85,7 +86,7 @@ export class TestUtil {
     return mockInstanceOf<Creep>({
       store: { getFreeCapacity: () => 0, energy: 50 },
       body: this.composeBody(),
-      memory: { isWorking: false, announcedTask: false, currentTask: "null" },
+      memory: { isWorking: false, announcedTask: false, currentTask: Routines.None },
       room: undefined,
       name: undefined,
       transfer: () => OK,

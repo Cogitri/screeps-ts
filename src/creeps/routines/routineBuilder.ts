@@ -1,5 +1,5 @@
+import { PathColors, Routines } from "utils/globalConsts";
 import { Logger } from "utils/logger";
-import { PathColors } from "utils/globalConsts";
 import checkCreepCapacity from "./checkCreepCapacity";
 import { movePath } from "./../../utils/vizPath";
 import routineTransporter from "./routineTransporter";
@@ -9,23 +9,23 @@ export default function (creep: Creep): void {
 
   if (checkCreepCapacity(creep)) {
     routineTransporter(creep);
-    if (creep.memory.currentTask !== "farm") {
+    if (creep.memory.currentTask !== Routines.Farmer) {
       Logger.info(`${creep.name} switched to farm routine`);
-      creep.memory.currentTask = "farm";
+      creep.memory.currentTask = Routines.Farmer;
     }
   }
 
   if (creep.memory.isWorking && target) {
     buildByPriority(creep);
-    if (creep.memory.currentTask !== "build") {
+    if (creep.memory.currentTask !== Routines.Build) {
       Logger.info(`${creep.name} switched to build routine`);
-      creep.memory.currentTask = "build";
+      creep.memory.currentTask = Routines.Build;
     }
   } else if (creep.memory.isWorking) {
     repair(creep);
-    if (creep.memory.currentTask !== "repair") {
+    if (creep.memory.currentTask !== Routines.Repair) {
       Logger.info(`${creep.name} switched to repair routine`);
-      creep.memory.currentTask = "repair";
+      creep.memory.currentTask = Routines.Repair;
     }
   }
 }

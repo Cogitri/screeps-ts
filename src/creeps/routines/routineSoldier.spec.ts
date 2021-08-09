@@ -1,4 +1,4 @@
-import { CreepRoles } from "utils/globalConsts";
+import { CreepRoles, Routines } from "utils/globalConsts";
 import { TestUtil } from "utils/testUtils";
 import routineSoldier from "./routineSoldier";
 
@@ -26,7 +26,12 @@ describe("routineSoldier", () => {
             find: () => [enemy]
           },
           hits: 10,
-          memory: { role: CreepRoles.ROLE_SOLDIER, isWorking: false, announcedTask: false, currentTask: "attack" },
+          memory: {
+            role: CreepRoles.ROLE_SOLDIER,
+            isWorking: false,
+            announcedTask: false,
+            currentTask: Routines.Attack
+          },
           store: { getFreeCapacity: () => 50 },
 
           attack: () => ERR_NOT_IN_RANGE
@@ -185,7 +190,12 @@ describe("routineSoldier", () => {
       const us = testUtil.mockCreep(
         {
           hits: 1000,
-          memory: { role: CreepRoles.ROLE_SOLDIER, isWorking: false, announcedTask: false, currentTask: "attack" },
+          memory: {
+            role: CreepRoles.ROLE_SOLDIER,
+            isWorking: false,
+            announcedTask: false,
+            currentTask: Routines.Attack
+          },
           store: { getFreeCapacity: () => 50 },
           room: {
             find: () => [enemy]
@@ -263,7 +273,7 @@ describe("routineSoldier", () => {
         {
           my: true,
           hits: 1000,
-          memory: { role: CreepRoles.ROLE_SOLDIER, isWorking: false, currentTask: "attack" },
+          memory: { role: CreepRoles.ROLE_SOLDIER, isWorking: false, currentTask: Routines.Attack },
           store: { getFreeCapacity: () => 0, energy: 5 },
           room: {
             energyAvailable: 5,
