@@ -74,8 +74,9 @@ export default function (spawn: StructureSpawn): void {
   const transporterCount = creepCount.get(CreepRoles.ROLE_TRANSPORTER);
   if (transporterCount) {
     if (transporters.length < transporterCount) {
-      Logger.info("Spawning a Transporter");
-      spawnTransporter(spawn);
+      if (spawnTransporter(spawn) === OK) {
+        Logger.info("Spawning a Transporter");
+      }
     }
   }
   object = {};
