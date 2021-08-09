@@ -66,7 +66,7 @@ Unseren Projektstand können wir gut mit anderen Spielern vergleichen. Aktuell k
 
 ### Ist Feedback vom Kunden/User eingeholt worden?
 
-Wir haben von unserem Stakeholder/Kunden Jacky das Feedback bekommen das Visualisierungen helfen würden einem neuen Kunden leichter verstädnlich zumachen was unser Produkt genau macht.
+Wir haben von unserem Stakeholder/Kunden Jacky das Feedback bekommen, dass Visualisierungen dabei helfen würden neuen Kunden es leichter verständlich zu machen, was unser Produkt genau macht.
 
 ### Ist das Product Backlog sinnvoll gepflegt worden?
 
