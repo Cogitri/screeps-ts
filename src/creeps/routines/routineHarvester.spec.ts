@@ -19,7 +19,6 @@ describe("Harvester role", () => {
     it("harvests the first source", () => {
       const creep = testUtil.mockCreep({
         upgradeController: () => ERR_NOT_IN_RANGE,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         store: { getFreeCapacity: () => 50, energy: 0 },
         room: {
           find: () => [source1, source2, spawn],

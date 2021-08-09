@@ -20,7 +20,6 @@ export default function (creep: Creep): void {
   });
 
   const targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   if (!creep.memory.working) {
     if (checkCreepCapacity(creep)) {
       routineFarm(creep);
