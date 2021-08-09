@@ -27,7 +27,6 @@ describe("routineSoldier", () => {
           },
           hits: 10,
           memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-return
           store: { getFreeCapacity: () => 50 },
 
           attack: () => ERR_NOT_IN_RANGE
