@@ -8,7 +8,7 @@ export default {
   /** Minimum Tower Capacity */
   TARGET_TOWER_CAPACITY: 300
 };
-export enum RoutinePathColors {
+export enum Colors {
   PATHCOLOR_PICKUPENERGY = "harvester",
   PATHCOLOR_BUILDER = "#ffff33",
   PATHCOLOR_ENERGIZE_TOWER = "harvester",
