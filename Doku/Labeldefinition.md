@@ -62,4 +62,4 @@ Der Vorgang beschreibt eine Aufgabe des Scrum Masters
 
 ### Story-Points: 1-20
 
-Jeder Vorgang erhählt eine Einschätzung für den Aufwand. Der Aufwand wird berechnet aus der benötigten Zeit in Stunden mal der Schwierigkeit(Leicht, Mittel, Schwierig).
+Jeder Vorgang erhählt eine Einschätzung für den Aufwand. Der Aufwand wird berechnet aus der benötigten Zeit in Stunden mal die Schwierigkeit(Leicht, Mittel, Schwierig).
