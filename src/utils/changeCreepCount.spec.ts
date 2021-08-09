@@ -1,8 +1,8 @@
+import { CreepRoles, defaultCreepCount } from "utils/globalConsts";
 import { TestUtil } from "utils/testUtils";
 import { changeCreepCount } from "utils/commands";
 import creepSpawn from "./creepSpawn";
 import { spawnBuilder } from "creeps/models/modelBuilder";
-import { CreepRoles, defaultCreepCount } from "utils/globalConsts";
 
 describe("spawnCreeps", () => {
   let testUtil: TestUtil;
