@@ -62,6 +62,6 @@ function refreshMemory(): void {
  * @link https://wiki.screepspl.us/index.php/Global_reset
  */
 export function init(): void {
-  Logger.info(help());
   Logger.info(printAuthors());
+  Logger.info(help());
 }
