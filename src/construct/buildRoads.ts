@@ -47,7 +47,11 @@ export function buildRoadToSource(spawn: StructureSpawn): void {
           if (!checkForStructure(posX, posY, spawn.room)) {
             spawn.room.createConstructionSite(posX, posY, STRUCTURE_ROAD);
             map.set(source.id.toString(), true);
-            Memory.pathToSources = Object.fromEntries(map);
+            const object: { [k: string]: boolean } = {};
+            Object.entries(map).forEach(([k, v]) => {
+              object[k] = v as boolean;
+            });
+            Memory.pathToSources = object;
           }
         });
       }
