@@ -122,7 +122,7 @@ export class TestUtil {
       body: undefined,
       store: { getFreeCapacity: () => 0, energy: 50 },
       room: undefined,
-      memory: { lockTask: false, working: false },
+      memory: { lockTask: false, working: false, currentTask: "null" },
       transfer: () => OK,
       harvest: () => OK,
       say: () => OK,

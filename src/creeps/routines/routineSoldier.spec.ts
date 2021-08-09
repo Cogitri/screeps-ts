@@ -26,7 +26,7 @@ describe("routineSoldier", () => {
             find: () => [enemy]
           },
           hits: 10,
-          memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
+          memory: { role: CreepRoles.ROLE_SOLDIER, working: false, currentTask: "attack" },
           store: { getFreeCapacity: () => 50 },
 
           attack: () => ERR_NOT_IN_RANGE
@@ -185,7 +185,7 @@ describe("routineSoldier", () => {
       const us = testUtil.mockCreep(
         {
           hits: 1000,
-          memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
+          memory: { role: CreepRoles.ROLE_SOLDIER, working: false, currentTask: "attack" },
           store: { getFreeCapacity: () => 50 },
           room: {
             find: () => [enemy]
@@ -263,7 +263,7 @@ describe("routineSoldier", () => {
         {
           my: true,
           hits: 1000,
-          memory: { role: CreepRoles.ROLE_SOLDIER, working: false },
+          memory: { role: CreepRoles.ROLE_SOLDIER, working: false, currentTask: "attack" },
           store: { getFreeCapacity: () => 0 },
           room: {
             energyAvailable: 5,
