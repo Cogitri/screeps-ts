@@ -26,13 +26,13 @@ export default function (creep: Creep): void {
         Logger.info(`${creep.name} switched to farm routine`);
         creep.memory.currentTask = "farm";
       }
-    } else if (checkDamagedStructure(damagedStructures[0])) {
+    } else if (damagedStructures.length !== 0) {
       repair(creep);
       if (creep.memory.currentTask !== "repair") {
         Logger.info(`${creep.name} switched to repair routine`);
         creep.memory.currentTask = "repair";
       }
-    } else if (checkConstructionSite(targets[0])) {
+    } else if (targets.length !== 0) {
       buildByPriority(creep);
     } else {
       routineTransporter(creep);
@@ -71,15 +71,6 @@ function repair(creep: Creep): void {
   }
 }
 
-// Checks if the constructionsite target is not NULL
-function checkConstructionSite(target: ConstructionSite): boolean {
-  if (!target) {
-    return false;
-  }
-
-  return true;
-}
-
 // Checks if the creep capacity is full or empty
 // Releases the locked task when capacity is empty
 function checkCreepCapacity(creep: Creep): boolean {
@@ -92,15 +83,6 @@ function checkCreepCapacity(creep: Creep): boolean {
     return true;
   }
   return false;
-}
-
-// Checks if the damagedStructure is not NULL
-function checkDamagedStructure(damagedStructure: AnyStructure): boolean {
-  if (!damagedStructure) {
-    return false;
-  }
-
-  return true;
 }
 
 /**
