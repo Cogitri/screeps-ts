@@ -1,30 +1,21 @@
 image: node:alpine
 
-cache:
-  paths:
-    - node_modules/
-
 stages:
-  - .pre
   - test
   - deploy
-
-install_deps:
-  stage: .pre
-  script:
-    - yarn
 
 lint:
   stage: test
   needs: ["install_deps"]
   script:
+    - yarn
     - yarn lint
-
 
 test:
   stage: test
   needs: ["install_deps"]
   script:
+    - yarn
     - yarn test
 
 deploy_to_screeps:
