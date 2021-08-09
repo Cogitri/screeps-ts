@@ -1,4 +1,4 @@
-import { Colors } from "utils/globalConsts";
+import { PathColors } from "utils/globalConsts";
 import { movePath } from "utils/vizPath";
 import routineTransporter from "./routineTransporter";
 const BODY_PART_THRESHOLD = 5;
@@ -24,7 +24,7 @@ export default function (creep: Creep): void {
 
   if (creep.attack(enemy) === ERR_NOT_IN_RANGE && shouldFightEnemy(enemy, creep)) {
     creep.say("⚔️ attack");
-    movePath(creep, enemy, Colors.PATHCOLOR_SOLDIER);
+    movePath(creep, enemy, PathColors.PATHCOLOR_SOLDIER);
     creep.memory.target = enemy;
   }
 }

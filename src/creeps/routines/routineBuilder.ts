@@ -1,5 +1,5 @@
 import { movePath } from "./../../utils/vizPath";
-import { Colors } from "utils/globalConsts";
+import { PathColors } from "utils/globalConsts";
 import routineFarm from "./routineFarm";
 import routineTransporter from "./routineTransporter";
 
@@ -35,7 +35,7 @@ function build(creep: Creep, target: ConstructionSite): void {
   if (creep.build(target) === ERR_NOT_IN_RANGE) {
     creep.memory.lockTask = true;
     creep.say("⚒️ build");
-    movePath(creep, target, Colors.PATHCOLOR_BUILDER);
+    movePath(creep, target, PathColors.PATHCOLOR_BUILDER);
   }
 }
 
@@ -44,7 +44,7 @@ function repair(creep: Creep, damagedStructure: AnyStructure): void {
   if (creep.repair(damagedStructure) === ERR_NOT_IN_RANGE) {
     creep.memory.lockTask = true;
     creep.say("🛠️ repair");
-    movePath(creep, damagedStructure, Colors.PATHCOLOR_BUILDER);
+    movePath(creep, damagedStructure, PathColors.PATHCOLOR_REPAIR);
   }
 }
 

@@ -1,4 +1,4 @@
-import globalConsts, { Colors } from "utils/globalConsts";
+import globalConsts, { PathColors } from "utils/globalConsts";
 import { movePath } from "utils/vizPath";
 import routineEnergizeTower from "./routineEnergizeTower";
 import routineUpgrade from "./routineUpgrade";
@@ -29,7 +29,7 @@ export default function (creep: Creep): void {
           if (creep.transfer(target[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
             creep.memory.lockTask = false;
             creep.say("⛴︎ deliver");
-            movePath(creep, target[0], Colors.PATHCOLOR_TRANSPORT);
+            movePath(creep, target[0], PathColors.PATHCOLOR_TRANSPORT);
           }
         }
       }

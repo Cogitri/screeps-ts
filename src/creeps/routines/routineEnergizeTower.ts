@@ -1,3 +1,4 @@
+import { PathColors } from "utils/globalConsts";
 import { movePath } from "./../../utils/vizPath";
 
 export default function (creep: Creep): void {
@@ -8,6 +9,6 @@ export default function (creep: Creep): void {
 
   if (creep.transfer(tower[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
     creep.say("transfer");
-    movePath(creep, tower[0], pathColor);
+    movePath(creep, tower[0], PathColors.PATHCOLOR_ENERGIZE_TOWER);
   }
 }

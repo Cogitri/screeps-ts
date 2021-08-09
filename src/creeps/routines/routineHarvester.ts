@@ -1,3 +1,4 @@
+import { PathColors } from "utils/globalConsts";
 import { movePath } from "./../../utils/vizPath";
 import routineFarm from "./routineFarm";
 import routineUpgrade from "./routineUpgrade";
@@ -34,16 +35,16 @@ export default function (creep: Creep): void {
         if (container !== undefined && container != null) {
           // check if the container is closer than the spwan based on the cost.
           if (PathFinder.search(creep.pos, container.pos).cost < PathFinder.search(creep.pos, target[0].pos).cost) {
-            moveCreep(creep, container);
+            movePath(creep, container, PathColors.PATHCOLOR_HARVESTER);
           } else {
             if (target.length > 0) {
-              moveCreep(creep, target[0]);
+              movePath(creep, target[0], PathColors.PATHCOLOR_HARVESTER);
             }
           }
           // if there are no containers the creep will go to the spawn.
         } else {
           if (target.length > 0) {
-            moveCreep(creep, target[0]);
+            movePath(creep, target[0], PathColors.PATHCOLOR_HARVESTER);
           }
         }
       }
@@ -54,7 +55,7 @@ function moveCreep(creep: Creep, goal: AnyStructure) {
   if (creep.transfer(goal, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
     creep.memory.lockTask = false;
     creep.say("⛴︎ deliver");
-    movePath(creep, goal, pathColor);
+    movePath(creep, goal, PathColors.PATHCOLOR_HARVESTER);
   }
 }
 

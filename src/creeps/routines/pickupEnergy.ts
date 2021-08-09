@@ -1,3 +1,6 @@
+import { PathColors } from "utils/globalConsts";
+import { movePath } from "utils/vizPath";
+
 export default function (creep: Creep): void {
   const droppedEnergy = creep.room.find(FIND_DROPPED_RESOURCES, {
     filter: r => r.resourceType === RESOURCE_ENERGY
@@ -16,11 +19,11 @@ export default function (creep: Creep): void {
     creep.say(lootRuin.toString());
   }
   if (lootRuin === ERR_NOT_IN_RANGE) {
-    creep.moveTo(ruin[0]);
+    movePath(creep, ruin[0], PathColors.PATHCOLOR_PICKUPENERGY);
   }
 
   if (tombstones.length) {
-    creep.moveTo(tombstones[0]);
+    movePath(creep, tombstones[0], PathColors.PATHCOLOR_PICKUPENERGY);
     const lootTombstone = creep.withdraw(tombstones[0], RESOURCE_ENERGY);
     creep.say(lootTombstone.toString());
   }

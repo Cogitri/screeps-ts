@@ -8,14 +8,15 @@ export default {
   /** Minimum Tower Capacity */
   TARGET_TOWER_CAPACITY: 300
 };
-export enum Colors {
-  PATHCOLOR_PICKUPENERGY = "harvester",
+export enum PathColors {
   PATHCOLOR_BUILDER = "#ffff33",
-  PATHCOLOR_ENERGIZE_TOWER = "harvester",
+  PATHCOLOR_ENERGIZE_TOWER = "#FFFFFF",
   PATHCOLOR_FARM = "#ffff33",
-  PATHCOLOR_HARVESTER = "harvester",
+  PATHCOLOR_HARVESTER = "#FFFFFF",
+  PATHCOLOR_PICKUPENERGY = "#FFFFFF",
+  PATHCOLOR_REPAIR = "#FFFFFF",
   PATHCOLOR_SOLDIER = "#ff3333",
   PATHCOLOR_TRANSPORT = "#33d6ff",
-  PATHCOLOR_UPGRADE = "harvester",
-  PATHCOLOR_WITHDRAW = "builder"
+  PATHCOLOR_UPGRADE = "#00e600",
+  PATHCOLOR_WITHDRAW = "#FFFFFF"
 }
