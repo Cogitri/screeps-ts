@@ -90,8 +90,9 @@ export default function (spawn: StructureSpawn): void {
   // check number of creeps
   if (upgradersCount) {
     if (upgraders.length < 1) {
-      Logger.info("Spawning an Upgrader");
-      spawnUpgrader(spawn);
+      if (spawnUpgrader(spawn) === OK) {
+        Logger.info("Spawning an Upgrader");
+      }
     }
   }
   object = {};
@@ -105,8 +106,9 @@ export default function (spawn: StructureSpawn): void {
   // check number of creeps
   if (repairersCount) {
     if (repairers.length < 1) {
-      Logger.info("Spawning a Repairer");
-      spawnRepairer(spawn);
+      if (spawnRepairer(spawn) === OK) {
+        Logger.info("Spawning a Repairer");
+      }
     }
   }
 }
