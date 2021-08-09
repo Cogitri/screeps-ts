@@ -19,6 +19,7 @@ declare global {
     pathToController: boolean;
     logLevel: LogLevel;
     creepCount: { [k: string]: number };
+    pathToSources: { [k: string]: boolean };
   }
   /**
    *  Creep Memory Interface
