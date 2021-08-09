@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 import { Logger } from "utils/logger";
 import { PathColors } from "utils/globalConsts";
-=======
->>>>>>> 5ccc7b3 (#91 fixed find room in repairer)
 import { movePath } from "./../../utils/vizPath";
 // eslint-disable-next-line sort-imports
 import checkCreepCapacity from "./checkCreepCapacity";
@@ -10,11 +7,7 @@ import routineFarm from "./routineFarm";
 import routineTransporter from "./routineTransporter";
 
 export default function (creep: Creep): void {
-<<<<<<< HEAD
   // check for damaged structures
-=======
-  // check for damaged strzuctures
->>>>>>> 5ccc7b3 (#91 fixed find room in repairer)
   const damagedStructures = creep.room.find(FIND_STRUCTURES, {
     filter: s =>
       (s.structureType === STRUCTURE_WALL && s.hits < 0.001 * s.hitsMax) ||
@@ -31,7 +24,6 @@ export default function (creep: Creep): void {
   if (!creep.memory.working) {
     if (checkCreepCapacity(creep)) {
       routineFarm(creep);
-<<<<<<< HEAD
       if (creep.memory.currentTask !== "farm") {
         Logger.info(`${creep.name} switched to farm routine`);
         creep.memory.currentTask = "farm";
@@ -43,11 +35,6 @@ export default function (creep: Creep): void {
         creep.memory.currentTask = "repair";
       }
     } else if (targets.length !== 0) {
-=======
-    } else if (checkDamagedStructure(damagedStructures[0])) {
-      repair(creep);
-    } else if (checkConstructionSite(targets[0])) {
->>>>>>> 5ccc7b3 (#91 fixed find room in repairer)
       buildByPriority(creep);
     } else {
       routineTransporter(creep);

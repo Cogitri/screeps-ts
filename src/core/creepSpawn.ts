@@ -89,4 +89,18 @@ export default function (spawn: StructureSpawn): void {
       spawnUpgrader(spawn);
     }
   }
+  object = {};
+  Object.entries(
+    Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === CreepRoles.ROLE_REPAIRER)
+  ).forEach(([k, v]) => {
+    object[k] = v as [string, Creep];
+  });
+  const repairersCount = creepCount.get(CreepRoles.ROLE_TRANSPORTER);
+  const repairers = Object.values(object);
+  // check number of creeps
+  if (repairersCount) {
+    if (repairers.length < 1) {
+      spawnRepairer(spawn);
+    }
+  }
 }
