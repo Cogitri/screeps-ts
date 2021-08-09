@@ -86,6 +86,7 @@ export class TestUtil {
       body: this.composeBody(),
       memory: { lockTask: false, working: false, currentTask: "null" },
       room: undefined,
+      name: undefined,
       transfer: () => OK,
       harvest: () => OK,
       say: () => OK,
