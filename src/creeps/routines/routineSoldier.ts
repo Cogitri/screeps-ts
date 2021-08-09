@@ -44,6 +44,7 @@ export default function (creep: Creep): void {
 function shouldFightEnemy(enemy: AnyCreep, us: AnyCreep): boolean {
   // Don't fight powercreeps unless it's neccessary as we can't determine their body parts
   // Hack to determine whether the enemy is a PowerCreep since we can't use instanceof
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   if (!(enemy as any).body) {
     // Give us a little advantage as PowerCreeps are probably stronger
     if (us.hits - enemy.hits > HP_THRESHOLD) {
