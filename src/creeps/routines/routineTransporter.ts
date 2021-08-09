@@ -1,11 +1,10 @@
-import globalConsts from "utils/globalConsts";
+import globalConsts, { Colors } from "utils/globalConsts";
 import { movePath } from "utils/vizPath";
 import routineEnergizeTower from "./routineEnergizeTower";
 import routineUpgrade from "./routineUpgrade";
 import routineWithdraw from "./routineWithdraw";
 
 export default function (creep: Creep): void {
-  const pathColor = "#33d6ff";
   if (!creep.memory.working) {
     if (checkCreepCapacity(creep)) {
       routineWithdraw(creep);
@@ -30,7 +29,7 @@ export default function (creep: Creep): void {
           if (creep.transfer(target[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
             creep.memory.lockTask = false;
             creep.say("⛴︎ deliver");
-            movePath(creep, target[0], pathColor);
+            movePath(creep, target[0], Colors.PATHCOLOR_TRANSPORT);
           }
         }
       }

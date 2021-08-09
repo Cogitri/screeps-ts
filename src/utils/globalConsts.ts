@@ -15,8 +15,7 @@ export enum Colors {
   PATHCOLOR_FARM = "#ffff33",
   PATHCOLOR_HARVESTER = "harvester",
   PATHCOLOR_SOLDIER = "#ff3333",
-  PATHCOLOR_TOWER = "harvester",
-  PATHCOLOR_TRANSPORT = "builder",
+  PATHCOLOR_TRANSPORT = "#33d6ff",
   PATHCOLOR_UPGRADE = "harvester",
   PATHCOLOR_WITHDRAW = "builder"
 }
