@@ -1,5 +1,8 @@
 import { Logger } from "utils/logger";
+<<<<<<< HEAD
 import { PathColors } from "utils/globalConsts";
+=======
+>>>>>>> ba8924e ( #79 Logausgabe nutzen)
 import { movePath } from "utils/vizPath";
 import routineTransporter from "./routineTransporter";
 const BODY_PART_THRESHOLD = 5;
@@ -31,6 +34,7 @@ export default function (creep: Creep): void {
       Logger.info(`${creep.name} switched to fighting routine`);
       creep.memory.currentTask = "attack";
     }
+<<<<<<< HEAD
   }
 }
 
@@ -52,6 +56,8 @@ function shouldFightEnemy(enemy: AnyCreep, us: AnyCreep): boolean {
       return true;
     }
     return false;
+=======
+>>>>>>> ba8924e ( #79 Logausgabe nutzen)
   }
   // We need the body object to determince calcs, so a PowerCreep Soldier has less checks
   const enemyBodyCare = (enemy as Creep).body.filter(p => p.type === "attack" || p.type === "tough");
