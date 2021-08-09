@@ -1,4 +1,5 @@
 import globalConsts from "utils/globalConsts";
+import { movePath } from "utils/vizPath";
 import routineEnergizeTower from "./routineEnergizeTower";
 import routineUpgrade from "./routineUpgrade";
 import routineWithdraw from "./routineWithdraw";
@@ -30,7 +31,7 @@ export default function (creep: Creep): void {
             creep.say("✈️ deliver");
             creep.memory.announcedTask = true;
           }
-          creep.moveTo(target[0], { visualizePathStyle: { stroke: pathColor } });
+          movePath(creep, target[0], pathColor);
         }
       }
     }

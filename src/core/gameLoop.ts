@@ -1,12 +1,13 @@
-import { CreepRoles } from "utils/globalConsts";
-import { Logger } from "utils/logger";
+/* eslint-disable sort-imports */
 import createConstructions from "./createConstructions";
 import creepSpawn from "./creepSpawn";
 import creepWork from "./creepWork";
+import { help } from "utils/commands";
 import pickupEnergy from "../creeps/routines/pickupEnergy";
 import routineTower from "../creeps/routines/routineTower";
 import { visualizeControllerProgress } from "../utils/vizControllerLvl";
 import { visualizeSpawnerProgress } from "../utils/vizSpawner";
+import { Logger } from "utils/logger";
 
 export default function (): void {
   // Refresh variables in memory
@@ -48,4 +49,12 @@ function refreshMemory(): void {
   } else {
     Logger.logLevel = Memory.logLevel;
   }
+}
+
+/**
+ * Needs to be called outside of any Game Loop to be executed only when new code is uploaded.
+ * @link https://wiki.screepspl.us/index.php/Global_reset
+ */
+export function init(): void {
+  Logger.info(help());
 }

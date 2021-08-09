@@ -1,3 +1,4 @@
+import { movePath } from "utils/vizPath";
 import routineTransporter from "./routineTransporter";
 
 export default function (creep: Creep): void {
@@ -25,7 +26,7 @@ export default function (creep: Creep): void {
       creep.say("⚔️ attack");
       creep.memory.announcedTask = true;
     }
-    creep.moveTo(enemy, { visualizePathStyle: { stroke: pathColor } });
+    movePath(creep, enemy, pathColor);
     creep.memory.target = enemy;
   }
 }

@@ -1,3 +1,5 @@
+import { movePath } from "./../../utils/vizPath";
+
 export default function (creep: Creep): void {
   const pathColor = "#ffff33";
 
@@ -9,6 +11,6 @@ export default function (creep: Creep): void {
       creep.memory.announcedTask = true;
     }
 
-    creep.moveTo(sources[0], { visualizePathStyle: { stroke: pathColor } });
+    movePath(creep, sources[0], pathColor);
   }
 }

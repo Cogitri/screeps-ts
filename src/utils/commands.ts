@@ -15,6 +15,18 @@ export function showRole(role: string): string {
   }
 }
 
+/**
+ * Lists all implemented commands. Besides being a command itself, gets called on script start
+ * @returns string that lists all implemented commands
+ */
+export function help(): string {
+  return `The following commands are currently provided: \n
+          help(): shows a list of all commands\n
+          logLevel(string): adjusts the log level. Provided argument must be one of ('debug', 'info', 'warn', 'error')\n
+          findRole(string): finds creeps of provided role. e.g. 'harvester'\n
+          sayHello(string): finds the creep by provided name`;
+}
+
 export function logLevel(ls: keyof typeof LogLevel): string {
   if (Object.values(LogLevel).some(ll => ll === ls.toUpperCase())) {
     const l: LogLevel = LogLevel[ls.toString().toUpperCase() as keyof typeof LogLevel];
@@ -44,4 +56,26 @@ export function findCreep(name: string): string {
     }
   }
   return "Der gesuchte Screep wurde nicht gefunden.";
+}
+
+// enable text visuals
+export function toggleTextViz(): string {
+  if (global.textViz) {
+    global.textViz = false;
+    return "Disabled all textual room visuals";
+  } else {
+    global.textViz = true;
+    return "Enabled all textual room visuals";
+  }
+}
+
+// enable path visuals
+export function togglePathViz(): string {
+  if (global.pathViz) {
+    global.pathViz = false;
+    return "Disabled all path visuals";
+  } else {
+    global.pathViz = true;
+    return "Enabled all path visuals";
+  }
 }

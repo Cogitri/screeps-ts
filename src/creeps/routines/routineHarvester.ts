@@ -1,3 +1,4 @@
+import { movePath } from "./../../utils/vizPath";
 import routineFarm from "./routineFarm";
 import routineUpgrade from "./routineUpgrade";
 
@@ -54,7 +55,7 @@ function moveCreep(creep: Creep, goal: AnyStructure) {
       creep.say("⛴︎ deliver");
       creep.memory.announcedTask = true;
     }
-    creep.moveTo(goal, { visualizePathStyle: { stroke: pathColor } });
+    movePath(creep, goal, pathColor);
   }
 }
 
