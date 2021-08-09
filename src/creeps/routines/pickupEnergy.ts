@@ -9,9 +9,12 @@ export default function (creep: Creep): void {
   const tombstones = creep.room.find(FIND_TOMBSTONES);
 
   if (droppedEnergy.length) {
-    movePath(creep, droppedEnergy[0], PathColors.PATHCOLOR_PICKUPENERGY);
-    const pickupDropped = creep.pickup(droppedEnergy[0]);
-    creep.say(pickupDropped.toString());
+    // the harvester is the one dropping it so the creep would just be in a loop of dropping and picking up
+    if (creep.memory.role !== "harvester") {
+      movePath(creep, droppedEnergy[0], PathColors.PATHCOLOR_PICKUPENERGY);
+      const pickupDropped = creep.pickup(droppedEnergy[0]);
+      creep.say(pickupDropped.toString());
+    }
   }
 
   const lootRuin = creep.withdraw(ruin[0], RESOURCE_ENERGY);
