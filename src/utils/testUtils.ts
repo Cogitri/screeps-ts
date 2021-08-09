@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 import { mockGlobal, mockInstanceOf } from "screeps-jest";
-import { LogLevel } from "./logger";
 
 // cp from lib lel :)
 // Needed as we must pass `DeepPartialObject<T>` as a type but can't import it
@@ -43,8 +43,7 @@ export class TestUtil {
       search: () => OK
     });
     mockGlobal<Memory>("Memory", {
-      creepCount: {},
-      logLevel: LogLevel.DEBUG
+      creepCount: {}
     });
   }
 
