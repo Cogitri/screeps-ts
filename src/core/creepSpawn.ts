@@ -58,8 +58,9 @@ export default function (spawn: StructureSpawn): void {
   const soldierCount = creepCount.get(CreepRoles.ROLE_SOLDIER);
   if (soldierCount) {
     if (soldiers.length < soldierCount) {
-      Logger.info("Spawning a Soldier");
-      spawnSoldier(spawn);
+      if (spawnSoldier(spawn) === OK) {
+        Logger.info("Spawning a Soldier");
+      }
     }
   }
   object = {};
