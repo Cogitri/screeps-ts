@@ -9,7 +9,7 @@ export default function (creep: Creep): void {
   const tombstones = creep.room.find(FIND_TOMBSTONES);
 
   if (droppedEnergy.length) {
-    creep.moveTo(droppedEnergy[0]);
+    movePath(creep, droppedEnergy[0], PathColors.PATHCOLOR_PICKUPENERGY);
     const pickupDropped = creep.pickup(droppedEnergy[0]);
     creep.say(pickupDropped.toString());
   }

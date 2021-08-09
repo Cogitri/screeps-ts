@@ -9,14 +9,14 @@ export default {
   TARGET_TOWER_CAPACITY: 300
 };
 export enum PathColors {
-  PATHCOLOR_BUILDER = "#ffff33",
-  PATHCOLOR_ENERGIZE_TOWER = "#FFFFFF",
-  PATHCOLOR_FARM = "#ffff33",
-  PATHCOLOR_HARVESTER = "#FFFFFF",
-  PATHCOLOR_PICKUPENERGY = "#FFFFFF",
-  PATHCOLOR_REPAIR = "#FFFFFF",
-  PATHCOLOR_SOLDIER = "#ff3333",
-  PATHCOLOR_TRANSPORT = "#33d6ff",
-  PATHCOLOR_UPGRADE = "#00e600",
-  PATHCOLOR_WITHDRAW = "#FFFFFF"
+  PATHCOLOR_BUILDER = "#ffff33", // yellow
+  PATHCOLOR_ENERGIZE_TOWER = "#ff5533", // neon orange
+  PATHCOLOR_FARM = "#ffc400", // light orange
+  PATHCOLOR_HARVESTER = "#ffc400", // light orange
+  PATHCOLOR_PICKUPENERGY = "#00ff9d", // mint green
+  PATHCOLOR_REPAIR = "#ffff33", // yellow
+  PATHCOLOR_SOLDIER = "#ff3333", // red
+  PATHCOLOR_TRANSPORT = "#33d6ff", // light blue
+  PATHCOLOR_UPGRADE = "#00e600", // light green
+  PATHCOLOR_WITHDRAW = "#ff3080" // pink
 }

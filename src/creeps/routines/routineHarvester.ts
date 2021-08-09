@@ -38,13 +38,13 @@ export default function (creep: Creep): void {
             movePath(creep, container, PathColors.PATHCOLOR_HARVESTER);
           } else {
             if (target.length > 0) {
-              movePath(creep, target[0], PathColors.PATHCOLOR_HARVESTER);
+              moveCreep(creep, target[0]);
             }
           }
           // if there are no containers the creep will go to the spawn.
         } else {
           if (target.length > 0) {
-            movePath(creep, target[0], PathColors.PATHCOLOR_HARVESTER);
+            moveCreep(creep, target[0]);
           }
         }
       }
