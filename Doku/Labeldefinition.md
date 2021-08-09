@@ -2,7 +2,7 @@
 
 Der Vorgang wird durch einen Entwickler bearbeitet.
 
-Wird von einem Entwickler gesetzt, wenn dieser einen Vorgang aus dem Sprint-Backlog anfängt zu bearbeiten, oder wenn es offene Anmerkungen aus dem CR gibt, die bearbeitet werden müssen.
+Wird von einem Entwickler gesetzt, wenn dieser den Vorgang aus dem Sprint-Backlog anfängt zu bearbeiten. Wenn ein anderer Entwickler im CR Anmerkungen finden, setzt dieser den Vorgang ebenfalls wieder auf Entwicklung.
 
 ### Code Review
 
