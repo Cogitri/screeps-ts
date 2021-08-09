@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
 import { mockGlobal, mockInstanceOf } from "screeps-jest";
 
 // cp from lib lel :)
