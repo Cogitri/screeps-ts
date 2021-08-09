@@ -78,4 +78,4 @@ Beim Anlegen der Vorgänge werden diesen eine Priorität zugeordnet. Diese häng
 
 ### Ist das Feedback vom Kunden/User ins Product Backlog eingeflossen?
 
-Das Feedback was wir von Jacky bekommen haben, wurde direkt in Vorgänge umgesetzt und zum Teil schon bearbeitet.
+Das Feedback, welches wir von Jacky bekommen haben, wurde direkt in Vorgänge umgesetzt und zum Teil schon bearbeitet.
