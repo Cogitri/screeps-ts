@@ -5,7 +5,8 @@ import routineFarm from "./routineFarm";
 import routineTransporter from "./routineTransporter";
 
 export default function (creep: Creep): void {
-  const damagedStructure = creep.room.find(FIND_STRUCTURES, {
+  // check for damaged strzuctures
+  const damagedStructures = creep.room.find(FIND_STRUCTURES, {
     filter: s =>
       (s.structureType === STRUCTURE_WALL && s.hits < 0.001 * s.hitsMax) ||
       (s.structureType === STRUCTURE_RAMPART && s.hits < 0.01 * s.hitsMax) ||
@@ -25,8 +26,8 @@ export default function (creep: Creep): void {
         Logger.info(`${creep.name} switched to farm routine`);
         creep.memory.currentTask = "farm";
       }
-    } else if (checkDamagedStructure(damagedStructure[0])) {
-      repair(creep, damagedStructure[0]);
+    } else if (checkDamagedStructure(damagedStructures[0])) {
+      repair(creep);
       if (creep.memory.currentTask !== "repair") {
         Logger.info(`${creep.name} switched to repair routine`);
         creep.memory.currentTask = "repair";
@@ -49,11 +50,24 @@ function build(creep: Creep, target: ConstructionSite): void {
 }
 
 // Function to start repairing
-function repair(creep: Creep, damagedStructure: AnyStructure): void {
-  if (creep.repair(damagedStructure) === ERR_NOT_IN_RANGE) {
-    creep.memory.lockTask = true;
-    creep.say("🛠️ repair");
-    movePath(creep, damagedStructure, PathColors.PATHCOLOR_REPAIR);
+function repair(creep: Creep): void {
+  // check for closest damaged structure
+  const damagedStructure = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+    filter: s =>
+      (s.structureType === STRUCTURE_WALL && s.hits < 0.001 * s.hitsMax) ||
+      (s.structureType === STRUCTURE_RAMPART && s.hits < 0.01 * s.hitsMax) ||
+      (s.structureType === STRUCTURE_ROAD && s.hits < 0.25 * s.hitsMax) ||
+      (s.structureType !== STRUCTURE_RAMPART &&
+        s.structureType !== STRUCTURE_WALL &&
+        s.structureType !== STRUCTURE_ROAD &&
+        s.hits < 0.69 * s.hitsMax)
+  });
+  if (damagedStructure) {
+    if (creep.repair(damagedStructure) === ERR_NOT_IN_RANGE) {
+      creep.memory.lockTask = true;
+      creep.say("🛠️ repair");
+      movePath(creep, damagedStructure, PathColors.PATHCOLOR_REPAIR);
+    }
   }
 }
 
