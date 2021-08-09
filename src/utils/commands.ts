@@ -25,7 +25,8 @@ export function help(): string {
           help(): shows a list of all commands\n
           logLevel(string): adjusts the log level. Provided argument must be one of ('debug', 'info', 'warn', 'error')\n
           findRole(string): finds creeps of provided role. e.g. 'harvester'\n
-          sayHello(string): finds the creep by provided name`;
+          sayHello(string): finds the creep by provided name\n
+          changeCreepCount(string, number): changes the max amount of concurrent creeps of the given type (e.g. 'harvester', 5 => max amount of 5 concurrent harvesters)`;
 }
 
 export function logLevel(ls: keyof typeof LogLevel): string {
