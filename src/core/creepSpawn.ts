@@ -24,8 +24,9 @@ export default function (spawn: StructureSpawn): void {
   const builderCount = creepCount.get(CreepRoles.ROLE_BUILDER);
   if (builderCount) {
     if (builders.length < builderCount) {
-      Logger.info("Spawning a Builder");
-      spawnBuilder(spawn);
+      if (spawnBuilder(spawn) === OK) {
+        Logger.info("Spawning a Builder");
+      }
     }
   }
 
@@ -40,8 +41,9 @@ export default function (spawn: StructureSpawn): void {
   const harvesterCount = creepCount.get(CreepRoles.ROLE_HARVESTER);
   if (harvesterCount) {
     if (harvesters.length < harvesterCount) {
-      Logger.info("Spawning a Harvester");
-      spawnHarvester(spawn);
+      if (spawnHarvester(spawn) === OK) {
+        Logger.info("Spawning a Harvester");
+      }
     }
   }
 
