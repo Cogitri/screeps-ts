@@ -8,6 +8,7 @@ import routineTower from "../creeps/routines/routineTower";
 import { visualizeControllerProgress } from "../utils/vizControllerLvl";
 import { visualizeSpawnerProgress } from "../utils/vizSpawner";
 import { Logger } from "utils/logger";
+import { CreepRoles } from "utils/globalConsts";
 
 export default function (): void {
   // Refresh variables in memory
