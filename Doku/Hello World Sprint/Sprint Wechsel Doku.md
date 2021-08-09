@@ -25,7 +25,7 @@ Issues wurden Gitlab erstellt, damit wir Source-Control und Issues auf der selbe
 
 #### Nutze dabei die in der Vorlesung vorgestellte Struktur von Stories
 
-Da wir unsere Tickets in GitLab anlegen, haben wir nicht die Möglichkeit Task anzulegen. Stattdessen versuchen wir die Issues so zuformulieren und mit dem Entwicklerteam abzustimmen, das sie in etwa auf die Größe und den Aufwand eines Tasks haben.
+Da wir unsere Tickets in GitLab anlegen, haben wir nicht die Möglichkeit Task anzulegen. Stattdessen versuchen wir die Issues so zu formulieren und mit dem Entwicklerteam abzustimmen, dass sie in etwa die Größe und den Aufwand eines Tasks haben.
 
 #### Beginne mit den wichtigsten Inhalten
 
