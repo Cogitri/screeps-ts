@@ -4,7 +4,7 @@ import { Logger } from "utils/logger";
 import createConstructions from "./createConstructions";
 import creepSpawn from "./creepSpawn";
 import creepWork from "./creepWork";
-import { defaultCreepCount } from "utils/globalConsts";
+import globalConsts from "utils/globalConsts";
 import { help } from "utils/commands";
 import pickupEnergy from "../creeps/routines/pickupEnergy";
 import routineTower from "../creeps/routines/routineTower";
@@ -52,7 +52,7 @@ function refreshMemory(): void {
     Logger.logLevel = Memory.logLevel;
   }
   if (!Memory.creepCount) {
-    const object = Object.fromEntries(defaultCreepCount());
+    const object = Object.fromEntries(globalConsts.DEFAULT_CREEP_COUNT);
     Memory.creepCount = object;
   }
 }

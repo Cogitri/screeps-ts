@@ -7,7 +7,13 @@ export enum CreepRoles {
 
 export default {
   /** Minimum Tower Capacity */
-  TARGET_TOWER_CAPACITY: 300
+  TARGET_TOWER_CAPACITY: 300,
+  DEFAULT_CREEP_COUNT: new Map<string, number>([
+    [CreepRoles.ROLE_HARVESTER, 3],
+    [CreepRoles.ROLE_BUILDER, 3],
+    [CreepRoles.ROLE_SOLDIER, 1],
+    [CreepRoles.ROLE_TRANSPORTER, 3]
+  ])
 };
 
 export enum PathColors {
@@ -21,14 +27,4 @@ export enum PathColors {
   PATHCOLOR_TRANSPORT = "#33d6ff", // light blue
   PATHCOLOR_UPGRADE = "#00e600", // light green
   PATHCOLOR_WITHDRAW = "#ff3080" // pink
-}
-
-export function defaultCreepCount(): Map<string, number> {
-  const map = new Map<string, number>([
-    [CreepRoles.ROLE_HARVESTER, 3],
-    [CreepRoles.ROLE_BUILDER, 3],
-    [CreepRoles.ROLE_SOLDIER, 1],
-    [CreepRoles.ROLE_TRANSPORTER, 3]
-  ]);
-  return map;
 }
