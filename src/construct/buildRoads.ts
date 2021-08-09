@@ -34,8 +34,8 @@ export function buildRoadToSource(spawn: StructureSpawn): void {
   const sources = spawn.room.find(FIND_SOURCES);
   // looping through each source to find the path between source and spawn
   sources.forEach(source => {
-    const map = new Map<string, boolean>(Object.entries(Memory.pathToSources));
-    if (map.has(source.id.toString()) && map.get(source.id)) {
+    const map = new Map(Object.entries(Memory.pathToSources));
+    if (!map.has(source.id.toString()) || !map.get(source.id)) {
       const path = spawn.room.findPath(spawn.pos, source.pos);
       // pop the last element of the array because its the controller position
       path.pop();
