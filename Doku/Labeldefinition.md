@@ -54,7 +54,7 @@ Der Vorgang hat eine hohe Priorität für das Produkt Ziel, oder wird benötigt,
 
 ### PO
 
-Der Vorgang beschreibt eine Aufgabe des PO's.
+Der Vorgang beschreibt eine Aufgabe des POs.
 
 ### Scrum Master
 
