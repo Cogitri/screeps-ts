@@ -1,5 +1,5 @@
-import { movePath } from "./../../utils/vizPath";
 import { PathColors } from "utils/globalConsts";
+import { movePath } from "./../../utils/vizPath";
 import routineFarm from "./routineFarm";
 import routineTransporter from "./routineTransporter";
 
