@@ -80,7 +80,7 @@ export function buildRoadAroundSpawn(spawn: StructureSpawn): void {
  * A Function that checks if the given position is occupied by Structure
  * @param x x-position of the position that should be checked
  * @param y y-position of the position that should be checked
- * @param room the room thate contains the position
+ * @param room the room that contains the position
  * @returns true if there is Structure at the given position
  */
 function checkForStructure(x: number, y: number, room: Room): boolean {
