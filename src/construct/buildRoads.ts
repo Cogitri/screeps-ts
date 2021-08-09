@@ -56,7 +56,7 @@ export function buildRoadToSource(spawn: StructureSpawn): void {
 }
 /**
  * Construct Roads at all available positions around the given spawn
- * @param spawn the spawn that the roads should be construct around
+ * @param spawn the spawn that the roads should be constructed around
  */
 export function buildRoadAroundSpawn(spawn: StructureSpawn): void {
   const constructionSites = spawn.room.find(FIND_MY_CONSTRUCTION_SITES);
