@@ -84,7 +84,7 @@ export class TestUtil {
     return mockInstanceOf<Creep>({
       store: { getFreeCapacity: () => 0, energy: 50 },
       body: this.composeBody(),
-      memory: { lockTask: false, working: false },
+      memory: { lockTask: false, working: false, currentTask: "null" },
       room: undefined,
       transfer: () => OK,
       harvest: () => OK,
