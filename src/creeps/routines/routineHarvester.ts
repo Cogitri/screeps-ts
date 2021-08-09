@@ -41,8 +41,8 @@ export default function (creep: Creep): void {
           }
         });
         // check if there are any containers
-        if (container !== undefined && container != null) {
-          // check if the container is closer than the spwan based on the cost.
+        if (container) {
+          // check if the container is closer than the spawn based on the cost.
           if (PathFinder.search(creep.pos, container.pos).cost < PathFinder.search(creep.pos, target[0].pos).cost) {
             movePath(creep, container, PathColors.PATHCOLOR_HARVESTER);
           } else {
