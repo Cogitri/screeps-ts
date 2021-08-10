@@ -1,4 +1,5 @@
 import globalConsts, { CreepRoles } from "utils/globalConsts";
+
 import { TestUtil } from "utils/testUtils";
 import { changeCreepCount } from "utils/commands";
 import creepSpawn from "../core/creepSpawn";
@@ -24,12 +25,8 @@ describe("spawnCreeps", () => {
     creepSpawn(spawn);
     creepSpawn(spawn);
 
-    const builders = Object.values(
-      Object.fromEntries(
-        Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === CreepRoles.ROLE_BUILDER)
-      )
-    );
-    expect(builders.length).toEqual(5);
+    const builders = getCreepsPerRole(CreepRoles.ROLE_BUILDER);
+    expect(builders).toEqual(5);
 
     const creepCountMap = new Map(Object.entries(Memory.creepCount));
     expect(creepCountMap.get("builder")).toEqual(5);
@@ -40,33 +37,17 @@ describe("spawnCreeps", () => {
     for (let i = 0; i < 10; i++) {
       creepSpawn(spawn);
     }
-    const builders = Object.values(
-      Object.fromEntries(
-        Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === CreepRoles.ROLE_BUILDER)
-      )
-    );
-    expect(builders.length).toEqual(globalConsts.DEFAULT_CREEP_COUNT.get(CreepRoles.ROLE_BUILDER));
+    const builders = getCreepsPerRole(CreepRoles.ROLE_BUILDER);
+    expect(builders).toEqual(globalConsts.DEFAULT_CREEP_COUNT.get(CreepRoles.ROLE_BUILDER));
 
-    const harvester = Object.values(
-      Object.fromEntries(
-        Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === CreepRoles.ROLE_HARVESTER)
-      )
-    );
-    expect(harvester.length).toEqual(globalConsts.DEFAULT_CREEP_COUNT.get(CreepRoles.ROLE_HARVESTER));
+    const harvester = getCreepsPerRole(CreepRoles.ROLE_HARVESTER);
+    expect(harvester).toEqual(globalConsts.DEFAULT_CREEP_COUNT.get(CreepRoles.ROLE_HARVESTER));
 
-    const soldiers = Object.values(
-      Object.fromEntries(
-        Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === CreepRoles.ROLE_SOLDIER)
-      )
-    );
-    expect(soldiers.length).toEqual(globalConsts.DEFAULT_CREEP_COUNT.get(CreepRoles.ROLE_SOLDIER));
+    const soldiers = getCreepsPerRole(CreepRoles.ROLE_SOLDIER);
+    expect(soldiers).toEqual(globalConsts.DEFAULT_CREEP_COUNT.get(CreepRoles.ROLE_SOLDIER));
 
-    const transporters = Object.values(
-      Object.fromEntries(
-        Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === CreepRoles.ROLE_TRANSPORTER)
-      )
-    );
-    expect(transporters.length).toEqual(globalConsts.DEFAULT_CREEP_COUNT.get(CreepRoles.ROLE_TRANSPORTER));
+    const transporters = getCreepsPerRole(CreepRoles.ROLE_TRANSPORTER);
+    expect(transporters).toEqual(globalConsts.DEFAULT_CREEP_COUNT.get(CreepRoles.ROLE_TRANSPORTER));
   });
 
   it("call function with invalid role name", () => {
@@ -80,3 +61,11 @@ describe("spawnCreeps", () => {
     expect(fncReturns).toMatch("Please enter a valid number");
   });
 });
+
+function getCreepsPerRole(role: string): number {
+  const object: { [k: string]: [string, Creep] } = {};
+  Object.entries(Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === role)).forEach(([k, v]) => {
+    object[k] = v as [string, Creep];
+  });
+  return Object.values(object).length;
+}

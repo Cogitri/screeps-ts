@@ -1,9 +1,11 @@
 import { help, printAuthors } from "utils/commands";
+
 import { Logger } from "utils/logger";
 import createConstructions from "./createConstructions";
 import creepSpawn from "./creepSpawn";
 import creepWork from "./creepWork";
 import globalConsts from "utils/globalConsts";
+import { mapToObject } from "utils/mapHelper";
 import pickupEnergy from "../creeps/routines/pickupEnergy";
 import routineTower from "../creeps/routines/routineTower";
 import { visualizeControllerProgress } from "../utils/vizControllerLvl";
@@ -49,13 +51,6 @@ function refreshMemory(): void {
   } else {
     Logger.logLevel = Memory.logLevel;
   }
-  if (!Memory.creepCount) {
-    const object: { [k: string]: number } = {};
-    Object.entries(globalConsts.DEFAULT_CREEP_COUNT).forEach(([k, v]) => {
-      object[k] = v as number;
-    });
-    Memory.creepCount = object;
-  }
 }
 
 /**
@@ -66,4 +61,6 @@ export function init(): void {
   Logger.info(printAuthors());
   Logger.info(help());
   Memory.pathToSources = {};
+  Memory.creepCount = mapToObject(globalConsts.DEFAULT_CREEP_COUNT);
+  Memory.roleBodyParts = mapToObject(globalConsts.DEFAULT_BODYPARTS);
 }
