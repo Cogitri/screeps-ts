@@ -6,18 +6,6 @@ import checkCreepCapacity from "./checkCreepCapacity";
 import routineTransporter from "./routineTransporter";
 
 export default function (creep: Creep): void {
-  // check for damaged structures
-  const damagedStructures = creep.room.find(FIND_STRUCTURES, {
-    filter: s =>
-      (s.structureType === STRUCTURE_WALL && s.hits < 0.001 * s.hitsMax) ||
-      (s.structureType === STRUCTURE_RAMPART && s.hits < 0.01 * s.hitsMax) ||
-      (s.structureType === STRUCTURE_ROAD && s.hits < 0.25 * s.hitsMax) ||
-      (s.structureType !== STRUCTURE_RAMPART &&
-        s.structureType !== STRUCTURE_WALL &&
-        s.structureType !== STRUCTURE_ROAD &&
-        s.hits < 0.69 * s.hitsMax)
-  });
-
   const target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
 
   if (checkCreepCapacity(creep)) {
@@ -30,8 +18,8 @@ export default function (creep: Creep): void {
 
   if (creep.memory.isWorking && target) {
     buildByPriority(creep);
-  } else if (creep.memory.isWorking && damagedStructures[0]) {
-    repair(creep, damagedStructures[0]);
+  } else if (creep.memory.isWorking) {
+    repair(creep);
     if (creep.memory.currentTask !== "repair") {
       Logger.info(`${creep.name} switched to repair routine`);
       creep.memory.currentTask = "repair";
@@ -51,13 +39,24 @@ function build(creep: Creep, target: ConstructionSite): void {
 }
 
 // Function to start repairing
-function repair(creep: Creep, damagedStructure: AnyStructure): void {
-  if (creep.repair(damagedStructure) === ERR_NOT_IN_RANGE) {
-    if (!creep.memory.announcedTask) {
+function repair(creep: Creep): void {
+  // check for closest damaged structure
+  const damagedStructure = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+    filter: s =>
+      (s.structureType === STRUCTURE_WALL && s.hits < 0.001 * s.hitsMax) ||
+      (s.structureType === STRUCTURE_RAMPART && s.hits < 0.01 * s.hitsMax) ||
+      (s.structureType === STRUCTURE_ROAD && s.hits < 0.25 * s.hitsMax) ||
+      (s.structureType !== STRUCTURE_RAMPART &&
+        s.structureType !== STRUCTURE_WALL &&
+        s.structureType !== STRUCTURE_ROAD &&
+        s.hits < 0.69 * s.hitsMax)
+  });
+  if (damagedStructure) {
+    if (creep.repair(damagedStructure) === ERR_NOT_IN_RANGE) {
+      creep.memory.isWorking = true;
       creep.say("🛠️ repair");
-      creep.memory.announcedTask = true;
+      movePath(creep, damagedStructure, PathColors.PATHCOLOR_REPAIR);
     }
-    movePath(creep, damagedStructure, PathColors.PATHCOLOR_REPAIR);
   }
 }
 

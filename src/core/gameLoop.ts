@@ -3,6 +3,7 @@ import { Logger } from "utils/logger";
 import createConstructions from "./createConstructions";
 import creepSpawn from "./creepSpawn";
 import creepWork from "./creepWork";
+// eslint-disable-next-line sort-imports
 import globalConsts, { CreepRoles } from "utils/globalConsts";
 import pickupEnergy from "../creeps/routines/pickupEnergy";
 import routineTower from "../creeps/routines/routineTower";
