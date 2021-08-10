@@ -1,7 +1,18 @@
 /* eslint-disable @typescript-eslint/no-namespace */
+
 import { LogLevel, Logger } from "utils/logger";
-import { changeCreepCount, findCreep, help, logLevel, showRole, togglePathViz, toggleTextViz } from "./utils/commands";
+import {
+  changeBodyParts,
+  changeCreepCount,
+  findCreep,
+  help,
+  logLevel,
+  showRole,
+  togglePathViz,
+  toggleTextViz
+} from "./utils/commands";
 import gameLoop, { init } from "core/gameLoop";
+
 import { CreepRoles } from "utils/globalConsts";
 import { ErrorMapper } from "utils/ErrorMapper";
 
@@ -20,6 +31,7 @@ declare global {
     logLevel: LogLevel;
     creepCount: { [k: string]: number };
     pathToSources: { [k: string]: boolean };
+    roleBodyParts: { [k: string]: BodyPartConstant[] };
   }
   /**
    *  Creep Memory Interface
@@ -51,6 +63,7 @@ declare global {
       logLevel: (l: keyof typeof LogLevel) => void;
       sayHello: (name: string) => string;
       changeCreepCount: (role: string, count: number) => string;
+      changeBodyparts: (role: string, bodyparts: BodyPartConstant[]) => string;
     }
   }
 }
@@ -65,6 +78,7 @@ export const loop = ErrorMapper.wrapLoop(() => {
   global.toggleTextViz = toggleTextViz;
   global.togglePathViz = togglePathViz;
   global.changeCreepCount = changeCreepCount;
+  global.changeBodyparts = changeBodyParts;
 
   // Automatically delete memory of missing creeps
   for (const name in Memory.creeps) {

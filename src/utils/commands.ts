@@ -1,5 +1,7 @@
 import { LogLevel, Logger } from "./logger";
+
 import { CreepRoles } from "./globalConsts";
+import { mapToObject } from "./mapHelper";
 
 export function showRole(role: string): string {
   let found = 0;
@@ -26,7 +28,8 @@ export function help(): string {
           logLevel(string): adjusts the log level. Provided argument must be one of ('debug', 'info', 'warn', 'error')\n
           findRole(string): finds creeps of provided role. e.g. 'harvester'\n
           sayHello(string): finds the creep by provided name\n
-          changeCreepCount(string, number): changes the max amount of concurrent creeps of the given type (e.g. 'harvester', 5 => max amount of 5 concurrent harvesters)`;
+          changeCreepCount(string, number): changes the max amount of concurrent creeps of the given type (e.g. 'harvester', 5 => max amount of 5 concurrent harvesters)
+          changeBodyParts(string, [Bodyparts]): changes the bodyparts of the given role(e.g 'harvester', ['MOVE','MOVE','CARRY'] => harvester will now spawn with 2 Move and 1 Carry Bodypart)`;
 }
 
 export function logLevel(ls: keyof typeof LogLevel): string {
@@ -87,7 +90,7 @@ export function changeCreepCount(role: string, count: number): string {
         const map = new Map(Object.entries(Memory.creepCount));
         map.set(role, count);
 
-        Memory.creepCount = Object.fromEntries(map);
+        Memory.creepCount = mapToObject(map);
         return `Creep count for role ${role} set to ${count}`;
       } else {
         return `Please enter a positive number`;
@@ -110,4 +113,33 @@ export function changeCreepCount(role: string, count: number): string {
 export function printAuthors(): string {
   return `Screeps AEM Project developed by Team 8\n
     SM: Rasmus Thomsen, PO: Thorben Rolf, Developers: Dennis Schuetz, Janis Ciemnyjewski, Katharina Sprotte, Lara Laskowsky, Mattis Kunstmann, Mika Schrader, Paul Voss, Tim Brueggemann`;
+}
+
+export function changeBodyParts(role: string, bodyparts: BodyPartConstant[]): string {
+  if (Object.values<string>(CreepRoles).includes(role)) {
+    let validBodyparts = true;
+    bodyparts.forEach(bp => {
+      if (!BODYPARTS_ALL.includes(bp)) {
+        validBodyparts = false;
+        return;
+      }
+    });
+    if (!validBodyparts) {
+      const map = new Map<string, BodyPartConstant[]>(Object.entries(Memory.roleBodyParts));
+      map.set(role, bodyparts);
+      Memory.roleBodyParts = mapToObject(map);
+      return `New Bodypart Configeration set for role ${role} `;
+    } else {
+      return "Please only enter valid Bodyparts";
+    }
+  } else {
+    let roleArray = "";
+    Object.keys(CreepRoles)
+      .filter(k => isNaN(Number(k)))
+      .forEach(l => {
+        roleArray += `${l}, `;
+      });
+    roleArray = roleArray.substring(0, roleArray.length - 2);
+    return `Please enter a valid Creep role. The current roles are: ${roleArray} `;
+  }
 }

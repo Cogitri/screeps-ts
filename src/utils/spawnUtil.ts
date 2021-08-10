@@ -1,8 +1,14 @@
-import { CreepRoles } from "./globalConsts";
+import globalConsts, { CreepRoles } from "./globalConsts";
 
-export default function (role: CreepRoles, bodyParts: BodyPartConstant[], spawn: StructureSpawn): number {
+export default function (role: CreepRoles, spawn: StructureSpawn): number {
+  let body: BodyPartConstant[] = globalConsts.DEFAULT_BODYPARTS.get(CreepRoles.ROLE_BUILDER) as BodyPartConstant[];
+  const map = new Map(Object.entries(Memory.roleBodyParts));
+  if (map.size) {
+    body = map.get(CreepRoles.ROLE_BUILDER) as BodyPartConstant[];
+  }
+
   const name = `${role}${Game.time}${Math.trunc(Math.random() * 100)}`;
-  return spawn.spawnCreep(bodyParts, name, {
+  return spawn.spawnCreep(body, name, {
     memory: { role, room: spawn.room.name, isWorking: false, announcedTask: false, target: null, currentTask: "none" }
   });
 }

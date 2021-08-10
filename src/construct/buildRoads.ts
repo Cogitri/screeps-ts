@@ -1,3 +1,5 @@
+import { mapToObject } from "utils/mapHelper";
+
 export function buildRoadToController(spawn: StructureSpawn): void {
   const room = spawn.room;
   const constructionSites = spawn.room.find(FIND_MY_CONSTRUCTION_SITES);
@@ -47,11 +49,8 @@ export function buildRoadToSource(spawn: StructureSpawn): void {
           if (!checkForStructure(posX, posY, spawn.room)) {
             spawn.room.createConstructionSite(posX, posY, STRUCTURE_ROAD);
             map.set(source.id.toString(), true);
-            const object: { [k: string]: boolean } = {};
-            Object.entries(map).forEach(([k, v]) => {
-              object[k] = v as boolean;
-            });
-            Memory.pathToSources = object;
+
+            Memory.pathToSources = mapToObject(map);
           }
         });
       }

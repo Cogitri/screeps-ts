@@ -40,7 +40,8 @@ export class TestUtil {
       search: () => OK
     });
     mockGlobal<Memory>("Memory", {
-      creepCount: {}
+      creepCount: {},
+      roleBodyParts: {}
     });
   }
 

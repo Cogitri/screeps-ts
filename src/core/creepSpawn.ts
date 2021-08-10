@@ -13,102 +13,49 @@ export default function (spawn: StructureSpawn): void {
     creepCount = globalConsts.DEFAULT_CREEP_COUNT;
   }
 
-  let object: { [k: string]: [string, Creep] } = {};
-  Object.entries(
-    Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === CreepRoles.ROLE_BUILDER)
-  ).forEach(([k, v]) => {
-    object[k] = v as [string, Creep];
-  });
-  const builders = Object.values(object);
-  // check number of creeps
+  const builders = getCreepsPerRole(CreepRoles.ROLE_BUILDER);
   const builderCount = creepCount.get(CreepRoles.ROLE_BUILDER);
-  if (builderCount) {
-    if (builders.length < builderCount) {
-      if (spawnBuilder(spawn) === OK) {
-        Logger.info("Spawning a Builder");
-      }
-    }
-  }
 
-  object = {};
-  Object.entries(
-    Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === CreepRoles.ROLE_HARVESTER)
-  ).forEach(([k, v]) => {
-    object[k] = v as [string, Creep];
-  });
-  const harvesters = Object.values(object);
-  // check number of creeps
+  const harvesters = getCreepsPerRole(CreepRoles.ROLE_HARVESTER);
   const harvesterCount = creepCount.get(CreepRoles.ROLE_HARVESTER);
-  if (harvesterCount) {
-    if (harvesters.length < harvesterCount) {
-      if (spawnHarvester(spawn) === OK) {
-        Logger.info("Spawning a Harvester");
-      }
-    }
-  }
 
-  object = {};
-  Object.entries(
-    Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === CreepRoles.ROLE_SOLDIER)
-  ).forEach(([k, v]) => {
-    object[k] = v as [string, Creep];
-  });
-  const soldiers = Object.values(object);
-  // check number of creeps
+  const soldiers = getCreepsPerRole(CreepRoles.ROLE_SOLDIER);
   const soldierCount = creepCount.get(CreepRoles.ROLE_SOLDIER);
-  if (soldierCount) {
-    if (soldiers.length < soldierCount) {
-      if (spawnSoldier(spawn) === OK) {
-        Logger.info("Spawning a Soldier");
-      }
-    }
-  }
-  object = {};
-  Object.entries(
-    Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === CreepRoles.ROLE_TRANSPORTER)
-  ).forEach(([k, v]) => {
-    object[k] = v as [string, Creep];
-  });
-  const transporters = Object.values(object);
-  // check number of creeps
+
+  const transporters = getCreepsPerRole(CreepRoles.ROLE_TRANSPORTER);
   const transporterCount = creepCount.get(CreepRoles.ROLE_TRANSPORTER);
-  if (transporterCount) {
-    if (transporters.length < transporterCount) {
-      if (spawnTransporter(spawn) === OK) {
-        Logger.info("Spawning a Transporter");
-      }
-    }
+
+  const upgrader = getCreepsPerRole(CreepRoles.ROLE_UPGRADER);
+  const upgradderCount = creepCount.get(CreepRoles.ROLE_UPGRADER);
+
+  const repairer = getCreepsPerRole(CreepRoles.ROLE_REPAIRER);
+  const repairerCount = creepCount.get(CreepRoles.ROLE_REPAIRER);
+
+  if (harvesterCount && harvesters < harvesterCount) {
+    Logger.info("Spawning a Harvester");
+    spawnHarvester(spawn);
+  } else if (transporterCount && transporters < transporterCount) {
+    Logger.info("Spawning a Transporter");
+    spawnTransporter(spawn);
+  } else if (builderCount && builders < builderCount) {
+    Logger.info("Spawning a Builder");
+    spawnBuilder(spawn);
+  } else if (soldierCount && soldiers < soldierCount) {
+    Logger.info("Spawning a Soldier");
+    spawnSoldier(spawn);
+  } else if (upgradderCount && upgrader < upgradderCount) {
+    Logger.info("Spawning a Upgrader");
+    spawnUpgrader(spawn);
+  } else if (repairerCount && repairer < repairerCount) {
+    Logger.info("Spawning a Repairer");
+    spawnRepairer(spawn);
   }
-  object = {};
-  Object.entries(
-    Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === CreepRoles.ROLE_UPGRADER)
-  ).forEach(([k, v]) => {
+}
+
+function getCreepsPerRole(role: string): number {
+  const object: { [k: string]: [string, Creep] } = {};
+  Object.entries(Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === role)).forEach(([k, v]) => {
     object[k] = v as [string, Creep];
   });
-  const upgradersCount = creepCount.get(CreepRoles.ROLE_TRANSPORTER);
-  const upgraders = Object.values(object);
-  // check number of creeps
-  if (upgradersCount) {
-    if (upgraders.length < 1) {
-      if (spawnUpgrader(spawn) === OK) {
-        Logger.info("Spawning an Upgrader");
-      }
-    }
-  }
-  object = {};
-  Object.entries(
-    Object.entries(Game.creeps).filter(([, creep]) => creep.memory.role === CreepRoles.ROLE_REPAIRER)
-  ).forEach(([k, v]) => {
-    object[k] = v as [string, Creep];
-  });
-  const repairersCount = creepCount.get(CreepRoles.ROLE_TRANSPORTER);
-  const repairers = Object.values(object);
-  // check number of creeps
-  if (repairersCount) {
-    if (repairers.length < 1) {
-      if (spawnRepairer(spawn) === OK) {
-        Logger.info("Spawning a Repairer");
-      }
-    }
-  }
+  return Object.values(object).length;
 }

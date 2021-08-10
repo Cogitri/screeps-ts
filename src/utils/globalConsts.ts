@@ -17,6 +17,14 @@ export default {
     [CreepRoles.ROLE_TRANSPORTER, 3],
     [CreepRoles.ROLE_UPGRADER, 2],
     [CreepRoles.ROLE_REPAIRER, 1]
+  ]),
+  DEFAULT_BODYPARTS: new Map<string, BodyPartConstant[]>([
+    [CreepRoles.ROLE_HARVESTER, [WORK, MOVE, WORK, CARRY]],
+    [CreepRoles.ROLE_BUILDER, [WORK, MOVE, MOVE, CARRY, CARRY]],
+    [CreepRoles.ROLE_TRANSPORTER, [WORK, MOVE, MOVE, CARRY, CARRY]],
+    [CreepRoles.ROLE_SOLDIER, [WORK, CARRY, MOVE, ATTACK, TOUGH, TOUGH]],
+    [CreepRoles.ROLE_UPGRADER, [WORK, MOVE, MOVE, CARRY, CARRY]],
+    [CreepRoles.ROLE_REPAIRER, [WORK, MOVE, MOVE, CARRY, CARRY]]
   ])
 };
 
