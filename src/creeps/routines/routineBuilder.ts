@@ -1,8 +1,7 @@
 import { Logger } from "utils/logger";
 import { PathColors } from "utils/globalConsts";
-import { movePath } from "./../../utils/vizPath";
-// eslint-disable-next-line sort-imports
 import checkCreepCapacity from "./checkCreepCapacity";
+import { movePath } from "./../../utils/vizPath";
 import routineTransporter from "./routineTransporter";
 
 export default function (creep: Creep): void {
@@ -18,6 +17,10 @@ export default function (creep: Creep): void {
 
   if (creep.memory.isWorking && target) {
     buildByPriority(creep);
+    if (creep.memory.currentTask !== "build") {
+      Logger.info(`${creep.name} switched to build routine`);
+      creep.memory.currentTask = "build";
+    }
   } else if (creep.memory.isWorking) {
     repair(creep);
     if (creep.memory.currentTask !== "repair") {
