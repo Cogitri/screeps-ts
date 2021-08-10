@@ -39,7 +39,7 @@ describe("routineSoldier", () => {
       routineSoldier(us);
 
       expect(us.moveTo).toHaveBeenCalledWith(enemy);
-      expect(us.say).toHaveBeenCalledWith("⚔️ attack");
+      expect(us.say).toHaveBeenCalledWith("⚔️");
     });
     it("should *not* move to an enemy with way more health", () => {
       const enemy = testUtil.mockCreep({
@@ -201,7 +201,7 @@ describe("routineSoldier", () => {
       routineSoldier(us);
 
       expect(us.moveTo).toHaveBeenCalledWith(enemy);
-      expect(us.say).toHaveBeenCalledWith("⚔️ attack");
+      expect(us.say).toHaveBeenCalledWith("⚔️");
     });
   });
   describe("defending", () => {

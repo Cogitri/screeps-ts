@@ -27,7 +27,7 @@ describe("Upgrader role", () => {
       routineUpgrader(creep);
       // Siehe unseren Mock dazu in testUtils.ts, wir retrunen das hier von findClosestByPath.
       expect(creep.withdraw).toHaveBeenCalledWith({ pos: { x: 0, y: 0 } }, RESOURCE_ENERGY);
-      expect(creep.say).toHaveBeenCalledWith("📤 withdraw");
+      expect(creep.say).toHaveBeenCalledWith("📤");
     });
     it("Upgrades the controller", () => {
       const creep = testUtil.mockCreep({
@@ -39,7 +39,7 @@ describe("Upgrader role", () => {
 
       routineUpgrader(creep);
       expect(creep.upgradeController).toHaveBeenCalledWith(controller);
-      expect(creep.say).toHaveBeenCalledWith("⚡ upgrade");
+      expect(creep.say).toHaveBeenCalledWith("⚡");
     });
   });
 });
