@@ -1,4 +1,4 @@
-import globalConsts, { PathColors, Routines } from "utils/globalConsts";
+import globalConsts, { PathColors, Routines, WorkEmoji } from "utils/globalConsts";
 import { Logger } from "utils/logger";
 import checkCreepCapacity from "./checkCreepCapacity";
 import { movePath } from "utils/vizPath";
@@ -49,7 +49,7 @@ export default function (creep: Creep): void {
       if (target.length > 0) {
         if (creep.transfer(target[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
           if (!creep.memory.announcedTask) {
-            creep.say("✈️ deliver");
+            creep.say(WorkEmoji.EMOJI_DELIVER);
             creep.memory.announcedTask = true;
           }
           movePath(creep, target[0], PathColors.PATHCOLOR_TRANSPORT);

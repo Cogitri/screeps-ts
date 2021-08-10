@@ -1,4 +1,4 @@
-import { PathColors } from "utils/globalConsts";
+import { PathColors, WorkEmoji } from "utils/globalConsts";
 import { movePath } from "./../../utils/vizPath";
 
 /**
@@ -13,7 +13,7 @@ export default function (creep: Creep): void {
   if (container) {
     if (creep.withdraw(container, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
       if (!creep.memory.announcedTask) {
-        creep.say("📤");
+        creep.say(WorkEmoji.EMOJI_WITHDRAW);
         creep.memory.announcedTask = true;
       }
       movePath(creep, container, PathColors.PATHCOLOR_WITHDRAW);

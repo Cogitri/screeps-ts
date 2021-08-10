@@ -4,6 +4,7 @@ import { LogLevel, Logger } from "utils/logger";
 import {
   changeBodyParts,
   changeCreepCount,
+  emojiLegend,
   findCreep,
   help,
   logLevel,
@@ -62,6 +63,7 @@ declare global {
       sayHello: (name: string) => string;
       changeCreepCount: (role: string, count: number) => string;
       changeBodyparts: (role: string, bodyparts: BodyPartConstant[]) => string;
+      emojiLegend: (roomName: string) => string;
     }
   }
 }
@@ -82,6 +84,7 @@ export const loop = ErrorMapper.wrapLoop(() => {
   global.togglePathViz = togglePathViz;
   global.changeCreepCount = changeCreepCount;
   global.changeBodyparts = changeBodyParts;
+  global.emojiLegend = emojiLegend;
 
   // Automatically delete memory of missing creeps
   for (const name in Memory.creeps) {

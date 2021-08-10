@@ -1,6 +1,5 @@
+import { CreepRoles, WorkEmoji } from "./globalConsts";
 import { LogLevel, Logger } from "./logger";
-
-import { CreepRoles } from "./globalConsts";
 import { mapToObject } from "./mapHelper";
 
 /**
@@ -33,8 +32,9 @@ export function help(): string {
           logLevel(string): adjusts the log level. Provided argument must be one of ('debug', 'info', 'warn', 'error')\n
           findRole(string): finds creeps of provided role. e.g. 'harvester'\n
           sayHello(string): finds the creep by provided name\n
-          changeCreepCount(string, number): changes the max amount of concurrent creeps of the given type (e.g. 'harvester', 5 => max amount of 5 concurrent harvesters)
-          changeBodyParts(string, [Bodyparts]): changes the bodyparts of the given role(e.g 'harvester', ['MOVE','MOVE','CARRY'] => harvester will now spawn with 2 Move and 1 Carry Bodypart)`;
+          changeCreepCount(string, number): changes the max amount of concurrent creeps of the given type (e.g. 'harvester', 5 => max amount of 5 concurrent harvesters)\n
+          changeBodyParts(string, [Bodyparts]): changes the bodyparts of the given role(e.g 'harvester', ['MOVE','MOVE','CARRY'] => harvester will now spawn with 2 Move and 1 Carry Bodypart)\n
+          emojiLegend(string): shows a legend of used emojis on top of the room. Needs the room name as parameter.`;
 }
 
 /**
@@ -172,5 +172,34 @@ export function changeBodyParts(role: string, bodyparts: BodyPartConstant[]): st
       });
     roleArray = roleArray.substring(0, roleArray.length - 2);
     return `Please enter a valid Creep role. The current roles are: ${roleArray} `;
+  }
+}
+
+/**
+ * Shows a legend of used emojis on top of the room.
+ * @param roomName Name of the {@link https://docs.screeps.com/api/#Room|Room}.
+ * @returns Whether the command was successful.
+ */
+export function emojiLegend(roomName: string): string {
+  if (Game.rooms[roomName] !== undefined) {
+    if (global.textViz) {
+      Game.rooms[roomName.toLocaleUpperCase()].visual.text(
+        `${WorkEmoji.EMOJI_BUILD} Build\n
+         ${WorkEmoji.EMOJI_REPAIR} Repair\n
+         ${WorkEmoji.EMOJI_HARVEST} Harvest\n
+         ${WorkEmoji.EMOJI_DELIVER} Deliver\n
+         ${WorkEmoji.EMOJI_ATTACK} Attack\n
+         ${WorkEmoji.EMOJI_UPGRADE} Upgrade\n
+         ${WorkEmoji.EMOJI_WITHDRAW} Withdraw`,
+        49,
+        1,
+        { color: "white", align: "right" }
+      );
+      return `Legend is shown at the top in room ${roomName}.`;
+    } else {
+      return "Textual room visuals currently disabled.";
+    }
+  } else {
+    return "Invalid room name.";
   }
 }

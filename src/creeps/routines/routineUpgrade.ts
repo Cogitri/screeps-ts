@@ -1,4 +1,4 @@
-import { PathColors } from "utils/globalConsts";
+import { PathColors, WorkEmoji } from "utils/globalConsts";
 import { movePath } from "./../../utils/vizPath";
 
 /**
@@ -14,7 +14,7 @@ export default function (creep: Creep): void {
 
   if (creep.upgradeController(controller) === ERR_NOT_IN_RANGE) {
     if (!creep.memory.announcedTask) {
-      creep.say("⚡");
+      creep.say(WorkEmoji.EMOJI_UPGRADE);
       creep.memory.announcedTask = true;
     }
     movePath(creep, controller, PathColors.PATHCOLOR_UPGRADE);

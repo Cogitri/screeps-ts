@@ -1,7 +1,9 @@
-import { PathColors, Routines } from "utils/globalConsts";
+import { PathColors, Routines, WorkEmoji } from "utils/globalConsts";
 import { Logger } from "utils/logger";
 import { movePath } from "utils/vizPath";
+
 import routineTransporter from "./routineTransporter";
+
 const BODY_PART_THRESHOLD = 5;
 const HP_THRESHOLD = 200;
 
@@ -32,7 +34,7 @@ export default function (creep: Creep): void {
 
   if (creep.attack(enemy) === ERR_NOT_IN_RANGE && shouldFightEnemy(enemy, creep)) {
     if (!creep.memory.announcedTask) {
-      creep.say("⚔️");
+      creep.say(WorkEmoji.EMOJI_ATTACK);
       creep.memory.announcedTask = true;
     }
     movePath(creep, enemy, PathColors.PATHCOLOR_SOLDIER);

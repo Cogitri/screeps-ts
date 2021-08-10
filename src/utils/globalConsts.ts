@@ -40,6 +40,16 @@ export default {
   ])
 };
 
+export enum WorkEmoji {
+  EMOJI_BUILD = "⚒️",
+  EMOJI_REPAIR = "🛠️",
+  EMOJI_HARVEST = "⛏️",
+  EMOJI_DELIVER = "⛴︎",
+  EMOJI_ATTACK = "⚔️",
+  EMOJI_UPGRADE = "⚡",
+  EMOJI_WITHDRAW = "📤"
+}
+
 export enum PathColors {
   PATHCOLOR_BUILDER = "#ffff33", // yellow
   PATHCOLOR_ENERGIZE_TOWER = "#ff5533", // neon orange
