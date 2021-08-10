@@ -5,7 +5,6 @@ import { movePath } from "./../../utils/vizPath";
 import routineFarm from "./routineFarm";
 
 export default function (creep: Creep): void {
-
   if (checkCreepCapacity(creep)) {
     routineFarm(creep);
     if (creep.memory.currentTask !== "farm") {
