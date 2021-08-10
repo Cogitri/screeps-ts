@@ -1,19 +1,19 @@
 import { TestUtil } from "utils/testUtils";
-import { spawnSoldier } from "./modelSoldier";
+import { spawnUpgrader } from "./modelUpgrader";
 
-describe("modelSoldier", () => {
+describe("modelUpgrader", () => {
   let testUtil: TestUtil;
 
   beforeEach(() => {
     testUtil = new TestUtil();
   });
 
-  it("spawns a soldier creep", () => {
+  it("spawns a Upgrader creep", () => {
     const spawn = testUtil.mockSpawn();
 
-    spawnSoldier(spawn);
+    spawnUpgrader(spawn);
     Game.time = 2;
-    spawnSoldier(spawn);
+    spawnUpgrader(spawn);
 
     expect(spawn.spawnCreep).toHaveBeenCalledTimes(2);
     expect(Object.keys(Game.creeps).length).toBe(2);
@@ -21,7 +21,7 @@ describe("modelSoldier", () => {
     const creep1 = Game.creeps[Object.keys(Game.creeps)[0]];
     const creep2 = Game.creeps[Object.keys(Game.creeps)[1]];
 
-    expect(creep1.name).toMatch(new RegExp("^soldier?"));
+    expect(creep1.name).toMatch(new RegExp("^upgrader?"));
     expect(creep1.name).not.toBe(creep2.name);
   });
 });

@@ -1,8 +1,7 @@
-import { movePath } from "utils/vizPath";
+import { PathColors } from "utils/globalConsts";
+import { movePath } from "./../../utils/vizPath";
 
 export default function (creep: Creep): void {
-  const pathColor = "#00e600";
-
   const controller = creep.room.controller;
 
   if (!controller) {
@@ -14,7 +13,7 @@ export default function (creep: Creep): void {
       creep.say("⚡ upgrade");
       creep.memory.announcedTask = true;
     }
-    movePath(creep, controller, pathColor);
+    movePath(creep, controller, PathColors.PATHCOLOR_UPGRADE);
     creep.memory.target = controller;
   }
 }

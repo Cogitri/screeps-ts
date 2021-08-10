@@ -1,17 +1,18 @@
-import { movePath } from "utils/vizPath";
+import { PathColors } from "utils/globalConsts";
+import { movePath } from "./../../utils/vizPath";
 
 export default function (creep: Creep): void {
-  const pathColor = "#33d6ff";
-  const tower = creep.room.find(FIND_STRUCTURES, {
+  const tower = creep.pos.findClosestByPath(FIND_STRUCTURES, {
     filter: structure => structure.structureType === STRUCTURE_TOWER
   });
 
-  if (creep.transfer(tower[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-    if (!creep.memory.announcedTask) {
-      creep.say("transfer");
-      creep.memory.announcedTask = true;
+  if (tower) {
+    if (creep.transfer(tower, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+      if (!creep.memory.announcedTask) {
+        creep.say("transfer");
+        creep.memory.announcedTask = true;
+      }
+      movePath(creep, tower, PathColors.PATHCOLOR_ENERGIZE_TOWER);
     }
-
-    movePath(creep, tower[0], pathColor);
   }
 }

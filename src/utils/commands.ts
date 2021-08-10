@@ -1,4 +1,5 @@
 import { LogLevel, Logger } from "./logger";
+import { CreepRoles } from "./globalConsts";
 
 export function showRole(role: string): string {
   let found = 0;
@@ -24,7 +25,8 @@ export function help(): string {
           help(): shows a list of all commands\n
           logLevel(string): adjusts the log level. Provided argument must be one of ('debug', 'info', 'warn', 'error')\n
           findRole(string): finds creeps of provided role. e.g. 'harvester'\n
-          sayHello(string): finds the creep by provided name`;
+          sayHello(string): finds the creep by provided name\n
+          changeCreepCount(string, number): changes the max amount of concurrent creeps of the given type (e.g. 'harvester', 5 => max amount of 5 concurrent harvesters)`;
 }
 
 export function logLevel(ls: keyof typeof LogLevel): string {
@@ -78,4 +80,35 @@ export function togglePathViz(): string {
     global.pathViz = true;
     return "Enabled all path visuals";
   }
+}
+export function changeCreepCount(role: string, count: number): string {
+  if (Object.values<string>(CreepRoles).includes(role)) {
+    if (!isNaN(count)) {
+      if (count >= 0) {
+        const map = new Map(Object.entries(Memory.creepCount));
+        map.set(role, count);
+
+        Memory.creepCount = Object.fromEntries(map);
+        return `Creep count for role ${role} set to ${count}`;
+      } else {
+        return `Please enter a positive number`;
+      }
+    } else {
+      return "Please enter a valid number";
+    }
+  } else {
+    let roleArray = "";
+    Object.keys(CreepRoles)
+      .filter(k => isNaN(Number(k)))
+      .forEach(l => {
+        roleArray += `${l}, `;
+      });
+    roleArray = roleArray.substring(0, roleArray.length - 2);
+    return `Please enter a valid Creep role. The current roles are: ${roleArray} `;
+  }
+}
+
+export function printAuthors(): string {
+  return `Screeps AEM Project developed by Team 8\n
+    SM: Rasmus Thomsen, PO: Thorben Rolf, Developers: Dennis Schuetz, Janis Ciemnyjewski, Katharina Sprotte, Lara Laskowsky, Mattis Kunstmann, Mika Schrader, Paul Voss, Tim Brueggemann`;
 }

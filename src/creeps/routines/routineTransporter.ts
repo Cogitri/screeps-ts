@@ -1,21 +1,39 @@
-import globalConsts from "utils/globalConsts";
+import globalConsts, { PathColors } from "utils/globalConsts";
+import { Logger } from "utils/logger";
 import { movePath } from "utils/vizPath";
+// eslint-disable-next-line sort-imports
+import checkCreepCapacity from "./checkCreepCapacity";
 import routineEnergizeTower from "./routineEnergizeTower";
 import routineUpgrade from "./routineUpgrade";
 import routineWithdraw from "./routineWithdraw";
 
 export default function (creep: Creep): void {
-  const pathColor = "#33d6ff";
   if (checkCreepCapacity(creep)) {
     routineWithdraw(creep);
+    if (creep.memory.currentTask !== "withdraw") {
+      Logger.info(`${creep.name} switched to withdraw routine`);
+      creep.memory.currentTask = "withdraw";
+    }
   } else {
     if (checkSpawnCapacity(creep) && checkExtensionsCapacity(creep)) {
       if (TOWER_CAPACITY < globalConsts.TARGET_TOWER_CAPACITY) {
         routineEnergizeTower(creep);
+        if (creep.memory.currentTask !== "energize") {
+          Logger.info(`${creep.name} switched to energize tower routine`);
+          creep.memory.currentTask = "energize";
+        }
       } else {
         routineUpgrade(creep);
+        if (creep.memory.currentTask !== "upgrade") {
+          Logger.info(` ${creep.name} switched to upgrade routine`);
+          creep.memory.currentTask = "upgrade";
+        }
       }
     } else {
+      if (creep.memory.currentTask !== "transport") {
+        Logger.info(`${creep.name} switched to transporter routine`);
+        creep.memory.currentTask = "transport";
+      }
       const target = creep.room.find(FIND_STRUCTURES, {
         filter: structure => {
           return (
@@ -31,26 +49,11 @@ export default function (creep: Creep): void {
             creep.say("✈️ deliver");
             creep.memory.announcedTask = true;
           }
-          movePath(creep, target[0], pathColor);
+          movePath(creep, target[0], PathColors.PATHCOLOR_TRANSPORT);
         }
       }
     }
   }
-}
-
-function checkCreepCapacity(creep: Creep): boolean {
-  if (creep.store.getFreeCapacity() === 0 && creep.memory.isWorking) {
-    creep.memory.isWorking = true;
-    creep.memory.announcedTask = false;
-    return true;
-  }
-
-  if (creep.memory.isWorking && creep.store[RESOURCE_ENERGY] === 0) {
-    creep.memory.isWorking = false;
-    creep.memory.announcedTask = false;
-    return false;
-  }
-  return true;
 }
 
 function checkSpawnCapacity(creep: Creep): boolean {

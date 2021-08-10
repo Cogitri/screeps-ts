@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import { findCreep, help, logLevel, showRole, togglePathViz, toggleTextViz } from "./utils/commands";
+import { LogLevel, Logger } from "utils/logger";
+import { changeCreepCount, findCreep, help, logLevel, showRole, togglePathViz, toggleTextViz } from "./utils/commands";
 import gameLoop, { init } from "core/gameLoop";
 import { CreepRoles } from "utils/globalConsts";
 import { ErrorMapper } from "utils/ErrorMapper";
-import { LogLevel } from "utils/logger";
 
 declare global {
   /**
@@ -12,10 +12,13 @@ declare global {
    * pathToController: Boolean to check, if Roads to Controller have been deployed
    *
    * logLevel: Saves the current LogLevel over muliple ticks
+   *
+   * creepCount: Array that saves the amount of creeps that should be spawned for each role
    */
   interface Memory {
     pathToController: boolean;
     logLevel: LogLevel;
+    creepCount: { [k: string]: number };
   }
   /**
    *  Creep Memory Interface
@@ -32,6 +35,7 @@ declare global {
     isWorking: boolean;
     announcedTask: boolean;
     target: Structure | Source | Mineral | Creep | null;
+    currentTask: string;
   }
 
   // Syntax for adding proprties to `global` (ex "global.log")
@@ -45,6 +49,7 @@ declare global {
       help: () => string;
       logLevel: (l: keyof typeof LogLevel) => void;
       sayHello: (name: string) => string;
+      changeCreepCount: (role: string, count: number) => string;
     }
   }
 }
@@ -58,10 +63,13 @@ export const loop = ErrorMapper.wrapLoop(() => {
   global.sayHello = findCreep;
   global.toggleTextViz = toggleTextViz;
   global.togglePathViz = togglePathViz;
+  global.changeCreepCount = changeCreepCount;
 
   // Automatically delete memory of missing creeps
   for (const name in Memory.creeps) {
     if (!(name in Game.creeps)) {
+      Logger.info(`The ${Memory.creeps[name].role} named  ${name} died`);
+      //  ${Game.creeps[name].memory.role}
       delete Memory.creeps[name];
     }
   }

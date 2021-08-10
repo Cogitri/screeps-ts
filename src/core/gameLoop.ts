@@ -1,14 +1,15 @@
 /* eslint-disable sort-imports */
+
+import { Logger } from "utils/logger";
 import createConstructions from "./createConstructions";
 import creepSpawn from "./creepSpawn";
 import creepWork from "./creepWork";
-import { help } from "utils/commands";
+import globalConsts, { CreepRoles } from "utils/globalConsts";
+import { help, printAuthors } from "utils/commands";
 import pickupEnergy from "../creeps/routines/pickupEnergy";
 import routineTower from "../creeps/routines/routineTower";
 import { visualizeControllerProgress } from "../utils/vizControllerLvl";
 import { visualizeSpawnerProgress } from "../utils/vizSpawner";
-import { Logger } from "utils/logger";
-import { CreepRoles } from "utils/globalConsts";
 
 export default function (): void {
   // Refresh variables in memory
@@ -50,6 +51,13 @@ function refreshMemory(): void {
   } else {
     Logger.logLevel = Memory.logLevel;
   }
+  if (!Memory.creepCount) {
+    const object: { [k: string]: number } = {};
+    Object.entries(globalConsts.DEFAULT_CREEP_COUNT).forEach(([k, v]) => {
+      object[k] = v as number;
+    });
+    Memory.creepCount = object;
+  }
 }
 
 /**
@@ -57,5 +65,6 @@ function refreshMemory(): void {
  * @link https://wiki.screepspl.us/index.php/Global_reset
  */
 export function init(): void {
+  Logger.info(printAuthors());
   Logger.info(help());
 }

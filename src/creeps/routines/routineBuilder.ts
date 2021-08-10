@@ -1,8 +1,13 @@
+import { Logger } from "utils/logger";
+import { PathColors } from "utils/globalConsts";
 import { movePath } from "./../../utils/vizPath";
-import routineFarm from "./routineFarm";
+// eslint-disable-next-line sort-imports
+import checkCreepCapacity from "./checkCreepCapacity";
+import routineTransporter from "./routineTransporter";
 
 export default function (creep: Creep): void {
-  const damagedStructure = creep.room.find(FIND_STRUCTURES, {
+  // check for damaged structures
+  const damagedStructures = creep.room.find(FIND_STRUCTURES, {
     filter: s =>
       (s.structureType === STRUCTURE_WALL && s.hits < 0.001 * s.hitsMax) ||
       (s.structureType === STRUCTURE_RAMPART && s.hits < 0.01 * s.hitsMax) ||
@@ -16,55 +21,44 @@ export default function (creep: Creep): void {
   const target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
 
   if (checkCreepCapacity(creep)) {
-    routineFarm(creep);
+    routineTransporter(creep);
+    if (creep.memory.currentTask !== "farm") {
+      Logger.info(`${creep.name} switched to farm routine`);
+      creep.memory.currentTask = "farm";
+    }
   }
 
   if (creep.memory.isWorking && target) {
     buildByPriority(creep);
-  } else if (creep.memory.isWorking && damagedStructure[0]) {
-    repair(creep, damagedStructure[0]);
+  } else if (creep.memory.isWorking && damagedStructures[0]) {
+    repair(creep, damagedStructures[0]);
+    if (creep.memory.currentTask !== "repair") {
+      Logger.info(`${creep.name} switched to repair routine`);
+      creep.memory.currentTask = "repair";
+    }
   }
 }
 
 // Function to start building
 function build(creep: Creep, target: ConstructionSite): void {
-  const pathColor = "#ffff33";
   if (creep.build(target) === ERR_NOT_IN_RANGE) {
     if (!creep.memory.announcedTask) {
       creep.say("⚒️ build");
       creep.memory.announcedTask = true;
     }
-    movePath(creep, target, pathColor);
+    movePath(creep, target, PathColors.PATHCOLOR_BUILDER);
   }
 }
 
 // Function to start repairing
 function repair(creep: Creep, damagedStructure: AnyStructure): void {
-  const pathColor = "#ffff33";
   if (creep.repair(damagedStructure) === ERR_NOT_IN_RANGE) {
     if (!creep.memory.announcedTask) {
       creep.say("🛠️ repair");
       creep.memory.announcedTask = true;
     }
-    movePath(creep, damagedStructure, pathColor);
+    movePath(creep, damagedStructure, PathColors.PATHCOLOR_REPAIR);
   }
-}
-
-// Checks if the creep capacity is full or empty
-// Releases the locked task when capacity is empty
-function checkCreepCapacity(creep: Creep): boolean {
-  if (creep.store.getFreeCapacity() === 0 && !creep.memory.isWorking) {
-    creep.memory.isWorking = true;
-    creep.memory.announcedTask = false;
-    return false;
-  }
-
-  if (creep.store[RESOURCE_ENERGY] === 0 && creep.memory.isWorking) {
-    creep.memory.isWorking = false;
-    creep.memory.announcedTask = false;
-    return true;
-  }
-  return true;
 }
 
 /**
