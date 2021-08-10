@@ -9,7 +9,7 @@ export default function (creep: Creep): void {
   if (tower) {
     if (creep.transfer(tower, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
       if (!creep.memory.announcedTask) {
-        creep.say("transfer");
+        creep.say("⛴︎");
         creep.memory.announcedTask = true;
       }
       movePath(creep, tower, PathColors.PATHCOLOR_ENERGIZE_TOWER);

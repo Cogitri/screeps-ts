@@ -34,7 +34,7 @@ export default function (creep: Creep): void {
 function build(creep: Creep, target: ConstructionSite): void {
   if (creep.build(target) === ERR_NOT_IN_RANGE) {
     if (!creep.memory.announcedTask) {
-      creep.say("⚒️ build");
+      creep.say("⚒️");
       creep.memory.announcedTask = true;
     }
     movePath(creep, target, PathColors.PATHCOLOR_BUILDER);
@@ -57,7 +57,7 @@ function repair(creep: Creep): void {
   if (damagedStructure) {
     if (creep.repair(damagedStructure) === ERR_NOT_IN_RANGE) {
       creep.memory.isWorking = true;
-      creep.say("🛠️ repair");
+      creep.say("🛠️");
       movePath(creep, damagedStructure, PathColors.PATHCOLOR_REPAIR);
     }
   }

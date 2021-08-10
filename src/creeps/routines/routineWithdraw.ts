@@ -9,7 +9,7 @@ export default function (creep: Creep): void {
   if (container) {
     if (creep.withdraw(container, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
       if (!creep.memory.announcedTask) {
-        creep.say("📤 withdraw");
+        creep.say("📤");
         creep.memory.announcedTask = true;
       }
       movePath(creep, container, PathColors.PATHCOLOR_WITHDRAW);

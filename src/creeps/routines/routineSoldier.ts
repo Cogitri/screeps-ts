@@ -28,7 +28,7 @@ export default function (creep: Creep): void {
 
   if (creep.attack(enemy) === ERR_NOT_IN_RANGE && shouldFightEnemy(enemy, creep)) {
     if (!creep.memory.announcedTask) {
-      creep.say("⚔️ attack");
+      creep.say("⚔️");
       creep.memory.announcedTask = true;
     }
     movePath(creep, enemy, PathColors.PATHCOLOR_SOLDIER);

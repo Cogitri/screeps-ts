@@ -10,7 +10,7 @@ export default function (creep: Creep): void {
 
   if (creep.upgradeController(controller) === ERR_NOT_IN_RANGE) {
     if (!creep.memory.announcedTask) {
-      creep.say("⚡ upgrade");
+      creep.say("⚡");
       creep.memory.announcedTask = true;
     }
     movePath(creep, controller, PathColors.PATHCOLOR_UPGRADE);
