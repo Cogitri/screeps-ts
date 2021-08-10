@@ -20,10 +20,18 @@ export default function (creep: Creep): void {
   } else {
     if (checkSpawnCapacity(creep) && checkExtensionsCapacity(creep)) {
       if (TOWER_CAPACITY < globalConsts.TARGET_TOWER_CAPACITY) {
-        routineEnergizeTower(creep);
-        if (creep.memory.currentTask !== Routines.Energize) {
-          Logger.info(`${creep.name} switched to energize tower routine`);
-          creep.memory.currentTask = Routines.Energize;
+        const tower = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+          filter: structure =>
+            structure.structureType === STRUCTURE_TOWER &&
+            structure.store[RESOURCE_ENERGY] < globalConsts.TARGET_TOWER_CAPACITY
+        });
+
+        if (tower) {
+          routineEnergizeTower(creep);
+          if (creep.memory.currentTask !== Routines.Energize) {
+            Logger.info(`${creep.name} switched to energize tower routine`);
+            creep.memory.currentTask = Routines.Energize;
+          }
         }
       } else {
         routineUpgrade(creep);
