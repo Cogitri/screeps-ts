@@ -1,5 +1,5 @@
 import { PathColors, WorkEmoji } from "utils/globalConsts";
-import { movePath } from "./../../utils/vizPath";
+import { movePath } from "utils/viz/vizPath";
 
 /**
  * Find, move and harvest from energy sources.

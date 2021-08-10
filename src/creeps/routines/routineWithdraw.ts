@@ -1,5 +1,5 @@
 import { PathColors, WorkEmoji } from "utils/globalConsts";
-import { movePath } from "./../../utils/vizPath";
+import { movePath } from "utils/viz/vizPath";
 
 /**
  * Withdraws energy from containers if available.

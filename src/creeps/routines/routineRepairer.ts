@@ -1,7 +1,7 @@
 import { PathColors, Routines } from "utils/globalConsts";
 import { Logger } from "utils/logger";
 import checkCreepCapacity from "./checkCreepCapacity";
-import { movePath } from "utils/vizPath";
+import { movePath } from "utils/viz/vizPath";
 import routineTransporter from "./routineTransporter";
 
 export default function (creep: Creep): void {
@@ -65,7 +65,7 @@ function repair(creep: Creep): void {
         creep.say("🛠️");
         creep.memory.announcedTask = true;
       }
-      movePath(creep, damagedStructure, PathColors.PATHCOLOR_REPAIR);
+      movePath(creep, damagedStructure, PathColors.PATHCOLOR_REPAIRER);
     }
   }
 }

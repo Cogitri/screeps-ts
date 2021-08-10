@@ -1,7 +1,7 @@
 import { PathColors, Routines, WorkEmoji } from "utils/globalConsts";
 import { Logger } from "utils/logger";
 import checkCreepCapacity from "./checkCreepCapacity";
-import { movePath } from "./../../utils/vizPath";
+import { movePath } from "utils/viz/vizPath";
 import routineTransporter from "./routineTransporter";
 
 /**
@@ -74,7 +74,7 @@ function repair(creep: Creep): void {
     if (creep.repair(damagedStructure) === ERR_NOT_IN_RANGE) {
       creep.memory.isWorking = true;
       creep.say(`${WorkEmoji.EMOJI_REPAIR} repair`);
-      movePath(creep, damagedStructure, PathColors.PATHCOLOR_REPAIR);
+      movePath(creep, damagedStructure, PathColors.PATHCOLOR_REPAIRER);
     }
   }
 }

@@ -1,5 +1,5 @@
 import { PathColors, WorkEmoji } from "utils/globalConsts";
-import { movePath } from "./../../utils/vizPath";
+import { movePath } from "utils/viz/vizPath";
 
 /**
  * Upgrades the room controller by transfering energy to it.

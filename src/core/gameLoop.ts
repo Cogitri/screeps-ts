@@ -1,5 +1,4 @@
 import { help, printAuthors } from "utils/commands";
-
 import { Logger } from "utils/logger";
 import createConstructions from "./createConstructions";
 import creepSpawn from "./creepSpawn";
@@ -8,8 +7,9 @@ import globalConsts from "utils/globalConsts";
 import { mapToObject } from "utils/mapHelper";
 import pickupEnergy from "../creeps/routines/pickupEnergy";
 import routineTower from "../creeps/routines/routineTower";
-import { visualizeControllerProgress } from "../utils/vizControllerLvl";
-import { visualizeSpawnerProgress } from "../utils/vizSpawner";
+import { visualizeControllerProgress } from "../utils/viz/vizControllerLvl";
+import { visualizeDashboards } from "utils/viz/vizDashboards";
+import { visualizeSpawnerProgress } from "../utils/viz/vizSpawner";
 
 /**
  * Custom Game Loop. Runs every other gametick. Assigns all implemented behaviour.
@@ -26,6 +26,7 @@ export default function (): void {
       creepSpawn(Game.spawns[spawn]);
     }
     visualizeSpawnerProgress(spawn);
+    visualizeDashboards(spawn);
 
     const tower = Game.spawns[spawn].room.find(FIND_STRUCTURES, {
       filter: s => s.structureType === STRUCTURE_TOWER

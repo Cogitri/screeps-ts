@@ -1,5 +1,5 @@
 import { PathColors } from "utils/globalConsts";
-import { movePath } from "utils/vizPath";
+import { movePath } from "utils/viz/vizPath";
 
 /**
  * Checks if there are energy ressources from ruins and tombstones. If available picks up these ressources.

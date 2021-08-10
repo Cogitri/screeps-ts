@@ -1,7 +1,7 @@
 import globalConsts, { PathColors, Routines, WorkEmoji } from "utils/globalConsts";
 import { Logger } from "utils/logger";
 import checkCreepCapacity from "./checkCreepCapacity";
-import { movePath } from "utils/vizPath";
+import { movePath } from "utils/viz/vizPath";
 import routineEnergizeTower from "./routineEnergizeTower";
 import routineUpgrade from "./routineUpgrade";
 import routineWithdraw from "./routineWithdraw";
@@ -60,7 +60,7 @@ export default function (creep: Creep): void {
             creep.say(WorkEmoji.EMOJI_DELIVER);
             creep.memory.announcedTask = true;
           }
-          movePath(creep, target[0], PathColors.PATHCOLOR_TRANSPORT);
+          movePath(creep, target[0], PathColors.PATHCOLOR_TRANSPORTER);
         }
       }
     }

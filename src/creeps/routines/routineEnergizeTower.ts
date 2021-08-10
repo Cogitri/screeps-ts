@@ -1,5 +1,5 @@
 import { PathColors } from "utils/globalConsts";
-import { movePath } from "./../../utils/vizPath";
+import { movePath } from "utils/viz/vizPath";
 
 /**
  * Finds and transfers energy into towers.

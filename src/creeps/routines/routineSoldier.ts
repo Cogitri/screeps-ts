@@ -1,7 +1,6 @@
 import { PathColors, Routines, WorkEmoji } from "utils/globalConsts";
 import { Logger } from "utils/logger";
-import { movePath } from "utils/vizPath";
-
+import { movePath } from "utils/viz/vizPath";
 import routineTransporter from "./routineTransporter";
 
 const BODY_PART_THRESHOLD = 5;
