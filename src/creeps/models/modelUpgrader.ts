@@ -3,6 +3,6 @@ import spawnUtil from "utils/spawnUtil";
 
 const body = [WORK, MOVE, MOVE, CARRY, CARRY];
 
-export function spawnUpgrader(spawn: StructureSpawn): void {
-  spawnUtil(CreepRoles.ROLE_UPGRADER, body, spawn);
+export function spawnUpgrader(spawn: StructureSpawn): number {
+  return spawnUtil(CreepRoles.ROLE_UPGRADER, body, spawn);
 }

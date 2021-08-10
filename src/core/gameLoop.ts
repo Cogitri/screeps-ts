@@ -1,5 +1,4 @@
-/* eslint-disable sort-imports */
-
+import { help, printAuthors } from "utils/commands";
 import { Logger } from "utils/logger";
 import createConstructions from "./createConstructions";
 import creepSpawn from "./creepSpawn";
@@ -67,4 +66,5 @@ function refreshMemory(): void {
 export function init(): void {
   Logger.info(printAuthors());
   Logger.info(help());
+  Memory.pathToSources = {};
 }

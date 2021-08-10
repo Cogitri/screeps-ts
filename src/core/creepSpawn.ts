@@ -24,8 +24,9 @@ export default function (spawn: StructureSpawn): void {
   const builderCount = creepCount.get(CreepRoles.ROLE_BUILDER);
   if (builderCount) {
     if (builders.length < builderCount) {
-      Logger.info("Spawning a Builder");
-      spawnBuilder(spawn);
+      if (spawnBuilder(spawn) === OK) {
+        Logger.info("Spawning a Builder");
+      }
     }
   }
 
@@ -40,8 +41,9 @@ export default function (spawn: StructureSpawn): void {
   const harvesterCount = creepCount.get(CreepRoles.ROLE_HARVESTER);
   if (harvesterCount) {
     if (harvesters.length < harvesterCount) {
-      Logger.info("Spawning a Harvester");
-      spawnHarvester(spawn);
+      if (spawnHarvester(spawn) === OK) {
+        Logger.info("Spawning a Harvester");
+      }
     }
   }
 
@@ -56,8 +58,9 @@ export default function (spawn: StructureSpawn): void {
   const soldierCount = creepCount.get(CreepRoles.ROLE_SOLDIER);
   if (soldierCount) {
     if (soldiers.length < soldierCount) {
-      Logger.info("Spawning a Soldier");
-      spawnSoldier(spawn);
+      if (spawnSoldier(spawn) === OK) {
+        Logger.info("Spawning a Soldier");
+      }
     }
   }
   object = {};
@@ -71,8 +74,9 @@ export default function (spawn: StructureSpawn): void {
   const transporterCount = creepCount.get(CreepRoles.ROLE_TRANSPORTER);
   if (transporterCount) {
     if (transporters.length < transporterCount) {
-      Logger.info("Spawning a Transporter");
-      spawnTransporter(spawn);
+      if (spawnTransporter(spawn) === OK) {
+        Logger.info("Spawning a Transporter");
+      }
     }
   }
   object = {};
@@ -86,7 +90,9 @@ export default function (spawn: StructureSpawn): void {
   // check number of creeps
   if (upgradersCount) {
     if (upgraders.length < 1) {
-      spawnUpgrader(spawn);
+      if (spawnUpgrader(spawn) === OK) {
+        Logger.info("Spawning an Upgrader");
+      }
     }
   }
   object = {};
@@ -100,7 +106,9 @@ export default function (spawn: StructureSpawn): void {
   // check number of creeps
   if (repairersCount) {
     if (repairers.length < 1) {
-      spawnRepairer(spawn);
+      if (spawnRepairer(spawn) === OK) {
+        Logger.info("Spawning a Repairer");
+      }
     }
   }
 }

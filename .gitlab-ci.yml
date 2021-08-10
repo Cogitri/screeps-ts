@@ -1,39 +1,28 @@
 image: node:alpine
 
-cache:
-  paths:
-    - node_modules/
-
 stages:
-  - .pre
   - test
   - deploy
 
-install_deps:
-  stage: .pre
-  script:
-    - yarn
-
 lint:
   stage: test
-  needs: ["install_deps"]
   script:
+    - yarn
     - yarn lint
-
 
 test:
   stage: test
-  needs: ["install_deps"]
   script:
+    - yarn
     - yarn test
 
 deploy_to_screeps:
   stage: deploy
-  needs: ["install_deps"]
   only:
     refs:
       - master
   script:
     - cp screeps.sample.json screeps.json
     - sed -i "s/\"YOUR_TOKEN\"/\"$SCREEPS_MASTER_DEPLOY\"/g" ./screeps.json
+    - yarn
     - yarn push-main

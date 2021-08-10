@@ -53,12 +53,12 @@ function shouldFightEnemy(enemy: AnyCreep, us: AnyCreep): boolean {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   if (!(enemy as any).body) {
     // Give us a little advantage as PowerCreeps are probably stronger
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (us.hits - enemy.hits > HP_THRESHOLD) {
       return true;
     }
     return false;
   }
+
   // We need the body object to determince calcs, so a PowerCreep Soldier has less checks
   const enemyBodyCare = (enemy as Creep).body.filter(p => p.type === "attack" || p.type === "tough");
   const usBodyCare = (us as Creep).body.filter(p => p.type === "attack" || p.type === "tough");

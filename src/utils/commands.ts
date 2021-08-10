@@ -47,7 +47,6 @@ export function logLevel(ls: keyof typeof LogLevel): string {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function findCreep(name: string): string {
   const emojis = ["👋", "✌️", "✋", "🤙", "🙋‍♂️"];
 
