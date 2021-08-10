@@ -22,40 +22,14 @@ export default function (creep: Creep): void {
         );
       }
     });
-    // if the creep cant use the container, the creep will use this target.
-    const target = creep.room.find(FIND_STRUCTURES, {
-      filter: structure => {
-        return (
-          (structure.structureType === STRUCTURE_EXTENSION || structure.structureType === STRUCTURE_SPAWN) &&
-          structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-        );
-      }
-    });
-    // check if there are any containers
-    if (container !== null) {
-      // check if the container is closer than the spwan based on the cost.
-      if (PathFinder.search(creep.pos, container.pos).cost < PathFinder.search(creep.pos, target[0].pos).cost) {
-        moveCreep(creep, container);
-      } else {
-        if (target.length > 0) {
-          moveCreep(creep, target[0]);
-        }
-      }
-      // if there are no containers the creep will go to the spawn.
-    } else {
-      if (target.length > 0) {
-        moveCreep(creep, target[0]);
-      }
-    }
-  }
-}
 
-function moveCreep(creep: Creep, goal: AnyStructure) {
-  if (creep.transfer(goal, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-    if (!creep.memory.announcedTask) {
-      creep.say("⛴︎ deliver");
-      creep.memory.announcedTask = true;
+    // check if there are any containers, if there are no containers the creep will drop the energy
+    if (container) {
+      if (creep.transfer(container, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        movePath(creep, container, PathColors.PATHCOLOR_HARVESTER);
+      }
+    } else {
+      creep.drop(RESOURCE_ENERGY);
     }
-    movePath(creep, goal, PathColors.PATHCOLOR_TRANSPORT);
   }
 }
