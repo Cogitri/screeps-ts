@@ -3,8 +3,7 @@ import { Logger } from "utils/logger";
 import createConstructions from "./createConstructions";
 import creepSpawn from "./creepSpawn";
 import creepWork from "./creepWork";
-// eslint-disable-next-line sort-imports
-import globalConsts, { CreepRoles } from "utils/globalConsts";
+import globalConsts from "utils/globalConsts";
 import pickupEnergy from "../creeps/routines/pickupEnergy";
 import routineTower from "../creeps/routines/routineTower";
 import { visualizeControllerProgress } from "../utils/vizControllerLvl";
@@ -36,7 +35,7 @@ export default function (): void {
     if (Game.spawns.Spawn1.room.controller !== undefined) {
       visualizeControllerProgress(Game.spawns.Spawn1.room);
     }
-    if (!creep.memory.isWorking && creep.memory.role !== CreepRoles.ROLE_HARVESTER) {
+    if (!creep.memory.isWorking) {
       // pickupEnergy routine started with this function. place wherever it's needed.
       pickupEnergy(creep);
     }
