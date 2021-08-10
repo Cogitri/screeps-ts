@@ -1,6 +1,10 @@
 import { PathColors } from "utils/globalConsts";
 import { movePath } from "./../../utils/vizPath";
 
+/**
+ * Finds and transfers energy into towers.
+ * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
+ */
 export default function (creep: Creep): void {
   const tower = creep.pos.findClosestByPath(FIND_STRUCTURES, {
     filter: structure => structure.structureType === STRUCTURE_TOWER

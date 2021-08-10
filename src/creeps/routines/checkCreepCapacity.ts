@@ -1,10 +1,9 @@
 /**
- * * Checks if the creep capacity is full or empty
+ * Checks if the creep capacity is full or empty.
  *
- * Releases the locked task when capacity is empty
- *
- * @param creep
- * @returns True if there is free capacity
+ * Releases the locked task when capacity is empty.
+ * @param {Creep} creep - The creep.
+ * @returns {boolean} - true if capacity is bigger than zero and task is unlocked or capacity is zero and task is locked, false otherwise.
  */
 export default function (creep: Creep): boolean {
   if (creep.store.getFreeCapacity() === 0 && !creep.memory.isWorking) {

@@ -1,5 +1,9 @@
 import { mapToObject } from "utils/mapHelper";
 
+/**
+ * Finds the shortest path from spawn to controller and places construction sites along path.
+ * @param spawn {@link https://docs.screeps.com/api/#StructureSpawn|StructureSpawn} - Spawn of the room.
+ */
 export function buildRoadToController(spawn: StructureSpawn): void {
   const room = spawn.room;
   const constructionSites = spawn.room.find(FIND_MY_CONSTRUCTION_SITES);
@@ -29,8 +33,8 @@ export function buildRoadToController(spawn: StructureSpawn): void {
 }
 
 /**
- * Construct construction sites on the shortest path between the given spawn and all resource objects in the room of the spawn
- * @param spawn the spawn from which the roads should be build
+ * Finds the shortest path from spawn to source and places construction sites along path.
+ * @param spawn {@link https://docs.screeps.com/api/#StructureSpawn|StructureSpawn} - Spawn of the room.
  */
 export function buildRoadToSource(spawn: StructureSpawn): void {
   const sources = spawn.room.find(FIND_SOURCES);

@@ -11,6 +11,9 @@ import routineTower from "../creeps/routines/routineTower";
 import { visualizeControllerProgress } from "../utils/vizControllerLvl";
 import { visualizeSpawnerProgress } from "../utils/vizSpawner";
 
+/**
+ * Custom Game Loop. Runs every other gametick. Assigns all implemented behaviour.
+ */
 export default function (): void {
   // Refresh variables in memory
   refreshMemory();
@@ -45,6 +48,9 @@ export default function (): void {
   }
 }
 
+/**
+ * Refreshes game memory.
+ */
 function refreshMemory(): void {
   if (!Memory.logLevel) {
     Memory.logLevel = Logger.logLevel;
@@ -54,8 +60,10 @@ function refreshMemory(): void {
 }
 
 /**
+ * Prints info to console on script deploy and initializes memory variables.
+ *
  * Needs to be called outside of any Game Loop to be executed only when new code is uploaded.
- * @link https://wiki.screepspl.us/index.php/Global_reset
+ * {@link https://wiki.screepspl.us/index.php/Global_reset}
  */
 export function init(): void {
   Logger.info(printAuthors());

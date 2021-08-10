@@ -6,6 +6,10 @@ import routineSoldier from "creeps/routines/routineSoldier";
 import routineTransporter from "creeps/routines/routineTransporter";
 import routineUpgrader from "creeps/routines/routineUpgrader";
 
+/**
+ * Takes a given creep's role and assigns it a routine.
+ * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
+ */
 export default function (creep: Creep): void {
   switch (creep.memory.role) {
     case CreepRoles.ROLE_HARVESTER:

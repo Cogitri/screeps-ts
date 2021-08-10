@@ -1,6 +1,10 @@
 import { PathColors } from "utils/globalConsts";
 import { movePath } from "./../../utils/vizPath";
 
+/**
+ * Upgrades the room controller by transfering energy to it.
+ * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
+ */
 export default function (creep: Creep): void {
   const controller = creep.room.controller;
 

@@ -1,6 +1,10 @@
 import { PathColors } from "utils/globalConsts";
 import { movePath } from "./../../utils/vizPath";
 
+/**
+ * Withdraws energy from containers if available.
+ * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
+ */
 export default function (creep: Creep): void {
   const container = creep.pos.findClosestByPath(FIND_STRUCTURES, {
     filter: s => s.structureType === STRUCTURE_CONTAINER && s.store[RESOURCE_ENERGY] > 0

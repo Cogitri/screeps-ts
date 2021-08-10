@@ -1,6 +1,10 @@
 import { PathColors } from "utils/globalConsts";
 import { movePath } from "utils/vizPath";
 
+/**
+ * Find, move and harvest from energy sources.
+ * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
+ */
 export default function (creep: Creep): void {
   const sources = creep.room.find(FIND_SOURCES);
 

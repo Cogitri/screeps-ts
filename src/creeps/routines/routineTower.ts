@@ -1,3 +1,7 @@
+/**
+ * Shoots at hostile creeps, heals friendly or repairs damaged structures.
+ * @param tower {@link https://docs.screeps.com/api/#StructureTower|StructureTower} - The tower.
+ */
 export default function (tower: StructureTower): void {
   const enemy: AnyCreep | null = tower.pos.findClosestByPath(FIND_HOSTILE_CREEPS, { filter: c => c.hits > 0 });
   const woundedCreep = tower.room.find(FIND_MY_CREEPS, { filter: c => c.hits < c.hitsMax });

@@ -5,6 +5,10 @@ import routineTransporter from "./routineTransporter";
 const BODY_PART_THRESHOLD = 5;
 const HP_THRESHOLD = 200;
 
+/**
+ * Finds enemy creeps and attacks them. Fallback to routineTransporter if no enemy is found.
+ * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
+ */
 export default function (creep: Creep): void {
   if (creep.memory.isWorking && creep.store[RESOURCE_ENERGY] === 0) {
     creep.memory.isWorking = false;

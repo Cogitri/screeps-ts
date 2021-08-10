@@ -6,6 +6,10 @@ import routineEnergizeTower from "./routineEnergizeTower";
 import routineUpgrade from "./routineUpgrade";
 import routineWithdraw from "./routineWithdraw";
 
+/**
+ * Depending on creep's capacity transfer energy to towers/controller/spawn or extension.
+ * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
+ */
 export default function (creep: Creep): void {
   if (checkCreepCapacity(creep)) {
     routineWithdraw(creep);
@@ -55,6 +59,11 @@ export default function (creep: Creep): void {
   }
 }
 
+/**
+ * Checks spawn capacity to determine if harvester should upgrade controller.
+ * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
+ * @returns boolean - true if spawns and extensions are full, false otherwise.
+ */
 function checkSpawnCapacity(creep: Creep): boolean {
   if (creep.room.energyAvailable === creep.room.energyCapacityAvailable) {
     return true;
@@ -64,7 +73,7 @@ function checkSpawnCapacity(creep: Creep): boolean {
 
 /**
  *  Checks if there are Extensions with free Capacity
- * @param creep
+ * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
  * @returns True if there ist no Capacity in any Extensions
  */
 function checkExtensionsCapacity(creep: Creep): boolean {

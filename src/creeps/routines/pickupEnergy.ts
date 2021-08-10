@@ -1,6 +1,10 @@
 import { PathColors } from "utils/globalConsts";
 import { movePath } from "utils/vizPath";
 
+/**
+ * Checks if there are energy ressources from ruins and tombstones. If available picks up these ressources.
+ * @param {@link https://docs.screeps.com/api/#Creep|Creep} - The creep that should pickup energy from ruins and tombstones.
+ */
 export default function (creep: Creep): void {
   const droppedEnergy = creep.room.find(FIND_DROPPED_RESOURCES, {
     filter: r => r.resourceType === RESOURCE_ENERGY

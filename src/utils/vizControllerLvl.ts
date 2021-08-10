@@ -1,3 +1,7 @@
+/**
+ * Shows Room Controller leveling proccess in percentage on the structure itself if textViz is true.
+ * @param room {@link https://docs.screeps.com/api/#Room|Room} - The room in which the visual should be displayed in.
+ */
 export function visualizeControllerProgress(room: Room): void {
   const roomController = room.controller;
   if (roomController !== undefined) {

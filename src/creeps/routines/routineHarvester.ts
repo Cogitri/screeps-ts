@@ -4,6 +4,10 @@ import checkCreepCapacity from "./checkCreepCapacity";
 import { movePath } from "./../../utils/vizPath";
 import routineFarm from "./routineFarm";
 
+/**
+ * Depending on creep capacity the creep farms, upgrades or transfers energy to spawn/containers/extensions.
+ * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
+ */
 export default function (creep: Creep): void {
   if (checkCreepCapacity(creep)) {
     routineFarm(creep);

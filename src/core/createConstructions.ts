@@ -2,6 +2,10 @@ import { buildRoadAroundSpawn, buildRoadToController, buildRoadToSource } from "
 import createContainer from "construct/createContainer";
 import createRampart from "construct/createRampart";
 
+/**
+ * Calls construct algorithms.
+ * @param spawn {@link https://docs.screeps.com/api/#StructureSpawn|StructureSpawn} - Spawn of the room.
+ */
 export default function (spawn: StructureSpawn): void {
   buildRoadToController(spawn);
   buildRoadToSource(spawn);

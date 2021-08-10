@@ -68,6 +68,11 @@ declare global {
 global.textViz = true;
 global.pathViz = true;
 
+/**
+ * The loop that gets run on game start.
+ *
+ * Declares global functions and deletes memory of missing creeps. Calls custom gameLoop()
+ */
 export const loop = ErrorMapper.wrapLoop(() => {
   global.help = help;
   global.logLevel = logLevel;

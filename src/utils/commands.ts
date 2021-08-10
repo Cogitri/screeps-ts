@@ -3,6 +3,11 @@ import { LogLevel, Logger } from "./logger";
 import { CreepRoles } from "./globalConsts";
 import { mapToObject } from "./mapHelper";
 
+/**
+ * Searches creeps of a given role. If found the creeps will print out an emoji.
+ * @param role string - The role that is searched.
+ * @returns string - Console output whether the command found creeps or not.
+ */
 export function showRole(role: string): string {
   let found = 0;
   for (const i in Memory.creeps) {
@@ -32,6 +37,11 @@ export function help(): string {
           changeBodyParts(string, [Bodyparts]): changes the bodyparts of the given role(e.g 'harvester', ['MOVE','MOVE','CARRY'] => harvester will now spawn with 2 Move and 1 Carry Bodypart)`;
 }
 
+/**
+ * Changes the log level and determines what should be printed out to console.
+ * @param ls string - Desired log level. Accepts 'DEBUG', 'INFO', 'WARN', 'ERROR'.
+ * @returns string - Consoloe output whether the command was successful or not.
+ */
 export function logLevel(ls: keyof typeof LogLevel): string {
   if (Object.values(LogLevel).some(ll => ll === ls.toUpperCase())) {
     const l: LogLevel = LogLevel[ls.toString().toUpperCase() as keyof typeof LogLevel];
@@ -50,19 +60,27 @@ export function logLevel(ls: keyof typeof LogLevel): string {
   }
 }
 
+/**
+ * Searches for a certain creep. If found the creep reacts with one of five emojis.
+ * @param name string - Name of the creep.
+ * @returns string - Consoloe output whether the creep was found or not.
+ */
 export function findCreep(name: string): string {
   const emojis = ["👋", "✌️", "✋", "🤙", "🙋‍♂️"];
 
   for (const creepName in Game.creeps) {
     if (creepName === name) {
       Game.creeps[name].say(emojis[Math.floor(Math.random() * (4 + 1))]);
-      return "Der gesuchte Screep wurde gefunden.";
+      return "Creep found!";
     }
   }
-  return "Der gesuchte Screep wurde nicht gefunden.";
+  return "No creep found!";
 }
 
-// enable text visuals
+/**
+ * Toggles whether the textual room visuals should be shown or not. Visuals are displayed by default.
+ * @returns string - Console output whether the visuals are now enabled or disabled.
+ */
 export function toggleTextViz(): string {
   if (global.textViz) {
     global.textViz = false;
@@ -73,7 +91,10 @@ export function toggleTextViz(): string {
   }
 }
 
-// enable path visuals
+/**
+ * Toggles whether the path visuals should be shown or not. Visuals are displayed by default.
+ * @returns string - Console output whether the visuals are now enabled or disabled.
+ */
 export function togglePathViz(): string {
   if (global.pathViz) {
     global.pathViz = false;
@@ -83,6 +104,13 @@ export function togglePathViz(): string {
     return "Enabled all path visuals";
   }
 }
+
+/**
+ * Adjusts the default amount of creeps that are spawned by a given number.
+ * @param role string - Role of creep.
+ * @param count number - New amount of creeps.
+ * @returns
+ */
 export function changeCreepCount(role: string, count: number): string {
   if (Object.values<string>(CreepRoles).includes(role)) {
     if (!isNaN(count)) {
@@ -110,6 +138,9 @@ export function changeCreepCount(role: string, count: number): string {
   }
 }
 
+/**
+ * Prints out information about the Project team.
+ */
 export function printAuthors(): string {
   return `Screeps AEM Project developed by Team 8\n
     SM: Rasmus Thomsen, PO: Thorben Rolf, Developers: Dennis Schuetz, Janis Ciemnyjewski, Katharina Sprotte, Lara Laskowsky, Mattis Kunstmann, Mika Schrader, Paul Voss, Tim Brueggemann`;

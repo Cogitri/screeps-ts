@@ -2,6 +2,10 @@
 
 import { Logger } from "utils/logger";
 
+/**
+ * Finds the best spot for containers near energy source and creates construction site.
+ * @param spawn {@link https://docs.screeps.com/api/#StructureSpawn|StructureSpawn} - Spawn of the room.
+ */
 export default function (spawn: StructureSpawn): void {
   // Amount of Containers that should be built
   const amountContainer = 1; // CHANGE HERE

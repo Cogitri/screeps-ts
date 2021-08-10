@@ -2,8 +2,11 @@
 const numberOfPossibleHarvestPositionsInARow = 3;
 
 /**
- * returns a free position from where a creep can harvest energy
- * returns null if there are no positions.
+ * Returns a free position from where a creep can harvest energy.
+ *
+ * Returns null if there are no positions.
+ * @param source {@link https://docs.screeps.com/api/#Source|Source}
+ * @returns {@link https://docs.screeps.com/api/#RoomPosition|RoomPosition} - free position where a creep can harvest from source.
  */
 export default function getFreeSourcePos(source: Source): RoomPosition | null {
   const sourceCoordinates = { x: source.pos.x, y: source.pos.y };
@@ -20,6 +23,11 @@ export default function getFreeSourcePos(source: Source): RoomPosition | null {
   return null;
 }
 
+/**
+ * Determines viabality of certain position in room. Position is viable if not blocked by walls/creeps/structures.
+ * @param pos {@link https://docs.screeps.com/api/#RoomPosition|RoomPosition} - Position to be checked.
+ * @returns boolean -
+ */
 function isViableHarvestPosition(pos: RoomPosition): boolean {
   const look = pos.look();
   for (const lookObject of look) {

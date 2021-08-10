@@ -4,6 +4,14 @@ import checkCreepCapacity from "./checkCreepCapacity";
 import { movePath } from "./../../utils/vizPath";
 import routineTransporter from "./routineTransporter";
 
+/**
+ * Basic routine for Builder role.
+ *
+ * Repairs structures below a certain threshold.
+ *
+ * Builds structures on construction sites by priority.
+ * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
+ */
 export default function (creep: Creep): void {
   const target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
 
@@ -30,7 +38,11 @@ export default function (creep: Creep): void {
   }
 }
 
-// Function to start building
+/**
+ * Build on construction site.
+ * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
+ * @param target {@link https://docs.screeps.com/api/#ConstructionSite|ConstructionSite} - unfinished construction site.
+ */
 function build(creep: Creep, target: ConstructionSite): void {
   if (creep.build(target) === ERR_NOT_IN_RANGE) {
     if (!creep.memory.announcedTask) {
@@ -41,7 +53,11 @@ function build(creep: Creep, target: ConstructionSite): void {
   }
 }
 
-// Function to start repairing
+/**
+ * Start repairing if structure is below certain thresold.
+ * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
+ * @param damagedStructure AnyStructure - Structure to be repaired.
+ */
 function repair(creep: Creep): void {
   // check for closest damaged structure
   const damagedStructure = creep.pos.findClosestByPath(FIND_STRUCTURES, {
@@ -66,8 +82,7 @@ function repair(creep: Creep): void {
 /**
  * Builds the constructionsites by order of priority:
  * first buildings, then roads, then ramparts and then walls
- *
- * @param creep
+ * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
  */
 function buildByPriority(creep: Creep): void {
   // check for different constructions

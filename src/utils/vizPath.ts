@@ -1,7 +1,7 @@
 /** movePath
  * Move the Creep to a desired Target. If pathViz is true, the path will be visialized.
  *
- * @param creep The Creep, which will be moved
+ * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
  * @param target The Taget, to which the Creep moves
  * @param pathColor The Color of the Path, if it is displayed
  */
