@@ -11,9 +11,9 @@ import routineFarm from "./routineFarm";
 export default function (creep: Creep): void {
   if (checkCreepCapacity(creep)) {
     routineFarm(creep);
-    if (creep.memory.currentTask !== Routines.Farmer) {
+    if (creep.memory.currentTask !== Routines.FARMER) {
       Logger.info(`${creep.name} switched to farm routine`);
-      creep.memory.currentTask = Routines.Farmer;
+      creep.memory.currentTask = Routines.FARMER;
     }
   } else {
     // the creep looks for the nearest container.

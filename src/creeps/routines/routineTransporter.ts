@@ -13,9 +13,9 @@ import routineWithdraw from "./routineWithdraw";
 export default function (creep: Creep): void {
   if (checkCreepCapacity(creep)) {
     routineWithdraw(creep);
-    if (creep.memory.currentTask !== Routines.Withdraw) {
+    if (creep.memory.currentTask !== Routines.WITHDRAW) {
       Logger.info(`${creep.name} switched to withdraw routine`);
-      creep.memory.currentTask = Routines.Withdraw;
+      creep.memory.currentTask = Routines.WITHDRAW;
     }
   } else {
     if (checkSpawnCapacity(creep) && checkExtensionsCapacity(creep)) {
@@ -28,22 +28,22 @@ export default function (creep: Creep): void {
 
         if (tower) {
           routineEnergizeTower(creep);
-          if (creep.memory.currentTask !== Routines.Energize) {
+          if (creep.memory.currentTask !== Routines.ENERGIZE) {
             Logger.info(`${creep.name} switched to energize tower routine`);
-            creep.memory.currentTask = Routines.Energize;
+            creep.memory.currentTask = Routines.ENERGIZE;
           }
         }
       } else {
         routineUpgrade(creep);
-        if (creep.memory.currentTask !== Routines.Upgrade) {
+        if (creep.memory.currentTask !== Routines.UPGRADE) {
           Logger.info(` ${creep.name} switched to upgrade routine`);
-          creep.memory.currentTask = Routines.Upgrade;
+          creep.memory.currentTask = Routines.UPGRADE;
         }
       }
     } else {
-      if (creep.memory.currentTask !== Routines.Transport) {
+      if (creep.memory.currentTask !== Routines.TRANSPORT) {
         Logger.info(`${creep.name} switched to transporter routine`);
-        creep.memory.currentTask = Routines.Transport;
+        creep.memory.currentTask = Routines.TRANSPORT;
       }
       const target = creep.room.find(FIND_STRUCTURES, {
         filter: structure => {

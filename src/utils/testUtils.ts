@@ -104,7 +104,7 @@ export class TestUtil {
       memory: {
         isWorking: false,
         announcedTask: false,
-        currentTask: Routines.None,
+        currentTask: Routines.NONE,
         target: null
       },
       room: undefined,

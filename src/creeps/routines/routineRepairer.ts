@@ -21,15 +21,15 @@ export default function (creep: Creep): void {
 
   if (damagedStructures[0]) {
     repair(creep);
-    if (creep.memory.currentTask !== Routines.Repair) {
+    if (creep.memory.currentTask !== Routines.REPAIR) {
       Logger.info(`${creep.name} switched to repair routine`);
-      creep.memory.currentTask = Routines.Repair;
+      creep.memory.currentTask = Routines.REPAIR;
     }
   } else if (targets[0]) {
     build(creep, targets[0]);
-    if (creep.memory.currentTask !== Routines.Build) {
+    if (creep.memory.currentTask !== Routines.BUILD) {
       Logger.info(`${creep.name} switched to build routine`);
-      creep.memory.currentTask = Routines.Build;
+      creep.memory.currentTask = Routines.BUILD;
     }
   }
 }

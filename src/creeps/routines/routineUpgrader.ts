@@ -7,15 +7,15 @@ import routineWithdraw from "./routineWithdraw";
 export default function (creep: Creep): void {
   if (checkCreepCapacity(creep)) {
     routineWithdraw(creep);
-    if (creep.memory.currentTask !== Routines.Withdraw) {
+    if (creep.memory.currentTask !== Routines.WITHDRAW) {
       Logger.info(`${creep.name} switched to withdraw routine`);
-      creep.memory.currentTask = Routines.Withdraw;
+      creep.memory.currentTask = Routines.WITHDRAW;
     }
   } else {
     routineUpgrade(creep);
-    if (creep.memory.currentTask !== Routines.Upgrade) {
+    if (creep.memory.currentTask !== Routines.UPGRADE) {
       Logger.info(` ${creep.name} switched to upgrade routine`);
-      creep.memory.currentTask = Routines.Upgrade;
+      creep.memory.currentTask = Routines.UPGRADE;
     }
   }
 }

@@ -30,7 +30,7 @@ describe("routineSoldier", () => {
             role: CreepRoles.ROLE_SOLDIER,
             isWorking: false,
             announcedTask: false,
-            currentTask: Routines.Attack
+            currentTask: Routines.ATTACK
           },
           store: { getFreeCapacity: () => 50 },
 
@@ -194,7 +194,7 @@ describe("routineSoldier", () => {
             role: CreepRoles.ROLE_SOLDIER,
             isWorking: false,
             announcedTask: false,
-            currentTask: Routines.Attack
+            currentTask: Routines.ATTACK
           },
           store: { getFreeCapacity: () => 50 },
           room: {
@@ -273,7 +273,7 @@ describe("routineSoldier", () => {
         {
           my: true,
           hits: 1000,
-          memory: { role: CreepRoles.ROLE_SOLDIER, isWorking: false, currentTask: Routines.Attack },
+          memory: { role: CreepRoles.ROLE_SOLDIER, isWorking: false, currentTask: Routines.ATTACK },
           store: { getFreeCapacity: () => 0, energy: 5 },
           room: {
             energyAvailable: 5,

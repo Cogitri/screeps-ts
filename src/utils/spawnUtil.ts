@@ -15,7 +15,7 @@ export default function (role: CreepRoles, spawn: StructureSpawn): number {
       isWorking: false,
       announcedTask: false,
       target: null,
-      currentTask: Routines.None
+      currentTask: Routines.NONE
     }
   });
 }

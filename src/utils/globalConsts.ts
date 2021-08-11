@@ -8,15 +8,15 @@ export enum CreepRoles {
 }
 
 export enum Routines {
-  None,
-  Farmer,
-  Repair,
-  Upgrade,
-  Attack,
-  Withdraw,
-  Energize,
-  Transport,
-  Build
+  NONE = "none",
+  FARMER = "farm",
+  REPAIR = "repair",
+  UPGRADE = "upgrade",
+  ATTACK = "attack",
+  WITHDRAW = "withdraw",
+  ENERGIZE = "energize",
+  TRANSPORT = "transport",
+  BUILD = "build"
 }
 
 export default {

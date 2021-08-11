@@ -17,23 +17,23 @@ export default function (creep: Creep): void {
 
   if (checkCreepCapacity(creep)) {
     routineTransporter(creep);
-    if (creep.memory.currentTask !== Routines.Farmer) {
+    if (creep.memory.currentTask !== Routines.FARMER) {
       Logger.info(`${creep.name} switched to farm routine`);
-      creep.memory.currentTask = Routines.Farmer;
+      creep.memory.currentTask = Routines.FARMER;
     }
   }
 
   if (creep.memory.isWorking && target) {
     buildByPriority(creep);
-    if (creep.memory.currentTask !== Routines.Build) {
+    if (creep.memory.currentTask !== Routines.BUILD) {
       Logger.info(`${creep.name} switched to build routine`);
-      creep.memory.currentTask = Routines.Build;
+      creep.memory.currentTask = Routines.BUILD;
     }
   } else if (creep.memory.isWorking) {
     repair(creep);
-    if (creep.memory.currentTask !== Routines.Repair) {
+    if (creep.memory.currentTask !== Routines.REPAIR) {
       Logger.info(`${creep.name} switched to repair routine`);
-      creep.memory.currentTask = Routines.Repair;
+      creep.memory.currentTask = Routines.REPAIR;
     }
   }
 }

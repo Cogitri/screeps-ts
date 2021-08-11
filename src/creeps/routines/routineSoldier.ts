@@ -38,9 +38,9 @@ export default function (creep: Creep): void {
     }
     movePath(creep, enemy, PathColors.PATHCOLOR_SOLDIER);
     creep.memory.target = enemy;
-    if (creep.memory.currentTask !== Routines.Attack) {
+    if (creep.memory.currentTask !== Routines.ATTACK) {
       Logger.info(`${creep.name} switched to fighting routine`);
-      creep.memory.currentTask = Routines.Attack;
+      creep.memory.currentTask = Routines.ATTACK;
     }
   }
 }
