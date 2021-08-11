@@ -7,6 +7,7 @@ import globalConsts from "utils/globalConsts";
 import { mapToObject } from "utils/mapHelper";
 import pickupEnergy from "../creeps/routines/pickupEnergy";
 import routineTower from "../creeps/routines/routineTower";
+import { showHelpHint } from "../utils/viz/vizHelpHint";
 import { visualizeControllerProgress } from "../utils/viz/vizControllerLvl";
 import { visualizeDashboards } from "utils/viz/vizDashboards";
 import { visualizeSpawnerProgress } from "../utils/viz/vizSpawner";
@@ -20,6 +21,9 @@ export default function (): void {
 
   // Iterate over all owned spawns
   for (const spawn in Game.spawns) {
+    // show hint to help command in bottom left corner of the room
+    showHelpHint(Game.spawns[spawn].room);
+
     createConstructions(Game.spawns[spawn]);
     // Check if creep is already spawning (avoids bug)
     if (!Game.spawns[spawn].spawning) {
