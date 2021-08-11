@@ -11,6 +11,7 @@ import {
   logLevel,
   showRole,
   statistics,
+  toggleDashboards,
   togglePathViz,
   toggleTextViz
 } from "./utils/commands";
@@ -61,6 +62,8 @@ declare global {
     interface Global {
       textViz: boolean;
       pathViz: boolean;
+      dashboards: boolean;
+      toggleDashboards: () => string;
       toggleTextViz: () => string;
       togglePathViz: () => string;
       findRole: (role: string) => string;
@@ -78,9 +81,10 @@ declare global {
 
 global.textViz = true;
 global.pathViz = true;
+global.dashboards = true;
+
 const initBlockedSourcePositions = new Map<string, Creep | null>();
 Memory.blockedSourcePositions = mapToObject(initBlockedSourcePositions);
-
 /**
  * The loop that gets run on game start.
  *
@@ -93,6 +97,7 @@ export const loop = ErrorMapper.wrapLoop(() => {
   global.sayHello = findCreep;
   global.toggleTextViz = toggleTextViz;
   global.togglePathViz = togglePathViz;
+  global.toggleDashboards = toggleDashboards;
   global.changeCreepCount = changeCreepCount;
   global.changeBodyparts = changeBodyParts;
   global.createPath = createPath;

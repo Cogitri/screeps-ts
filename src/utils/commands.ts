@@ -37,7 +37,8 @@ export function help(): string {
           changeBodyParts(string, [Bodyparts]): changes the bodyparts of the given role(e.g 'harvester', ['MOVE','MOVE','CARRY'] => harvester will now spawn with 2 Move and 1 Carry Bodypart)\n
           emojiLegend(string): shows a legend of used emojis on top of the room. Needs the room name as parameter.
           createPath(string, number, number, number, number): create a visual path to build a road/wall
-          statistics(string): shows stats of a certain room under your controll`;
+          statistics(string): shows stats of a certain room under your controll\n
+          toggleDashboards(): turns the Dashboards on and off`;
 }
 
 /**
@@ -94,6 +95,15 @@ export function toggleTextViz(): string {
   }
 }
 
+export function toggleDashboards(): string {
+  if (global.dashboards) {
+    global.dashboards = false;
+    return "Disabled all Dashboards";
+  } else {
+    global.dashboards = true;
+    return "Enabled all Dashboards";
+  }
+}
 /**
  * Toggles whether the path visuals should be shown or not. Visuals are displayed by default.
  * @returns string - Console output whether the visuals are now enabled or disabled.

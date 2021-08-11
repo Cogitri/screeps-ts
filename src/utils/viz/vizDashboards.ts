@@ -3,7 +3,9 @@ import { visualizeDashboardEnergySources } from "utils/dashboards/dashboardEnerg
 import { visualizeDashboardLegend } from "utils/dashboards/dashboardLegend";
 
 export function visualizeDashboards(spawn: string): void {
-  visualizeDashboardCreepsRoles();
-  visualizeDashboardLegend();
-  visualizeDashboardEnergySources(spawn);
+  if (global.dashboards) {
+    visualizeDashboardCreepsRoles();
+    visualizeDashboardLegend();
+    visualizeDashboardEnergySources(spawn);
+  }
 }
