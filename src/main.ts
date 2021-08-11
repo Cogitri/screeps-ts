@@ -10,6 +10,7 @@ import {
   help,
   logLevel,
   showRole,
+  statistics,
   togglePathViz,
   toggleTextViz
 } from "./utils/commands";
@@ -70,6 +71,7 @@ declare global {
       changeBodyparts: (role: string, bodyparts: BodyPartConstant[]) => string;
       emojiLegend: (roomName: string) => string;
       createPath: (name: string, x1: number, y1: number, x2: number, y2: number) => string;
+      statistics: (name: string) => string;
     }
   }
 }
@@ -95,6 +97,7 @@ export const loop = ErrorMapper.wrapLoop(() => {
   global.changeBodyparts = changeBodyParts;
   global.createPath = createPath;
   global.emojiLegend = emojiLegend;
+  global.statistics = statistics;
 
   // Automatically delete memory of missing creeps
   for (const name in Memory.creeps) {

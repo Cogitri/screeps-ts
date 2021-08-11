@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { CreepRoles, PathColors, WorkEmoji } from "./globalConsts";
 import { LogLevel, Logger } from "./logger";
 import { mapToObject } from "./mapHelper";
@@ -35,7 +36,8 @@ export function help(): string {
           changeCreepCount(string, number): changes the max amount of concurrent creeps of the given type (e.g. 'harvester', 5 => max amount of 5 concurrent harvesters)\n
           changeBodyParts(string, [Bodyparts]): changes the bodyparts of the given role(e.g 'harvester', ['MOVE','MOVE','CARRY'] => harvester will now spawn with 2 Move and 1 Carry Bodypart)\n
           emojiLegend(string): shows a legend of used emojis on top of the room. Needs the room name as parameter.
-          createPath(string, number, number, number, number): create a visual path to build a road/wall`;
+          createPath(string, number, number, number, number): create a visual path to build a road/wall
+          statistics(string): shows stats of a certain room under your controll`;
 }
 
 /**
@@ -221,4 +223,68 @@ export function createPath(name: string, x1: number, y1: number, x2: number, y2:
   const path: any = Game.rooms[name].findPath(pos1, pos2);
   new RoomVisual(name).poly(path, { stroke: PathColors.PATHCOLOR_PATH, lineStyle: "dashed" });
   return "Path will be visualized";
+}
+
+/**
+ * Shows the stats of the room.
+ * @param name Name of the {@link https://docs.screeps.com/api/#Room|Room}.
+ * @returns room stats.
+ */
+export function statistics(name: string): string {
+  const controller = Game.rooms[name].controller;
+  if (!controller) {
+    return "controller not found";
+  }
+  const energy = Game.rooms[name].energyAvailable;
+  const controllerLevel = controller.level;
+  const creeps = Game.rooms[name].find(FIND_MY_CREEPS);
+  const creepsMap = new Map<string, number>([
+    [CreepRoles.ROLE_BUILDER, 0],
+    [CreepRoles.ROLE_HARVESTER, 0],
+    [CreepRoles.ROLE_REPAIRER, 0],
+    [CreepRoles.ROLE_TRANSPORTER, 0],
+    [CreepRoles.ROLE_UPGRADER, 0]
+  ]);
+
+  for (const creep of creeps) {
+    if (creep.memory.role === CreepRoles.ROLE_HARVESTER) {
+      const tmp = creepsMap.get(CreepRoles.ROLE_HARVESTER);
+      if (tmp !== undefined && tmp >= 0) {
+        creepsMap.set(CreepRoles.ROLE_HARVESTER, tmp + 1);
+      }
+    } else if (creep.memory.role === CreepRoles.ROLE_BUILDER) {
+      const tmp = creepsMap.get(CreepRoles.ROLE_BUILDER);
+      if (tmp !== undefined && tmp >= 0) {
+        creepsMap.set(CreepRoles.ROLE_BUILDER, tmp + 1);
+      }
+    } else if (creep.memory.role === CreepRoles.ROLE_REPAIRER) {
+      const tmp = creepsMap.get(CreepRoles.ROLE_REPAIRER);
+      if (tmp !== undefined && tmp >= 0) {
+        creepsMap.set(CreepRoles.ROLE_REPAIRER, tmp + 1);
+      }
+    } else if (creep.memory.role === CreepRoles.ROLE_TRANSPORTER) {
+      const tmp = creepsMap.get(CreepRoles.ROLE_TRANSPORTER);
+      if (tmp !== undefined && tmp >= 0) {
+        creepsMap.set(CreepRoles.ROLE_TRANSPORTER, tmp + 1);
+      }
+    } else {
+      const tmp = creepsMap.get(CreepRoles.ROLE_UPGRADER);
+      if (tmp !== undefined && tmp >= 0) {
+        creepsMap.set(CreepRoles.ROLE_UPGRADER, tmp + 1);
+      }
+    }
+  }
+
+  const controllerEXP = controller.progressTotal - controller.progress;
+
+  return `\nStats:
+          Creeps:
+            - Harvester:   ${creepsMap.get(CreepRoles.ROLE_HARVESTER)}
+            - Builder:     ${creepsMap.get(CreepRoles.ROLE_BUILDER)}
+            - Repairer:    ${creepsMap.get(CreepRoles.ROLE_REPAIRER)}
+            - Transporter: ${creepsMap.get(CreepRoles.ROLE_TRANSPORTER)}
+            - Upgrader:    ${creepsMap.get(CreepRoles.ROLE_UPGRADER)}
+          Energy Available:       ${energy}
+          Controller Level:       ${controllerLevel}
+          Energy for next Level:  ${controllerEXP}`;
 }
