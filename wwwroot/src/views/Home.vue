@@ -1,16 +1,14 @@
 <template>
-  <hello-world />
+  <home-init />
 </template>
 
 <script lang="ts">
+import HomeInit from "@/components/HomeInit.vue";
 import Vue from "vue";
-import HelloWorld from "../components/HelloWorld.vue";
 
 export default Vue.extend({
+  components: { HomeInit },
   name: "Home",
-
-  components: {
-    HelloWorld,
-  },
 });
 </script>
+text
