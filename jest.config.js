@@ -21,6 +21,9 @@ module.exports = {
     // A preset that is used as a base for Jest's configuration
     preset: 'ts-jest',
 
+    // Setup files that are run before each test
+    setupFiles: ['./src/utils/testSetup.ts'],
+
     // The test environment that will be used for testing
     testEnvironment: 'screeps-jest',
 
