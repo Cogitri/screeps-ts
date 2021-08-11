@@ -8,4 +8,5 @@ Code ist nur Done, wenn er:
 - Tests geschrieben wurden, sofern dies möglich ist
 - Die MR-Pipeline erfolgreich ist
 - Der Code Reviewer keine Anmerkungen hat
+- Der Branch vom Entwickler vor der Abnahme selbstständig rebased wurde
 - Der PO den Code abnimmt
