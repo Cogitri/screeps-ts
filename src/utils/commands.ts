@@ -1,4 +1,4 @@
-import { CreepRoles, WorkEmoji } from "./globalConsts";
+import { CreepRoles, PathColors, WorkEmoji } from "./globalConsts";
 import { LogLevel, Logger } from "./logger";
 import { mapToObject } from "./mapHelper";
 
@@ -34,7 +34,8 @@ export function help(): string {
           sayHello(string): finds the creep by provided name\n
           changeCreepCount(string, number): changes the max amount of concurrent creeps of the given type (e.g. 'harvester', 5 => max amount of 5 concurrent harvesters)\n
           changeBodyParts(string, [Bodyparts]): changes the bodyparts of the given role(e.g 'harvester', ['MOVE','MOVE','CARRY'] => harvester will now spawn with 2 Move and 1 Carry Bodypart)\n
-          emojiLegend(string): shows a legend of used emojis on top of the room. Needs the room name as parameter.`;
+          emojiLegend(string): shows a legend of used emojis on top of the room. Needs the room name as parameter.
+          createPath(string, number, number, number, number): create a visual path to build a road/wall`;
 }
 
 /**
@@ -202,4 +203,22 @@ export function emojiLegend(roomName: string): string {
   } else {
     return "Invalid room name.";
   }
+}
+
+/**
+ * Shows a lined path between two coordinates
+ * @param name name of the romm
+ * @param x1 x of the first coordinate
+ * @param y1 y of the first coordinate
+ * @param x2 x of the second coordinate
+ * @param y2 y of the second coordinate
+ * @returns returns a visual path
+ */
+export function createPath(name: string, x1: number, y1: number, x2: number, y2: number): string {
+  const pos1 = new RoomPosition(x1, y1, name);
+  const pos2 = new RoomPosition(x2, y2, name);
+
+  const path: any = Game.rooms[name].findPath(pos1, pos2);
+  new RoomVisual(name).poly(path, { stroke: PathColors.PATHCOLOR_PATH, lineStyle: "dashed" });
+  return "Path will be visualized";
 }

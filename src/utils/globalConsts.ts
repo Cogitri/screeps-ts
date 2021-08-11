@@ -60,5 +60,6 @@ export enum PathColors {
   PATHCOLOR_SOLDIER = "#ff0000", // red -> 255, 0, 0
   PATHCOLOR_TRANSPORTER = "#33d6ff", // light blue -> 51, 214, 255
   PATHCOLOR_UPGRADE = "#00e600", // light green -> 0, 230, 0
-  PATHCOLOR_WITHDRAW = "#ff3080" // pink
+  PATHCOLOR_WITHDRAW = "#ff3080", // pink
+  PATHCOLOR_PATH = "#1300FF" // dark blue ->19, 0, 255
 }
