@@ -19,9 +19,7 @@
         </v-list-item>
       </v-list>
       <v-text-field></v-text-field>
-      <v-card-actions>
-        <v-btn flat color="success" block>Submit</v-btn>
-      </v-card-actions>
+      <v-btn flat color="success" block>Submit</v-btn>
     </v-card-text>
   </v-card>
 </template>
