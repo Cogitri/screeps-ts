@@ -105,7 +105,9 @@ export class TestUtil {
         isWorking: false,
         announcedTask: false,
         currentTask: Routines.NONE,
-        target: null
+        target: null,
+        reusePath: 100,
+        serializeMemory: true
       },
       room: undefined,
       name: undefined,
@@ -144,7 +146,7 @@ export class TestUtil {
       body: undefined,
       store: { getFreeCapacity: () => 0, energy: 50 },
       room: undefined,
-      memory: { lockTask: false, working: false, currentTask: "null" },
+      memory: { lockTask: false, working: false, currentTask: "null", reusePath: 100, serializeMemory: true },
       transfer: () => OK,
       harvest: () => OK,
       say: () => OK,

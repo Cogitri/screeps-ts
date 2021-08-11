@@ -8,8 +8,8 @@
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function movePath(creep: Creep, target: any, pathColor: string): number {
   if (global.pathViz) {
-    return creep.moveTo(target, { visualizePathStyle: { stroke: pathColor } });
+    return creep.moveTo(target, { reusePath: 100, serializeMemory: true, visualizePathStyle: { stroke: pathColor } });
   } else {
-    return creep.moveTo(target);
+    return creep.moveTo(target, { reusePath: 100, serializeMemory: true });
   }
 }
