@@ -9,6 +9,7 @@ import {
   findCreep,
   help,
   logLevel,
+  printAuthors,
   showRole,
   statistics,
   toggleDashboards,
@@ -75,6 +76,7 @@ declare global {
       emojiLegend: (roomName: string) => string;
       createPath: (name: string, x1: number, y1: number, x2: number, y2: number) => string;
       statistics: (name: string) => string;
+      printAuthors: () => string;
     }
   }
 }
@@ -103,6 +105,7 @@ export const loop = ErrorMapper.wrapLoop(() => {
   global.createPath = createPath;
   global.emojiLegend = emojiLegend;
   global.statistics = statistics;
+  global.printAuthors = printAuthors;
 
   // Automatically delete memory of missing creeps
   for (const name in Memory.creeps) {

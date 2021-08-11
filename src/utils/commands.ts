@@ -35,8 +35,11 @@ export function help(): string {
           sayHello(string): finds the creep by provided name\n
           changeCreepCount(string, number): changes the max amount of concurrent creeps of the given type (e.g. 'harvester', 5 => max amount of 5 concurrent harvesters)\n
           changeBodyParts(string, [Bodyparts]): changes the bodyparts of the given role(e.g 'harvester', ['MOVE','MOVE','CARRY'] => harvester will now spawn with 2 Move and 1 Carry Bodypart)\n
-          emojiLegend(string): shows a legend of used emojis on top of the room. Needs the room name as parameter.
-          createPath(string, number, number, number, number): create a visual path to build a road/wall
+          emojiLegend(string): shows a legend of used emojis on top of the room. Needs the room name as parameter.\n
+          toggleTextViz(): Depending on current state enables/disables textual room visuals\n
+          togglePathViz(): Depending on current state enables/disables creep path visuals\n
+          printAuthors(): Prints out information about the project team \n
+          createPath(string, number, number, number, number): create a visual path to build a road/wall \n
           statistics(string): shows stats of a certain room under your controll\n
           toggleDashboards(): turns the Dashboards on and off\n
           Whenever a command expects a parameter like this => sayHello(string) it means that the provided parameter inside the brackets needs to be in quotes, e.g. sayHello('Bob')`;
@@ -123,7 +126,7 @@ export function togglePathViz(): string {
  * Adjusts the default amount of creeps that are spawned by a given number.
  * @param role string - Role of creep.
  * @param count number - New amount of creeps.
- * @returns
+ * @returns string - Consoloe output whether the command was successful or not.
  */
 export function changeCreepCount(role: string, count: number): string {
   if (Object.values<string>(CreepRoles).includes(role)) {
@@ -160,6 +163,12 @@ export function printAuthors(): string {
     SM: Rasmus Thomsen, PO: Thorben Rolf, Developers: Dennis Schuetz, Janis Ciemnyjewski, Katharina Sprotte, Lara Laskowsky, Mattis Kunstmann, Mika Schrader, Paul Voss, Tim Brueggemann`;
 }
 
+/**
+ * Command to change default bodyparts of given role.
+ * @param role Role of the creep.
+ * @param bodyparts Array of bodyparts.
+ * @returns string - Consoloe output whether the command was successful or not.
+ */
 export function changeBodyParts(role: string, bodyparts: BodyPartConstant[]): string {
   if (Object.values<string>(CreepRoles).includes(role)) {
     let validBodyparts = true;
