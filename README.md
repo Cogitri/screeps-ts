@@ -20,14 +20,8 @@ When adding new functionality, tests should be added as well to avoid regression
 
 ## Unit Tests
 
-You can create new unit tests (tests which don't need the entire game running) under `test/unit/$MY_NAME.test.ts`, see `test/unit/main.test.ts` for a template.
-This is useful for testing small functions which don't depend on game logic.
-
-## Integration Tests
-
-Integration tests are a fair bit slower than unit tests, but in return they provide a mockup of the actual game, so one can test functions which depend on
-game logic in these tests. Since these tests are slower and a bit harder to write, one should write unit tests if at all possible.
-You can add new integration tests in `test/integration/$MY_NAME.test.ts`, see `test/integration/integration.test.ts` for a template.
+We use [jest](https://jestjs.io/) and [screeps-jest](https://github.com/eduter/screeps-jest) for unit testing.
+Tests are written in *.spec.ts files where the * represents the module that is tested (e.g. main.spec.test => tests for main.ts module). Each module is described by the jest [describe()](https://jestjs.io/docs/api#describename-fn) global to split the tests into individual suites. The individual tests itself are described with the it() global.
 
 # IDE/Devsetup
 
