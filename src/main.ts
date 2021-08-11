@@ -14,6 +14,7 @@ import {
 } from "./utils/commands";
 import gameLoop, { init } from "core/gameLoop";
 import { ErrorMapper } from "utils/ErrorMapper";
+import { mapToObject } from "utils/mapHelper";
 
 declare global {
   /**
@@ -31,6 +32,7 @@ declare global {
     creepCount: { [k: string]: number };
     pathToSources: { [k: string]: boolean };
     roleBodyParts: { [k: string]: BodyPartConstant[] };
+    blockedSourcePositions: { [key: string]: Creep | null };
   }
   /**
    *  Creep Memory Interface
@@ -46,8 +48,10 @@ declare global {
     room: string;
     isWorking: boolean;
     announcedTask: boolean;
-    target: Structure | Source | Mineral | Creep | null;
+    target?: Structure | Source | Mineral | Creep | null;
     currentTask: Routines;
+    targetRoomPosition?: RoomPosition;
+    designatedEnergySourcePosition?: RoomPosition;
   }
 
   // Syntax for adding proprties to `global` (ex "global.log")
@@ -67,8 +71,11 @@ declare global {
     }
   }
 }
+
 global.textViz = true;
 global.pathViz = true;
+const initBlockedSourcePositions = new Map<string, Creep | null>();
+Memory.blockedSourcePositions = mapToObject(initBlockedSourcePositions);
 
 /**
  * The loop that gets run on game start.

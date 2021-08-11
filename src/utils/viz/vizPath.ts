@@ -6,10 +6,10 @@
  * @param pathColor The Color of the Path, if it is displayed
  */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function movePath(creep: Creep, target: any, pathColor: string): void {
+export function movePath(creep: Creep, target: any, pathColor: string): number {
   if (global.pathViz) {
-    creep.moveTo(target, { visualizePathStyle: { stroke: pathColor } });
+    return creep.moveTo(target, { visualizePathStyle: { stroke: pathColor } });
   } else {
-    creep.moveTo(target);
+    return creep.moveTo(target);
   }
 }

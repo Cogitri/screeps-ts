@@ -1,22 +1,47 @@
 import { PathColors, WorkEmoji } from "utils/globalConsts";
+import findBestEnergySourcePos, { freeSourcePos } from "core/energySource";
+import { Logger } from "utils/logger";
 import { movePath } from "utils/viz/vizPath";
 
-/**
- * Find, move and harvest from energy sources.
- * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
- */
 export default function (creep: Creep): void {
-  const sources = creep.room.find(FIND_SOURCES);
+  Logger.debug(`es geht um ${creep.name}++++++++++++++++++`);
 
-  if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) {
-    if (!creep.memory.announcedTask) {
+  const sourceAndPos = getFreeSourcePos(creep);
+  if (sourceAndPos) {
+    const source = sourceAndPos.source;
+    const pos = sourceAndPos.pos;
+
+    if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
+      movePath(creep, pos, PathColors.PATHCOLOR_HARVESTER);
       creep.say(WorkEmoji.EMOJI_HARVEST);
-      creep.memory.announcedTask = true;
+      if (creep.moveTo(pos) === ERR_INVALID_TARGET) {
+        freeSourcePos(creep);
+        creep.memory.target = undefined;
+        creep.memory.targetRoomPosition = undefined;
+        creep.memory.designatedEnergySourcePosition = undefined;
+      }
     }
+  } else {
+    // there are no energy sources left
+    Logger.warn("no energy Sources left - you may want to conquer a new room.");
+  }
+}
 
-    movePath(creep, sources[0], PathColors.PATHCOLOR_FARM);
-  } else if (creep.harvest(sources[0]) === OK) {
-    creep.memory.target = sources[0];
-    creep.say(WorkEmoji.EMOJI_HARVEST);
+function getFreeSourcePos(creep: Creep): { source: Source; pos: RoomPosition } | null {
+  const target = creep.memory.target as Source;
+  if (target) {
+    const source = Game.getObjectById(target.id);
+    if (source instanceof Source && creep.memory.designatedEnergySourcePosition) {
+      return {
+        source,
+        pos: creep.memory.designatedEnergySourcePosition
+      };
+    } else {
+      // creep target is not a source.
+      return findBestEnergySourcePos(creep);
+    }
+  } else {
+    // no target yet.
+    return findBestEnergySourcePos(creep);
   }
 }

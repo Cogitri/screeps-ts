@@ -40,9 +40,24 @@ export class TestUtil {
     mockGlobal<PathFinder>("PathFinder", {
       search: () => OK
     });
+
     mockGlobal<Memory>("Memory", {
       creepCount: {},
-      roleBodyParts: {}
+      roleBodyParts: {},
+      blockedSourcePositions: {}
+    });
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    (global as any).RoomPosition = jest.fn(TestUtil.createRoomPosition);
+  }
+
+  private static createRoomPosition(x: number, y: number, roomName: string): RoomPosition {
+    return mockInstanceOf<RoomPosition>({
+      x,
+      y,
+      roomName,
+      toJSON: () => ({ x, y, roomName }),
+      look: () => []
     });
   }
 
@@ -86,7 +101,12 @@ export class TestUtil {
     return mockInstanceOf<Creep>({
       store: { getFreeCapacity: () => 0, energy: 50 },
       body: this.composeBody(),
-      memory: { isWorking: false, announcedTask: false, currentTask: Routines.None },
+      memory: {
+        isWorking: false,
+        announcedTask: false,
+        currentTask: Routines.None,
+        target: null
+      },
       room: undefined,
       name: undefined,
       transfer: () => OK,
