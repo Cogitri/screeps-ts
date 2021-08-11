@@ -1,4 +1,4 @@
-# Agenda Donnerstag, 19.8.21
+# Agenda Donnerstag, 10.8.21
 
 - 11:45 Daily Scum Timebox: 15 Min.
 - 12:00 Refinement
