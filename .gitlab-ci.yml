@@ -1,28 +1,9 @@
-image: node:alpine
+image: ruby:2.7
 
-stages:
-  - test
-  - deploy
-
-lint:
-  stage: test
+pages:
   script:
-    - yarn
-    - yarn lint
-
-test:
-  stage: test
-  script:
-    - yarn
-    - yarn test
-
-deploy_to_screeps:
-  stage: deploy
-  only:
-    refs:
-      - master
-  script:
-    - cp screeps.sample.json screeps.json
-    - sed -i "s/\"YOUR_TOKEN\"/\"$SCREEPS_MASTER_DEPLOY\"/g" ./screeps.json
-    - yarn
-    - yarn push-main
+    - mkdir -p public
+    - echo "<html><h1>Hello World!</h1></html>" > public/index.html
+  artifacts:
+    paths:
+      - public
