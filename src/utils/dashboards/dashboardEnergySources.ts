@@ -3,11 +3,11 @@ import { Bar, Dashboard, Grid, Rectangle, Widget } from "screeps-viz";
 /**
  * Creates a dashboard that displays the current amount of energy of the sources.
  *
- * @param spawn Get the room associated to this spawn.
+ * @param room The room associated to this spawn.
  */
-export function visualizeDashboardEnergySources(spawn: string): void {
+export function visualizeDashboardEnergySources(room: Room): void {
   const dataTest: Widget[] = [];
-  const sources = Game.spawns[spawn].room.find(FIND_SOURCES);
+  const sources = room.find(FIND_SOURCES);
 
   if (sources) {
     sources.forEach(element => {

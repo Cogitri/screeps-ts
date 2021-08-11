@@ -19,6 +19,8 @@ export default function (): void {
   // Refresh variables in memory
   refreshMemory();
 
+  const rooms: Room[] = [];
+
   // Iterate over all owned spawns
   for (const spawn in Game.spawns) {
     // show hint to help command in bottom left corner of the room
@@ -30,7 +32,6 @@ export default function (): void {
       creepSpawn(Game.spawns[spawn]);
     }
     visualizeSpawnerProgress(spawn);
-    visualizeDashboards(spawn);
 
     const tower = Game.spawns[spawn].room.find(FIND_STRUCTURES, {
       filter: s => s.structureType === STRUCTURE_TOWER
@@ -38,13 +39,20 @@ export default function (): void {
     tower.forEach(t => {
       return routineTower(t as StructureTower);
     });
+
+    if (rooms.includes(Game.spawns[spawn].room) === false) {
+      rooms.push(Game.spawns[spawn].room);
+    }
+  }
+
+  // Visualize dashboards and controller progress for every room
+  for (const room of rooms) {
+    visualizeControllerProgress(room);
+    visualizeDashboards(room);
   }
 
   for (const creepName in Game.creeps) {
     const creep = Game.creeps[creepName];
-    if (Game.spawns.Spawn1.room.controller !== undefined) {
-      visualizeControllerProgress(Game.spawns.Spawn1.room);
-    }
     if (!creep.memory.isWorking) {
       // pickupEnergy routine started with this function. place wherever it's needed.
       pickupEnergy(creep);

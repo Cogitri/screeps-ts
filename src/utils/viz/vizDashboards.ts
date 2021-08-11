@@ -2,10 +2,10 @@ import { visualizeDashboardCreepsRoles } from "utils/dashboards/dashboardCreepRo
 import { visualizeDashboardEnergySources } from "utils/dashboards/dashboardEnergySources";
 import { visualizeDashboardLegend } from "utils/dashboards/dashboardLegend";
 
-export function visualizeDashboards(spawn: string): void {
+export function visualizeDashboards(room: Room): void {
   if (global.dashboards) {
     visualizeDashboardCreepsRoles();
     visualizeDashboardLegend();
-    visualizeDashboardEnergySources(spawn);
+    visualizeDashboardEnergySources(room);
   }
 }
