@@ -1,5 +1,5 @@
 import { Bar, Dashboard, Grid, Rectangle, Widget } from "screeps-viz";
-import globalConsts, { CreepRoles } from "utils/globalConsts";
+import globalConsts, { CreepRoles, PathColors } from "utils/globalConsts";
 
 /**
  * Creates the dashboard for showing the current amount of creeps fromm every role.
@@ -23,22 +23,22 @@ export function visualizeDashboardCreepsRoles(): void {
   for (let i = 0; i < amountOfRoles; i++) {
     switch (i % amountOfRoles) {
       case 0:
-        barWidget = createABar(CreepRoles.ROLE_BUILDER, "255, 255, 51");
+        barWidget = createABar(CreepRoles.ROLE_BUILDER, hexStringToDecString(PathColors.PATHCOLOR_BUILDER));
         break;
       case 1:
-        barWidget = createABar(CreepRoles.ROLE_HARVESTER, "255, 196, 0");
+        barWidget = createABar(CreepRoles.ROLE_HARVESTER, hexStringToDecString(PathColors.PATHCOLOR_HARVESTER));
         break;
       case 2:
-        barWidget = createABar(CreepRoles.ROLE_REPAIRER, "255, 255, 51");
+        barWidget = createABar(CreepRoles.ROLE_REPAIRER, hexStringToDecString(PathColors.PATHCOLOR_REPAIRER));
         break;
       case 3:
-        barWidget = createABar(CreepRoles.ROLE_SOLDIER, "255, 0, 0");
+        barWidget = createABar(CreepRoles.ROLE_SOLDIER, hexStringToDecString(PathColors.PATHCOLOR_SOLDIER));
         break;
       case 4:
-        barWidget = createABar(CreepRoles.ROLE_TRANSPORTER, "51, 214, 255");
+        barWidget = createABar(CreepRoles.ROLE_TRANSPORTER, hexStringToDecString(PathColors.PATHCOLOR_TRANSPORTER));
         break;
       case 5:
-        barWidget = createABar(CreepRoles.ROLE_UPGRADER, "0, 230, 0");
+        barWidget = createABar(CreepRoles.ROLE_UPGRADER, hexStringToDecString(PathColors.PATHCOLOR_UPGRADE));
         break;
     }
     dataTest.push(barWidget);
@@ -95,4 +95,20 @@ function createABar(role: CreepRoles, color: string): Widget {
     }
   }));
   return barWidgetPrototype;
+}
+
+/**
+ * Converts a hex string to a rgb-string.
+ *
+ * @param hexString The hex string that should be converted to an r,g,b-string.
+ * @returns A string containing the r-, g- and b-value of the inserted hex-string.
+ */
+function hexStringToDecString(hexString: string): string {
+  hexString = hexString.slice(1, 7);
+
+  const r = parseInt(hexString.slice(0, 2), 16);
+  const g = parseInt(hexString.slice(2, 4), 16);
+  const b = parseInt(hexString.slice(4, 6), 16);
+
+  return `${r}, ${g}, ${b}`;
 }

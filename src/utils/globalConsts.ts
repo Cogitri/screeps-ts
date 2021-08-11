@@ -41,13 +41,23 @@ export default {
 };
 
 export enum WorkEmoji {
-  EMOJI_BUILD = "⚒️",
-  EMOJI_REPAIR = "🛠️",
-  EMOJI_HARVEST = "⛏️",
-  EMOJI_DELIVER = "⛴︎",
   EMOJI_ATTACK = "⚔️",
+  EMOJI_BUILD = "⚒️",
+  EMOJI_DELIVER = "✈️",
+  EMOJI_HARVEST = "⛏️",
+  EMOJI_REPAIR = "🛠️",
   EMOJI_UPGRADE = "⚡",
   EMOJI_WITHDRAW = "📤"
+}
+
+export enum WorkAction {
+  ACTION_ATTACK = "Attack",
+  ACTION_BUILD = "Build",
+  ACTION_DELIVER = "Deliver",
+  ACTION_HARVEST = "Harvest",
+  ACTION_REPAIR = "Repair",
+  ACTION_UPGRADE = "Upgrade",
+  ACTION_WITHDRAW = "Withdraw"
 }
 
 export enum PathColors {

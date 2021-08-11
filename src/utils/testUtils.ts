@@ -175,35 +175,35 @@ export class TestUtil {
     for (let i = 0; i < parts; i++) {
       arr.push(
         {
-          type: "attack",
+          type: ATTACK,
           hits: 100
         },
         {
-          type: "carry",
+          type: CARRY,
           hits: 100
         },
         {
-          type: "claim",
+          type: CLAIM,
           hits: 100
         },
         {
-          type: "heal",
+          type: HEAL,
           hits: 100
         },
         {
-          type: "move",
+          type: MOVE,
           hits: 100
         },
         {
-          type: "ranged_attack",
+          type: RANGED_ATTACK,
           hits: 100
         },
         {
-          type: "tough",
+          type: TOUGH,
           hits: 100
         },
         {
-          type: "work",
+          type: WORK,
           hits: 100
         }
       );

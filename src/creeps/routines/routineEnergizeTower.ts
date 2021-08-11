@@ -1,4 +1,4 @@
-import { PathColors } from "utils/globalConsts";
+import { PathColors, WorkEmoji } from "utils/globalConsts";
 import { movePath } from "utils/viz/vizPath";
 
 /**
@@ -13,7 +13,7 @@ export default function (creep: Creep): void {
   if (tower) {
     if (creep.transfer(tower, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
       if (!creep.memory.announcedTask) {
-        creep.say("⛴︎");
+        creep.say(WorkEmoji.EMOJI_DELIVER);
         creep.memory.announcedTask = true;
       }
       movePath(creep, tower, PathColors.PATHCOLOR_ENERGIZE_TOWER);
