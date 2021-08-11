@@ -32,23 +32,30 @@ export default function (spawn: StructureSpawn): void {
   const repairerCount = creepCount.get(CreepRoles.ROLE_REPAIRER);
 
   if (harvesterCount && harvesters < harvesterCount) {
-    Logger.info("Spawning a Harvester");
-    spawnHarvester(spawn);
+    if (spawnHarvester(spawn) === OK) {
+      Logger.info("Spawning a Harvester");
+    }
   } else if (transporterCount && transporters < transporterCount) {
-    Logger.info("Spawning a Transporter");
-    spawnTransporter(spawn);
+    if (spawnTransporter(spawn) === OK) {
+      Logger.info("Spawning a Transporter");
+    }
   } else if (builderCount && builders < builderCount) {
     Logger.info("Spawning a Builder");
-    spawnBuilder(spawn);
+    if (spawnBuilder(spawn) === OK) {
+      Logger.info("Spawning a Builder");
+    }
   } else if (soldierCount && soldiers < soldierCount) {
-    Logger.info("Spawning a Soldier");
-    spawnSoldier(spawn);
+    if (spawnSoldier(spawn) === OK) {
+      Logger.info("Spawning a Soldier");
+    }
   } else if (upgradderCount && upgrader < upgradderCount) {
-    Logger.info("Spawning a Upgrader");
-    spawnUpgrader(spawn);
+    if (spawnUpgrader(spawn) === OK) {
+      Logger.info("Spawning a Upgrader");
+    }
   } else if (repairerCount && repairer < repairerCount) {
-    Logger.info("Spawning a Repairer");
-    spawnRepairer(spawn);
+    if (spawnRepairer(spawn) === OK) {
+      Logger.info("Spawning a Repairer");
+    }
   }
 }
 
