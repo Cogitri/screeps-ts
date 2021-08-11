@@ -38,7 +38,8 @@ export function help(): string {
           emojiLegend(string): shows a legend of used emojis on top of the room. Needs the room name as parameter.
           createPath(string, number, number, number, number): create a visual path to build a road/wall
           statistics(string): shows stats of a certain room under your controll\n
-          toggleDashboards(): turns the Dashboards on and off`;
+          toggleDashboards(): turns the Dashboards on and off\n
+          Whenever a command expects a parameter like this => sayHello(string) it means that the provided parameter inside the brackets needs to be in quotes, e.g. sayHello('Bob')`;
 }
 
 /**
