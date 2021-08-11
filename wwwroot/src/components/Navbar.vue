@@ -7,7 +7,7 @@
     <v-spacer></v-spacer>
 
     <v-app-bar-title>
-      <div @click="home" class="text-center text-h3 font-weight-bold">AEM - Screeps</div>
+      <div class="text-center text-h3 font-weight-bold">AEM - Screeps</div>
     </v-app-bar-title>
 
     <v-spacer></v-spacer>

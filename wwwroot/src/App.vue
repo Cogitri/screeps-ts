@@ -23,6 +23,6 @@ export default Vue.extend({
 
 <style>
 html {
-  overflow: auto;
+  overflow-y: auto;
 }
 </style>

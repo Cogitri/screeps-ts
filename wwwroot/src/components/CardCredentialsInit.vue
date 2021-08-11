@@ -18,16 +18,46 @@
           (* You will be either redirected or notified in the case of an error once the setup finished on our end)
         </v-list-item>
       </v-list>
-      <v-text-field></v-text-field>
-      <v-btn flat color="success" block>Submit</v-btn>
     </v-card-text>
+    <v-container>
+      <validation-observer ref="observer" v-slot="{ invalid, handleSubmit }">
+        <form @submit.prevent="handleSubmit(submit)">
+          <validation-provider v-slot="{ errors }" rules="required" name="token">
+            <v-text-field
+              type="text"
+              label="Auth Token"
+              :error-messages="errors"
+              v-model="authToken"
+              required
+            ></v-text-field>
+          </validation-provider>
+          <v-btn flat color="success" block :disabled="invalid">Submit</v-btn>
+        </form>
+      </validation-observer>
+    </v-container>
   </v-card>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import { ValidationProvider, ValidationObserver } from "vee-validate";
 
-export default Vue.extend({});
+export default Vue.extend({
+  components: {
+    ValidationProvider,
+    ValidationObserver,
+  },
+  data() {
+    return {
+      authToken: "",
+    };
+  },
+  methods: {
+    submit() {
+      console.log("udhuahdu");
+    },
+  },
+});
 </script>
 
 <style scoped></style>
