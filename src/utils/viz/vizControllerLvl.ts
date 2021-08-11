@@ -10,10 +10,10 @@ export function visualizeControllerProgress(room: Room): void {
 
     if (global.textViz) {
       room.visual.text(
-        `${((roomController.progress / roomController.progressTotal) * 100).toFixed(2)}% to next Level`,
+        `${((roomController.progress / roomController.progressTotal) * 100).toFixed(2)}% done`,
         xCoordinate,
-        yCoordinate,
-        { color: "white", font: 0.8 }
+        yCoordinate + 1.5,
+        { color: "white", font: 0.6 }
       );
     } else {
       room.visual.text("", xCoordinate, yCoordinate);
