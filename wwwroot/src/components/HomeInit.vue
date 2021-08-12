@@ -1,5 +1,5 @@
 <template>
-  <v-container fill-height>
+  <v-container fill-height fluid>
     <v-col cols="12" md="8" align-self="stretch">
       <container-screeps />
     </v-col>

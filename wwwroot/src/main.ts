@@ -7,6 +7,7 @@ import vuetify from "./plugins/vuetify";
 import { extend, localize } from "vee-validate";
 import en from "vee-validate/dist/locale/en.json";
 import * as rules from "vee-validate/dist/rules";
+import axios from "axios";
 
 // Setup vee-validate ruleset
 for (const [rule, validation] of Object.entries(rules)) {
@@ -17,6 +18,10 @@ for (const [rule, validation] of Object.entries(rules)) {
 
 // Localization for vee-validate
 localize("en", en);
+
+// Add auth header to axios
+
+axios.defaults.headers["PRIVATE-TOKEN"] = "VCy54Ht8PMLvpd_XUWtG";
 
 Vue.config.productionTip = false;
 

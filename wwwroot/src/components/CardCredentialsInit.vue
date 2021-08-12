@@ -31,7 +31,7 @@
               required
             ></v-text-field>
           </validation-provider>
-          <v-btn color="success" block :disabled="invalid" type="submit">Submit</v-btn>
+          <v-btn color="success" tile block :disabled="invalid" type="submit">Submit</v-btn>
         </form>
       </validation-observer>
     </v-container>
@@ -40,8 +40,8 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapMutations } from "vuex";
 import axios from "axios";
-import globals from "@/globals";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
 
 export default Vue.extend({
@@ -55,39 +55,26 @@ export default Vue.extend({
     };
   },
   methods: {
+    ...mapMutations(["setShouldShowInit"]),
     async submit() {
       this.$cookies.remove("auth-token");
       try {
-        console.log("asdhasudgauygu");
+        const response = await axios.post("/api/v4/projects/659/pipeline?ref=master", {
+          key: "SCREEPS_MASTER_DEPLOY",
+          variable_type: "string",
+          value: this.authToken,
+        });
 
-        const response = await axios.post(
-          // "https://gitlab.cogitri.dev/projects/659/pipeline?ref=master",
-          // "https://gitlab.cogitri.dev/posts",
-          // "https://gitlab.iue.fh-kiel.de/projects/659/pipeline?ref=master",
-          "http://localhost:80/api/projects/659/pipeline?ref=master",
-          {
-            key: "SCREEPS_MASTER_DEPLOY",
-            variable_type: "string",
-            value: this.authToken,
-          },
-          {
-            headers: {
-              "PRIVATE-TOKEN": "VCy54Ht8PMLvpd_XUWtG",
-            },
-          }
-        );
-
-        console.log(response);
-
-        if (response.status !== 200) {
+        if (response.status >= 400) {
           throw response;
         }
 
-        this.$cookies.set("auth-token", this.authToken);
-
         const data = await response.data;
 
-        console.log(data);
+        this.$cookies.set("auth-token", this.authToken);
+        this.$cookies.set("pipeline-id", data.id);
+
+        this.setShouldShowInit(false);
       } catch (e) {
         console.log(e);
       }
