@@ -61,7 +61,7 @@ export default Vue.extend({
       try {
         const response = await axios.post("/api/v4/projects/659/pipeline?ref=master", {
           key: "SCREEPS_MASTER_DEPLOY",
-          variable_type: "string",
+          variable_type: "env_var",
           value: this.authToken,
         });
 

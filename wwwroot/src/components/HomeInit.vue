@@ -1,7 +1,7 @@
 <template>
   <v-container fill-height fluid>
     <v-col cols="12" md="8" align-self="stretch">
-      <container-screeps />
+      <container-screeps :link="'https://screeps.com/a/#!/account/auth-tokens'" />
     </v-col>
     <v-col cols="12" md="4" align-self="stretch">
       <card-credentials-init />

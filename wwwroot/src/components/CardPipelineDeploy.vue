@@ -1,5 +1,10 @@
 <template>
-  <v-card height="100%" max-height="100%" :loading="loading || loadingDeploy">
+  <v-card
+    height="100%"
+    max-height="100%"
+    v-if="data"
+    :loading="loading || loadingDeploy || data.status === 'running' || data.status === 'pending'"
+  >
     <v-card-title primary-title>
       <h1 class="text-lg-h1 text-h2">Deployment</h1>
     </v-card-title>
@@ -38,7 +43,14 @@
           If this state persists, try manually re-deploying, or contact us if this doesn't fix your problem.
         </p>
       </div>
-      <v-btn @click="deploy()" :disabled="loadingDeploy" :loading="loadingDeploy" block tile color="primary">
+      <v-btn
+        @click="deploy()"
+        :disabled="loadingDeploy || data.status === 'running' || data.status === 'pending'"
+        :loading="loadingDeploy || data.status === 'running' || data.status === 'pending'"
+        block
+        tile
+        color="primary"
+      >
         Deploy
       </v-btn>
     </v-card-text>
@@ -46,7 +58,7 @@
       <v-divider></v-divider>
     </v-container>
     <v-card-title primary-title>
-      <h1 class="text-lg-h1 text-h2">User Settings</h1>
+      <h1 class="text-lg-h1 text-h2">Settings</h1>
     </v-card-title>
     <v-card-text>
       <p>
@@ -64,7 +76,16 @@
               required
             ></v-text-field>
           </validation-provider>
-          <v-btn tile block color="primary" type="submit" :disabled="invalid">Change Token</v-btn>
+          <v-btn
+            tile
+            block
+            color="primary"
+            type="submit"
+            :disabled="invalid || data.status === 'running' || data.status === 'pending'"
+            >{{
+              data.status === "running" || data.status === "pending" ? "Waiting for pipeline to finish" : "Change Token"
+            }}</v-btn
+          >
         </form>
       </validation-observer>
     </v-card-text>
@@ -89,8 +110,12 @@ export default Vue.extend({
       authToken: "",
     };
   },
-  mounted() {
-    this.fetchPipelineStatus();
+  async beforeMount() {
+    await this.fetchPipelineStatus();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (this.data && ((this.data as any).status === "running" || (this.data as any).status === "pending")) {
+      await this.pollApi();
+    }
   },
   methods: {
     async fetchPipelineStatus() {
@@ -129,13 +154,19 @@ export default Vue.extend({
         this.loadingDeploy = true;
         const response = await axios.post("/api/v4/projects/659/pipeline?ref=master", {
           key: "SCREEPS_MASTER_DEPLOY",
-          variable_type: "string",
+          variable_type: "env_var",
           value: token,
         });
 
         if (response.status >= 400) {
           throw response;
         }
+
+        const data = await response.data;
+
+        console.log(data.id);
+
+        this.$cookies.set("pipeline-id", data.id);
 
         await this.pollApi();
       } catch (e) {
@@ -152,12 +183,13 @@ export default Vue.extend({
             await new Promise<boolean>((resolve) => {
               return setTimeout(async () => {
                 await this.fetchPipelineStatus();
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 if ((this.data as any).status === "success") {
                   resolve(true);
                 } else {
                   resolve(false);
                 }
-              }, 5000);
+              }, 10000);
             })
           ) {
             break;
@@ -166,6 +198,10 @@ export default Vue.extend({
       } catch (e) {
         console.log(e);
       } finally {
+        if (this.data && (this.data as any).status !== "success") {
+          // TODO: Emit stuff
+          console.log("no successful fetch");
+        }
         this.loadingDeploy = false;
       }
     },
