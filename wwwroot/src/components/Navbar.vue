@@ -1,6 +1,6 @@
 <template>
   <v-app-bar app dark>
-    <v-btn icon>
+    <v-btn icon @click.stop="$emit('toggleDrawer')">
       <v-icon>mdi-cog</v-icon>
     </v-btn>
 
