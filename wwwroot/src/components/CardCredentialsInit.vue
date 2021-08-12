@@ -61,7 +61,10 @@ export default Vue.extend({
         console.log("asdhasudgauygu");
 
         const response = await axios.post(
-          "/api/",
+          // "https://gitlab.cogitri.dev/projects/659/pipeline?ref=master",
+          // "https://gitlab.cogitri.dev/posts",
+          // "https://gitlab.iue.fh-kiel.de/projects/659/pipeline?ref=master",
+          "http://localhost:80/api/projects/659/pipeline?ref=master",
           {
             key: "SCREEPS_MASTER_DEPLOY",
             variable_type: "string",
