@@ -184,7 +184,7 @@ export default Vue.extend({
               return setTimeout(async () => {
                 await this.fetchPipelineStatus();
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                if ((this.data as any).status === "success") {
+                if ((this.data as any).status !== "running" || (this.data as any).status !== "pending") {
                   resolve(true);
                 } else {
                   resolve(false);
