@@ -1,10 +1,5 @@
 <template>
-  <v-card
-    height="100%"
-    max-height="100%"
-    v-if="data"
-    :loading="loading || loadingDeploy || data.status === 'running' || data.status === 'pending'"
-  >
+  <v-card height="100%" max-height="100%" v-if="data" :loading="loading">
     <v-card-title primary-title>
       <h1 class="text-lg-h1 text-h2">Deployment</h1>
     </v-card-title>
@@ -184,7 +179,7 @@ export default Vue.extend({
               return setTimeout(async () => {
                 await this.fetchPipelineStatus();
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                if ((this.data as any).status !== "running" || (this.data as any).status !== "pending") {
+                if ((this.data as any).status === "success") {
                   resolve(true);
                 } else {
                   resolve(false);
