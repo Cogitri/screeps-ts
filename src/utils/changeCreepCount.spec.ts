@@ -3,7 +3,6 @@ import globalConsts, { CreepRoles } from "utils/globalConsts";
 import { TestUtil } from "utils/testUtils";
 import { changeCreepCount } from "utils/commands";
 import creepSpawn from "../core/creepSpawn";
-import { spawnBuilder } from "creeps/models/modelBuilder";
 
 describe("spawnCreeps", () => {
   let testUtil: TestUtil;
@@ -15,15 +14,11 @@ describe("spawnCreeps", () => {
   it("spawns costum creep count", () => {
     const spawn = testUtil.mockSpawn({});
 
-    spawnBuilder(spawn);
-    Game.time = 2;
     changeCreepCount("builder", 5);
-    creepSpawn(spawn);
-    creepSpawn(spawn);
-    creepSpawn(spawn);
-    creepSpawn(spawn);
-    creepSpawn(spawn);
-    creepSpawn(spawn);
+    for (let i = 0; i < 6; i++) {
+      creepSpawn(spawn);
+      Game.time++;
+    }
 
     const builders = getCreepsPerRole(CreepRoles.ROLE_BUILDER);
     expect(builders).toEqual(5);

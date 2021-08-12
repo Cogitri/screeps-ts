@@ -1,11 +1,7 @@
 import globalConsts, { CreepRoles } from "utils/globalConsts";
+
 import { Logger } from "utils/logger";
-import { spawnBuilder } from ".././creeps/models/modelBuilder";
-import { spawnHarvester } from ".././creeps/models/modelHarvester";
-import { spawnRepairer } from "creeps/models/modelRepairer";
-import { spawnSoldier } from ".././creeps/models/modelSoldier";
-import { spawnTransporter } from ".././creeps/models/modelTransporter";
-import { spawnUpgrader } from "creeps/models/modelUpgrader";
+import spawnUtil from "utils/spawnUtil";
 
 export default function (spawn: StructureSpawn): void {
   let creepCount = new Map(Object.entries(Memory.creepCount));
@@ -32,28 +28,28 @@ export default function (spawn: StructureSpawn): void {
   const repairerCount = creepCount.get(CreepRoles.ROLE_REPAIRER);
 
   if (harvesterCount && harvesters < harvesterCount) {
-    if (spawnHarvester(spawn) === OK) {
+    if (spawnUtil(CreepRoles.ROLE_HARVESTER, spawn) === OK) {
       Logger.info("Spawning a Harvester");
     }
   } else if (transporterCount && transporters < transporterCount) {
-    if (spawnTransporter(spawn) === OK) {
+    if (spawnUtil(CreepRoles.ROLE_TRANSPORTER, spawn) === OK) {
       Logger.info("Spawning a Transporter");
     }
   } else if (builderCount && builders < builderCount) {
     Logger.info("Spawning a Builder");
-    if (spawnBuilder(spawn) === OK) {
+    if (spawnUtil(CreepRoles.ROLE_BUILDER, spawn) === OK) {
       Logger.info("Spawning a Builder");
     }
   } else if (soldierCount && soldiers < soldierCount) {
-    if (spawnSoldier(spawn) === OK) {
+    if (spawnUtil(CreepRoles.ROLE_SOLDIER, spawn) === OK) {
       Logger.info("Spawning a Soldier");
     }
   } else if (upgradderCount && upgrader < upgradderCount) {
-    if (spawnUpgrader(spawn) === OK) {
+    if (spawnUtil(CreepRoles.ROLE_UPGRADER, spawn) === OK) {
       Logger.info("Spawning a Upgrader");
     }
   } else if (repairerCount && repairer < repairerCount) {
-    if (spawnRepairer(spawn) === OK) {
+    if (spawnUtil(CreepRoles.ROLE_REPAIRER, spawn) === OK) {
       Logger.info("Spawning a Repairer");
     }
   }
