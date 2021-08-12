@@ -36,12 +36,12 @@ export function help(): string {
           findRole(string): finds creeps of provided role. e.g. 'harvester'\n
           sayHello(string): finds the creep by provided name\n
           changeCreepCount(string, number): changes the max amount of concurrent creeps of the given type (e.g. 'harvester', 5 => max amount of 5 concurrent harvesters)\n
-          changeBodyParts(string, [Bodyparts]): changes the bodyparts of the given role(e.g 'harvester', ['MOVE','MOVE','CARRY'] => harvester will now spawn with 2 Move and 1 Carry Bodypart)\n
+          changeBodyparts(string, [Bodyparts]): changes the bodyparts of the given role(e.g 'harvester', ['MOVE','MOVE','CARRY'] => harvester will now spawn with 2 Move and 1 Carry Bodypart)\n
           emojiLegend(string): shows a legend of used emojis on top of the room. Needs the room name as parameter.\n
           toggleTextViz(): Depending on current state enables/disables textual room visuals\n
           togglePathViz(): Depending on current state enables/disables creep path visuals\n
           printAuthors(): Prints out information about the project team \n
-          createPath(string, number, number, number, number): create a visual path to build a road/wall \n
+          createPath(string, number, number, number, number): create a visual path to build a road/wall. Requires the room name and 2 pairs of x and y coordinates \n
           statistics(string): shows stats of a certain room under your controll\n
           toggleDashboards(): turns the Dashboards on and off\n
           Whenever a command expects a parameter like this => sayHello(string) it means that the provided parameter inside the brackets needs to be in quotes, e.g. sayHello('Bob')`;
