@@ -24,14 +24,14 @@
         <form @submit.prevent="handleSubmit(submit)">
           <validation-provider v-slot="{ errors }" rules="required" name="token">
             <v-text-field
-              type="text"
+              type="password"
               label="Auth Token"
               :error-messages="errors"
               v-model="authToken"
               required
             ></v-text-field>
           </validation-provider>
-          <v-btn flat color="success" block :disabled="invalid">Submit</v-btn>
+          <v-btn color="success" block :disabled="invalid" type="submit">Submit</v-btn>
         </form>
       </validation-observer>
     </v-container>
@@ -53,8 +53,8 @@ export default Vue.extend({
     };
   },
   methods: {
-    submit() {
-      console.log("udhuahdu");
+    async submit() {
+      this.$cookies.set("auth-token", this.authToken);
     },
   },
 });

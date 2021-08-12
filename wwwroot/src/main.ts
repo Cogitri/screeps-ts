@@ -1,5 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
+import VueCookies from "vue-cookies";
 import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
@@ -18,6 +19,8 @@ for (const [rule, validation] of Object.entries(rules)) {
 localize("en", en);
 
 Vue.config.productionTip = false;
+
+Vue.use(VueCookies);
 
 new Vue({
   router,
