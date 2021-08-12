@@ -9,10 +9,12 @@ import { mapToObject } from "./mapHelper";
  * @returns string - Console output whether the command found creeps or not.
  */
 export function showRole(role: string): string {
+  const emojis = ["👋", "✌️", "✋", "🤙", "🙋‍♂️"];
+
   let found = 0;
   for (const i in Memory.creeps) {
     if (Memory.creeps[i].role === role.toLowerCase()) {
-      Game.creeps[i].say("👋");
+      Game.creeps[i].say(emojis[Math.floor(Math.random() * (4 + 1))]);
       ++found;
     }
   }
@@ -76,9 +78,11 @@ export function logLevel(ls: keyof typeof LogLevel): string {
 export function findCreep(name: string): string {
   const emojis = ["👋", "✌️", "✋", "🤙", "🙋‍♂️"];
 
-  for (const creepName in Game.creeps) {
-    if (creepName === name) {
-      Game.creeps[name].say(emojis[Math.floor(Math.random() * (4 + 1))]);
+  const creepName = name.toLowerCase();
+
+  for (const cName in Game.creeps) {
+    if (cName === creepName) {
+      Game.creeps[creepName].say(emojis[Math.floor(Math.random() * (4 + 1))]);
       return "Creep found!";
     }
   }
@@ -99,6 +103,10 @@ export function toggleTextViz(): string {
   }
 }
 
+/**
+ * Toggles whether the dashboard visuals should be shown or not. Visuals are displayed by default.
+ * @returns string - Console output whether the dashboard visuals are now enabled or disabled.
+ */
 export function toggleDashboards(): string {
   if (global.dashboards) {
     global.dashboards = false;
@@ -129,14 +137,15 @@ export function togglePathViz(): string {
  * @returns string - Consoloe output whether the command was successful or not.
  */
 export function changeCreepCount(role: string, count: number): string {
-  if (Object.values<string>(CreepRoles).includes(role)) {
+  const creepRole = role.toLowerCase();
+  if (Object.values<string>(CreepRoles).includes(creepRole)) {
     if (!isNaN(count)) {
       if (count >= 0) {
         const map = new Map(Object.entries(Memory.creepCount));
-        map.set(role, count);
+        map.set(creepRole, count);
 
         Memory.creepCount = mapToObject(map);
-        return `Creep count for role ${role} set to ${count}`;
+        return `Creep count for role ${creepRole} set to ${count}`;
       } else {
         return `Please enter a positive number`;
       }
@@ -157,6 +166,7 @@ export function changeCreepCount(role: string, count: number): string {
 
 /**
  * Prints out information about the Project team.
+ * @returns The information about the Project team
  */
 export function printAuthors(): string {
   return `Screeps AEM Project developed by Team 8\n
@@ -170,7 +180,9 @@ export function printAuthors(): string {
  * @returns string - Consoloe output whether the command was successful or not.
  */
 export function changeBodyParts(role: string, bodyparts: BodyPartConstant[]): string {
-  if (Object.values<string>(CreepRoles).includes(role)) {
+  const creepRole = role.toLowerCase();
+
+  if (Object.values<string>(CreepRoles).includes(creepRole)) {
     let validBodyparts = true;
     bodyparts.forEach(bp => {
       if (!BODYPARTS_ALL.includes(bp)) {
@@ -180,7 +192,7 @@ export function changeBodyParts(role: string, bodyparts: BodyPartConstant[]): st
     });
     if (!validBodyparts) {
       const map = new Map<string, BodyPartConstant[]>(Object.entries(Memory.roleBodyParts));
-      map.set(role, bodyparts);
+      map.set(creepRole, bodyparts);
       Memory.roleBodyParts = mapToObject(map);
       return `New Bodypart Configeration set for role ${role} `;
     } else {
@@ -237,10 +249,31 @@ export function emojiLegend(roomName: string): string {
  * @returns returns a visual path
  */
 export function createPath(name: string, x1: number, y1: number, x2: number, y2: number): string {
-  const pos1 = new RoomPosition(x1, y1, name);
-  const pos2 = new RoomPosition(x2, y2, name);
+  let roomName = name.toUpperCase();
 
-  const path: any = Game.rooms[name].findPath(pos1, pos2);
+  if (roomName === "SIM") {
+    roomName = name.toLowerCase();
+  } else if (Game.rooms[roomName] === undefined || Game) {
+    let roomArray = "";
+    for (const names in Game.rooms) {
+      const nameRoom = Game.rooms[names];
+      roomArray += `${nameRoom}, `;
+    }
+    roomArray = roomArray.substring(0, roomArray.length - 2);
+    return `Room not found, current list of rooms ${roomArray}`;
+  } else {
+    const coords = [x1, y1, x2, y2];
+    for (const coord of coords) {
+      if (coord < 0 || coord > 50) {
+        return "Please enter a valid positive number";
+      }
+    }
+  }
+
+  const pos1 = new RoomPosition(x1, y1, roomName);
+  const pos2 = new RoomPosition(x2, y2, roomName);
+
+  const path: any = Game.rooms[roomName].findPath(pos1, pos2);
   new RoomVisual(name).poly(path, { stroke: PathColors.PATHCOLOR_PATH, lineStyle: "dashed" });
   return "Path will be visualized";
 }
@@ -251,13 +284,22 @@ export function createPath(name: string, x1: number, y1: number, x2: number, y2:
  * @returns room stats.
  */
 export function statistics(name: string): string {
-  const controller = Game.rooms[name].controller;
-  if (!controller) {
-    return "controller not found";
+  let roomName = name.toUpperCase();
+
+  if (roomName === "SIM") {
+    roomName = name.toLowerCase();
+  } else if (Game.rooms[roomName] === undefined || Game) {
+    let roomArray = "";
+    for (const names in Game.rooms) {
+      const nameRoom = Game.rooms[names];
+      roomArray += `${nameRoom}, `;
+    }
+    roomArray = roomArray.substring(0, roomArray.length - 2);
+    return `Room not found, current list of rooms ${roomArray}`;
   }
-  const energy = Game.rooms[name].energyAvailable;
-  const controllerLevel = controller.level;
-  const creeps = Game.rooms[name].find(FIND_MY_CREEPS);
+
+  const energy = Game.rooms[roomName].energyAvailable;
+  const creeps = Game.rooms[roomName].find(FIND_MY_CREEPS);
   const creepsMap = new Map<string, number>([
     [CreepRoles.ROLE_BUILDER, 0],
     [CreepRoles.ROLE_HARVESTER, 0],
@@ -295,15 +337,30 @@ export function statistics(name: string): string {
     }
   }
 
+  const controller = Game.rooms[roomName].controller;
+
+  if (!controller) {
+    return `\nStats:
+            Creeps:
+              - Harvester:          ${creepsMap.get(CreepRoles.ROLE_HARVESTER)}
+              - Builder:            ${creepsMap.get(CreepRoles.ROLE_BUILDER)}
+              - Repairer:           ${creepsMap.get(CreepRoles.ROLE_REPAIRER)}
+              - Transporter:        ${creepsMap.get(CreepRoles.ROLE_TRANSPORTER)}
+              - Upgrader:           ${creepsMap.get(CreepRoles.ROLE_UPGRADER)}
+            Energy Available:       ${energy}
+            Controller not found in room ${roomName}`;
+  }
+
   const controllerEXP = controller.progressTotal - controller.progress;
+  const controllerLevel = controller.level;
 
   return `\nStats:
           Creeps:
-            - Harvester:   ${creepsMap.get(CreepRoles.ROLE_HARVESTER)}
-            - Builder:     ${creepsMap.get(CreepRoles.ROLE_BUILDER)}
-            - Repairer:    ${creepsMap.get(CreepRoles.ROLE_REPAIRER)}
-            - Transporter: ${creepsMap.get(CreepRoles.ROLE_TRANSPORTER)}
-            - Upgrader:    ${creepsMap.get(CreepRoles.ROLE_UPGRADER)}
+            - Harvester:          ${creepsMap.get(CreepRoles.ROLE_HARVESTER)}
+            - Builder:            ${creepsMap.get(CreepRoles.ROLE_BUILDER)}
+            - Repairer:           ${creepsMap.get(CreepRoles.ROLE_REPAIRER)}
+            - Transporter:        ${creepsMap.get(CreepRoles.ROLE_TRANSPORTER)}
+            - Upgrader:           ${creepsMap.get(CreepRoles.ROLE_UPGRADER)}
           Energy Available:       ${energy}
           Controller Level:       ${controllerLevel}
           Energy for next Level:  ${controllerEXP}`;
