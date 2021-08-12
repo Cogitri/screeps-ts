@@ -40,6 +40,8 @@
 
 <script lang="ts">
 import Vue from "vue";
+import axios from "axios";
+import globals from "@/globals";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
 
 export default Vue.extend({
@@ -54,7 +56,38 @@ export default Vue.extend({
   },
   methods: {
     async submit() {
-      this.$cookies.set("auth-token", this.authToken);
+      this.$cookies.remove("auth-token");
+      try {
+        console.log("asdhasudgauygu");
+
+        const response = await axios.post(
+          "/api/",
+          {
+            key: "SCREEPS_MASTER_DEPLOY",
+            variable_type: "string",
+            value: this.authToken,
+          },
+          {
+            headers: {
+              "PRIVATE-TOKEN": "VCy54Ht8PMLvpd_XUWtG",
+            },
+          }
+        );
+
+        console.log(response);
+
+        if (response.status !== 200) {
+          throw response;
+        }
+
+        this.$cookies.set("auth-token", this.authToken);
+
+        const data = await response.data;
+
+        console.log(data);
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 });
