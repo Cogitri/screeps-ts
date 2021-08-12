@@ -22,6 +22,8 @@ export enum Routines {
 export default {
   /** Minimum Tower Capacity */
   TARGET_TOWER_CAPACITY: 300,
+  /** The maximum Percetage of the total Energy that should be used to spawn a single creep */
+  MAX_ENERGY_PERCENTAGE_TO_SPAWN: 0.6,
   DEFAULT_CREEP_COUNT: new Map<string, number>([
     [CreepRoles.ROLE_BUILDER, 3],
     [CreepRoles.ROLE_HARVESTER, 3],

@@ -36,6 +36,7 @@ describe("spawnCreeps", () => {
     const spawn = testUtil.mockSpawn({});
     for (let i = 0; i < 10; i++) {
       creepSpawn(spawn);
+      Game.time++;
     }
     const builders = getCreepsPerRole(CreepRoles.ROLE_BUILDER);
     expect(builders).toEqual(globalConsts.DEFAULT_CREEP_COUNT.get(CreepRoles.ROLE_BUILDER));

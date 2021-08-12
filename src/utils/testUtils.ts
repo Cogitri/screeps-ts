@@ -1,4 +1,5 @@
 import { mockGlobal, mockInstanceOf } from "screeps-jest";
+
 import { Routines } from "./globalConsts";
 
 // cp from lib lel :)
@@ -71,17 +72,20 @@ export class TestUtil {
    */
   public mockSpawn(extraOpts: DeepPartialObject<StructureSpawn> | undefined = undefined): StructureSpawn {
     return mockInstanceOf<StructureSpawn>({
-      spawnCreep: (body: BodyPartConstant[], name: string, opts?: SpawnOptions | undefined) => {
+      spawnCreep: (body: any, name: string, opts?: SpawnOptions | undefined) => {
         Game.creeps[name] = mockInstanceOf<Creep>({
           name,
-          memory: opts?.memory
+          memory: opts?.memory,
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          body
         });
         return OK;
       },
       room: {
-        name: "test"
+        name: "test",
+        energyCapacityAvailable: 300
       },
-      extraOpts
+      ...extraOpts
     });
   }
 
