@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "coverage": "npx jest --coverage",
     "lint": "eslint ./src --max-warnings 0 --ext .ts",
     "build": "rollup -c",
     "push-main": "rollup -c --environment DEST:main",

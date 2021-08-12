@@ -16,6 +16,12 @@ test:
     - yarn
     - yarn test
 
+coverage:
+  stage: test
+  script:
+    - yarn
+    - yarn coverage
+
 deploy_to_screeps:
   stage: deploy
   only:
