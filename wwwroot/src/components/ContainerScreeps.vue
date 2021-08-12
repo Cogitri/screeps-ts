@@ -1,5 +1,5 @@
 <template>
-  <iframe id="frame" :src="link" frameborder="0"></iframe>
+  <iframe class="elevation-2" id="frame" :src="link" frameborder="0"></iframe>
 </template>
 
 <script lang="ts">
