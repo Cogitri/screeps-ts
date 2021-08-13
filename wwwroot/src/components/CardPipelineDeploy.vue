@@ -146,13 +146,17 @@ export default Vue.extend({
         return;
       }
 
+      console.log();
+
       try {
         this.loadingDeploy = true;
-        const response = await axios.post(globals.GITLAB_API_URL, {
-          key: globals.GITLAB_ENV_VAR,
-          variable_type: "env_var",
-          value: token,
-        });
+        const response = await axios.post(globals.GITLAB_API_URL, [
+          {
+            key: globals.GITLAB_ENV_VAR,
+            variable_type: "env_var",
+            value: token,
+          },
+        ]);
 
         if (response.status >= 400) {
           throw response;
@@ -179,8 +183,14 @@ export default Vue.extend({
             await new Promise<boolean>((resolve) => {
               return setTimeout(async () => {
                 await this.fetchPipelineStatus();
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                if ((this.data as any).status === "success") {
+                if (
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  (this.data as any).status === "success" ||
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  (this.data as any).status === "failed" ||
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  (this.data as any).status === "canceled"
+                ) {
                   resolve(true);
                 } else {
                   resolve(false);
