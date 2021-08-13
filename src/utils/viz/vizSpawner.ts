@@ -1,6 +1,6 @@
 /**
  * Shows information about the spawning proccess like progress% and name of the creep below the Spawn if textViz is true.
- * @param spawn string - Name of the Spawn.
+ * @param spawn Name of the Spawn.
  */
 export function visualizeSpawnerProgress(spawn: string): void {
   const spawningProcess = Game.spawns[spawn].spawning;

@@ -1,9 +1,10 @@
-/** movePath
- * Move the Creep to a desired Target. If pathViz is true, the path will be visialized.
+/**
+ * Move the Creep to a desired target. If pathViz is true, the path will be visialized.
  *
  * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
- * @param target The Taget, to which the Creep moves
- * @param pathColor The Color of the Path, if it is displayed
+ * @param target The target, to which the creep moves.
+ * @param pathColor The color of the path, if it is displayed.
+ * @returns {@link https://docs.screeps.com/api/#Creep.moveTo|moveTo()} function of creeps with visualized path or not.
  */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function movePath(creep: Creep, target: any, pathColor: string): number {

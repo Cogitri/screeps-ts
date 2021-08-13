@@ -1,7 +1,11 @@
 import globalConsts, { CreepRoles, Routines } from "./globalConsts";
-
 import { mapToObject } from "./mapHelper";
-
+/**
+ * Spawns a creep of certain role with that roles defined bodyparts.
+ * @param role Describes what role the spawned creep will have.
+ * @param spawn {@link https://docs.screeps.com/api/#StructureSpawn|StructureSpawn}
+ * @returns {@link https://docs.screeps.com/api/#StructureSpawn.spawnCreep|spawnCreep()} call for spawn.
+ */
 export default function (role: CreepRoles, spawn: StructureSpawn): number {
   const body = generateBody(role, spawn);
   const name = `${role}${Game.time}${Math.trunc(Math.random() * 100)}`;

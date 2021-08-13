@@ -4,6 +4,10 @@ import checkCreepCapacity from "./checkCreepCapacity";
 import { movePath } from "utils/viz/vizPath";
 import routineTransporter from "./routineTransporter";
 
+/**
+ * Finds damaged structure with hitpoints below certain thresold. If none found starts building on construction sites.
+ * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
+ */
 export default function (creep: Creep): void {
   // check for all damaged structures
   const damagedStructures = creep.room.find(FIND_STRUCTURES, {

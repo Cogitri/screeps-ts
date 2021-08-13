@@ -2,7 +2,7 @@ import { Bar, Dashboard, Grid, Rectangle, Widget } from "screeps-viz";
 import globalConsts, { CreepRoles, PathColors } from "utils/globalConsts";
 
 /**
- * Creates the dashboard for showing the current amount of creeps fromm every role.
+ * Creates the dashboard for showing the current amount of creeps from every role.
  */
 export function visualizeDashboardCreepsRoles(): void {
   const amountOfRoles = Object.keys(CreepRoles).length;

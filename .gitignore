@@ -1,3 +1,6 @@
+#typedoc public/docs
+/public/*
+
 # yarn lock file
 /yarn.lock
 

@@ -32,3 +32,18 @@ deploy_to_screeps:
     - sed -i "s/\"YOUR_TOKEN\"/\"$SCREEPS_MASTER_DEPLOY\"/g" ./screeps.json
     - yarn
     - yarn push-main
+
+deploy_doc:
+  stage: deploy
+  image: ruby:latest
+  before_script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev npm
+    - gem install dpl
+  script:
+    - npm install
+    - sed 's|metrics/Timeseries|./metrics/Timeseries|' -i node_modules/screeps-viz/dist/demo.d.ts
+    - sed 's|metrics/Timeseries|../../metrics/Timeseries|' -i node_modules/screeps-viz/dist/widgets/LineChart/LineChart.d.ts
+    - npm run doc
+    - dpl --provider=heroku --app=$HEROKU_APP_DOCS --api-key=$HEROKU_API_KEY --skip-cleanup=true
+

@@ -3,6 +3,10 @@ import findBestEnergySourcePos, { freeSourcePos } from "core/energySource";
 import { Logger } from "utils/logger";
 import { movePath } from "utils/viz/vizPath";
 
+/**
+ * Defines creep behaviour to find and farm ressources.
+ * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
+ */
 export default function (creep: Creep): void {
   Logger.debug(`es geht um ${creep.name}++++++++++++++++++`);
 

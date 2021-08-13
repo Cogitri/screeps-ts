@@ -3,6 +3,10 @@ import globalConsts, { CreepRoles } from "utils/globalConsts";
 import { Logger } from "utils/logger";
 import spawnUtil from "utils/spawnUtil";
 
+/**
+ * Checks if configured amount of specific role is alive and spawns them if less creeps of that role are available.
+ * @param spawn {@link https://docs.screeps.com/api/#StructureSpawn|StructureSpawn} - Spawn of the room.
+ */
 export default function (spawn: StructureSpawn): void {
   let creepCount = new Map(Object.entries(Memory.creepCount));
   if (!creepCount.size) {

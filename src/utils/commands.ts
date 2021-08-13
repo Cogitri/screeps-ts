@@ -5,8 +5,8 @@ import { mapToObject } from "./mapHelper";
 
 /**
  * Searches creeps of a given role. If found the creeps will print out an emoji.
- * @param role string - The role that is searched.
- * @returns string - Console output whether the command found creeps or not.
+ * @param role The role that is searched.
+ * @returns Console output whether the command found creeps or not.
  */
 export function showRole(role: string): string {
   const emojis = ["👋", "✌️", "✋", "🤙", "🙋‍♂️"];
@@ -49,8 +49,8 @@ export function help(): string {
 
 /**
  * Changes the log level and determines what should be printed out to console.
- * @param ls string - Desired log level. Accepts 'DEBUG', 'INFO', 'WARN', 'ERROR'.
- * @returns string - Consoloe output whether the command was successful or not.
+ * @param ls Desired log level. Accepts 'DEBUG', 'INFO', 'WARN', 'ERROR'.
+ * @returns Console output whether the command was successful or not.
  */
 export function logLevel(ls: keyof typeof LogLevel): string {
   if (Object.values(LogLevel).some(ll => ll === ls.toUpperCase())) {
@@ -72,8 +72,8 @@ export function logLevel(ls: keyof typeof LogLevel): string {
 
 /**
  * Searches for a certain creep. If found the creep reacts with one of five emojis.
- * @param name string - Name of the creep.
- * @returns string - Consoloe output whether the creep was found or not.
+ * @param name Name of the creep.
+ * @returns Consoloe output whether the creep was found or not.
  */
 export function findCreep(name: string): string {
   const emojis = ["👋", "✌️", "✋", "🤙", "🙋‍♂️"];
@@ -91,7 +91,7 @@ export function findCreep(name: string): string {
 
 /**
  * Toggles whether the textual room visuals should be shown or not. Visuals are displayed by default.
- * @returns string - Console output whether the visuals are now enabled or disabled.
+ * @returns Console output whether the visuals are now enabled or disabled.
  */
 export function toggleTextViz(): string {
   if (global.textViz) {
@@ -105,7 +105,7 @@ export function toggleTextViz(): string {
 
 /**
  * Toggles whether the dashboard visuals should be shown or not. Visuals are displayed by default.
- * @returns string - Console output whether the dashboard visuals are now enabled or disabled.
+ * @returns Console output whether the dashboard visuals are now enabled or disabled.
  */
 export function toggleDashboards(): string {
   if (global.dashboards) {
@@ -118,7 +118,7 @@ export function toggleDashboards(): string {
 }
 /**
  * Toggles whether the path visuals should be shown or not. Visuals are displayed by default.
- * @returns string - Console output whether the visuals are now enabled or disabled.
+ * @returns Console output whether the visuals are now enabled or disabled.
  */
 export function togglePathViz(): string {
   if (global.pathViz) {
@@ -132,9 +132,9 @@ export function togglePathViz(): string {
 
 /**
  * Adjusts the default amount of creeps that are spawned by a given number.
- * @param role string - Role of creep.
- * @param count number - New amount of creeps.
- * @returns string - Consoloe output whether the command was successful or not.
+ * @param role Role of creep.
+ * @param count New amount of creeps.
+ * @returns Consoloe output whether the command was successful or not.
  */
 export function changeCreepCount(role: string, count: number): string {
   const creepRole = role.toLowerCase();
@@ -177,7 +177,7 @@ export function printAuthors(): string {
  * Command to change default bodyparts of given role.
  * @param role Role of the creep.
  * @param bodyparts Array of bodyparts.
- * @returns string - Consoloe output whether the command was successful or not.
+ * @returns Consoloe output whether the command was successful or not.
  */
 export function changeBodyParts(role: string, bodyparts: BodyPartConstant[]): string {
   const creepRole = role.toLowerCase();
@@ -241,7 +241,7 @@ export function emojiLegend(roomName: string): string {
 
 /**
  * Shows a lined path between two coordinates
- * @param name name of the romm
+ * @param name name of the room
  * @param x1 x of the first coordinate
  * @param y1 y of the first coordinate
  * @param x2 x of the second coordinate
