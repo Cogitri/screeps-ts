@@ -112,22 +112,46 @@ export default function (spawn: StructureSpawn): void {
             break;
         }
       }
+      const constructionSites = spawn.room.find(FIND_MY_CONSTRUCTION_SITES);
       // Building the containers. for now only one is built per energy source.
       if (xBuildPlaceAvailable.length >= amountContainer) {
         if (
           terrain.get(xBuildPlaceAvailable[amountContainer - 1], yBuildPlaceAvailable[amountContainer - 1]) !==
           TERRAIN_MASK_WALL
         ) {
-          spawn.room.createConstructionSite(
-            xBuildPlaceAvailable[amountContainer - 1],
-            yBuildPlaceAvailable[amountContainer - 1],
-            STRUCTURE_CONTAINER
-          );
-          Logger.info(
-            `Placed a Container Construction site at:  ${xBuildPlaceAvailable[amountContainer - 1]}, ${
+          if (MAX_CONSTRUCTION_SITES - constructionSites.length === 0) {
+            const checkPos = spawn.room.lookAt(
+              xBuildPlaceAvailable[amountContainer - 1],
               yBuildPlaceAvailable[amountContainer - 1]
-            }`
-          );
+            );
+            let flagAmount = 0;
+            // check, if there is already a flag there
+            // eslint-disable-next-line @typescript-eslint/prefer-for-of
+            for (let i = 0; i < checkPos.length; i++) {
+              if (checkPos[i].type === LOOK_FLAGS) {
+                flagAmount++;
+              }
+            }
+            if (flagAmount === 0) {
+              Memory.flagCount.containerFlag++;
+              spawn.room.createFlag(
+                xBuildPlaceAvailable[amountContainer - 1],
+                yBuildPlaceAvailable[amountContainer - 1],
+                `container ${Memory.flagCount.containerFlag}`
+              );
+            }
+          } else {
+            spawn.room.createConstructionSite(
+              xBuildPlaceAvailable[amountContainer - 1],
+              yBuildPlaceAvailable[amountContainer - 1],
+              STRUCTURE_CONTAINER
+            );
+            Logger.info(
+              `Placed a Container Construction site at:  ${xBuildPlaceAvailable[amountContainer - 1]}, ${
+                yBuildPlaceAvailable[amountContainer - 1]
+              }`
+            );
+          }
         }
       }
     }

@@ -84,4 +84,9 @@ export function init(): void {
   Memory.pathToSources = {};
   Memory.creepCount = mapToObject(globalConsts.DEFAULT_CREEP_COUNT);
   Memory.roleBodyParts = mapToObject(globalConsts.DEFAULT_BODYPARTS);
+  const flagMap = new Map<string, number>([
+    ["roadFlag", 0],
+    ["containerFlag", 0]
+  ]);
+  Memory.flagCount = mapToObject(flagMap);
 }

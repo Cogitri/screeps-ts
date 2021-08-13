@@ -5,6 +5,7 @@ import {
   changeBodyParts,
   changeCreepCount,
   createPath,
+  deleteFlags,
   emojiLegend,
   findCreep,
   help,
@@ -38,6 +39,7 @@ declare global {
     blockedSourcePositions: { [key: string]: Creep | null };
     spawnQueue: CreepRoles[];
     creepsInSpawnQueue: { [k: string]: number };
+    flagCount: { [k: string]: number };
   }
   /**
    *  Creep Memory Interface
@@ -78,6 +80,7 @@ declare global {
       createPath: (name: string, x1: number, y1: number, x2: number, y2: number) => string;
       statistics: (name: string) => string;
       printAuthors: () => string;
+      deleteFlags: () => string;
     }
   }
 }
@@ -110,6 +113,7 @@ export const loop = ErrorMapper.wrapLoop(() => {
   global.emojiLegend = emojiLegend;
   global.statistics = statistics;
   global.printAuthors = printAuthors;
+  global.deleteFlags = deleteFlags;
 
   // Automatically delete memory of missing creeps
   for (const name in Memory.creeps) {

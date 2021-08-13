@@ -6,29 +6,29 @@ import { mapToObject } from "utils/mapHelper";
  */
 export function buildRoadToController(spawn: StructureSpawn): void {
   const room = spawn.room;
-  const constructionSites = spawn.room.find(FIND_MY_CONSTRUCTION_SITES);
   // checks in memory if road already has been created
-  if (!Memory.pathToController) {
-    const controller = room.controller;
-    if (controller) {
-      // finding the shortes path between spawn and controller
-      const path = room.findPath(spawn.pos, controller.pos);
-      // pop the last element of the array because its the controller position
-      path.pop();
-      // checks if there are enought contsruction sites for the path
-      if (MAX_CONSTRUCTION_SITES - constructionSites.length >= path.length) {
-        // looping trough each step and place a new road on its position
-        path.forEach(step => {
-          const posX = step.x;
-          const posY = step.y;
-          if (!checkForStructure(posX, posY, spawn.room)) {
-            spawn.room.createConstructionSite(posX, posY, STRUCTURE_ROAD);
-          }
-        });
-        // store in memory that the road has been created
-        Memory.pathToController = true;
+  const controller = room.controller;
+  if (controller) {
+    // finding the shortes path between spawn and controller
+    const path = room.findPath(spawn.pos, controller.pos);
+    // pop the last element of the array because its the controller position
+    path.pop();
+    const constructionSites = spawn.room.find(FIND_MY_CONSTRUCTION_SITES);
+    // looping trough each step and place a new road on its position
+    path.forEach(step => {
+      const posX = step.x;
+      const posY = step.y;
+      if (!checkForStructure(posX, posY, spawn.room)) {
+        // checks if there are enought contsruction sites for the path
+        if (MAX_CONSTRUCTION_SITES - constructionSites.length === 0) {
+          placeFlag(spawn, posX, posY);
+        } else {
+          spawn.room.createConstructionSite(posX, posY, STRUCTURE_ROAD);
+        }
       }
-    }
+    });
+    // store in memory that the road has been created
+    Memory.pathToController = true;
   }
 }
 
@@ -46,18 +46,20 @@ export function buildRoadToSource(spawn: StructureSpawn): void {
       // pop the last element of the array because its the controller position
       path.pop();
       const constructionSites = spawn.room.find(FIND_MY_CONSTRUCTION_SITES);
-      if (MAX_CONSTRUCTION_SITES - constructionSites.length >= path.length) {
-        path.forEach(step => {
-          const posX = step.x;
-          const posY = step.y;
-          if (!checkForStructure(posX, posY, spawn.room)) {
+      path.forEach(step => {
+        const posX = step.x;
+        const posY = step.y;
+        if (!checkForStructure(posX, posY, spawn.room)) {
+          if (MAX_CONSTRUCTION_SITES - constructionSites.length === 0) {
+            placeFlag(spawn, posX, posY);
+          } else {
             spawn.room.createConstructionSite(posX, posY, STRUCTURE_ROAD);
             map.set(source.id.toString(), true);
 
             Memory.pathToSources = mapToObject(map);
           }
-        });
-      }
+        }
+      });
     }
   });
 }
@@ -67,20 +69,22 @@ export function buildRoadToSource(spawn: StructureSpawn): void {
  */
 export function buildRoadAroundSpawn(spawn: StructureSpawn): void {
   const constructionSites = spawn.room.find(FIND_MY_CONSTRUCTION_SITES);
-  if (MAX_CONSTRUCTION_SITES - constructionSites.length >= 8) {
-    const spawnX = spawn.pos.x;
-    const spawnY = spawn.pos.y;
-    const xArray: number[] = [-1, -1, -1, 0, 0, 1, 1, 1];
-    const yArray: number[] = [-1, 0, 1, -1, 1, -1, 0, 1];
+  const spawnX = spawn.pos.x;
+  const spawnY = spawn.pos.y;
+  const xArray: number[] = [-1, -1, -1, 0, 0, 1, 1, 1];
+  const yArray: number[] = [-1, 0, 1, -1, 1, -1, 0, 1];
 
-    xArray.forEach((v, i) => {
-      const posX = spawnX + xArray[i];
-      const posY = spawnY + yArray[i];
-      if (!checkForStructure(posX, posY, spawn.room)) {
+  xArray.forEach((v, i) => {
+    const posX = spawnX + xArray[i];
+    const posY = spawnY + yArray[i];
+    if (!checkForStructure(posX, posY, spawn.room)) {
+      if (MAX_CONSTRUCTION_SITES - constructionSites.length === 0) {
+        placeFlag(spawn, posX, posY);
+      } else {
         spawn.room.createConstructionSite(posX, posY, STRUCTURE_ROAD);
       }
-    });
-  }
+    }
+  });
 }
 
 /**
@@ -103,4 +107,75 @@ function checkForStructure(x: number, y: number, room: Room): boolean {
     }
   });
   return isBlocked;
+}
+/**
+ * check if the flag can be placed, then places the flag and checks, if there are more then one flag
+ * @param spawn  the spawn that the flags for the roads should be placed around
+ * @param posX x-position of the position that the flag should be placed
+ * @param posY y-position of the position that the flag should be placed
+ */
+function placeFlag(spawn: StructureSpawn, posX: number, posY: number) {
+  // checkPos contains all object at a specific position
+  const checkPos = spawn.room.lookAt(posX, posY);
+  let flagAmount = 0;
+  // check, if there is already a flag there
+  // eslint-disable-next-line @typescript-eslint/prefer-for-of
+  for (let i = 0; i < checkPos.length; i++) {
+    if (checkPos[i].type === LOOK_FLAGS) {
+      flagAmount++;
+    }
+  }
+  if (flagAmount === 0) {
+    const flagMap = new Map(Object.entries(Memory.flagCount));
+    // give all flags a number
+    let countFlag = flagMap.get("roadFlag");
+    if (!countFlag || countFlag === 0) {
+      countFlag = 1;
+    }
+    flagMap.set("roadFlag", countFlag++);
+    Memory.flagCount.roadflag++;
+    // spawn the flag
+    spawn.room.createFlag(posX, posY, `road ${Memory.flagCount.roadflag}`);
+  }
+  // remove doubled flags
+  removeDoubleFlags(flagAmount, checkPos);
+}
+/**
+ * checks, if there are more then one flag at a position and removes all but one
+ * @param flagAmount amount of flags at the position
+ * @param checkPos the position to be checked
+ */
+export function removeDoubleFlags(flagAmount: number, checkPos: LookAtResult<LookConstant>[]): void {
+  if (flagAmount > 1) {
+    for (let k = checkPos.length - 1; k > 0; k--) {
+      if (checkPos[k].type === LOOK_FLAGS) {
+        const flagToRemove = checkPos[k].flag?.name;
+        if (flagToRemove !== undefined) {
+          Game.flags[flagToRemove].remove();
+          flagAmount -= 1;
+          if (flagAmount === 0) {
+            break;
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * when a Construction site can be placed again, the first flag by number will be converted into a construction site
+ * @param spawn the spawn of the room where the flags should be replaced by construction sites
+ */
+export function placeConstructionForFlag(spawn: StructureSpawn): void {
+  for (let i = 0; spawn.room.find(FIND_FLAGS).length > i; i++) {
+    const constructionSites = spawn.room.find(FIND_MY_CONSTRUCTION_SITES);
+    if (MAX_CONSTRUCTION_SITES - constructionSites.length > 0) {
+      const theFlag = `road ${i}`;
+      if (Game.flags[theFlag] !== undefined) {
+        const posFlag = Game.flags[theFlag].pos;
+        spawn.room.createConstructionSite(posFlag, STRUCTURE_ROAD);
+        Game.flags[theFlag].remove();
+      }
+    }
+  }
 }

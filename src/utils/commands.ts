@@ -365,3 +365,20 @@ export function statistics(name: string): string {
           Controller Level:       ${controllerLevel}
           Energy for next Level:  ${controllerEXP}`;
 }
+/**
+ * removes all flags in the spawn room
+ * @returns "removed all Flags" or "coundn't find any Flags that could be removed"
+ */
+export function deleteFlags(): string {
+  for (const spawn in Game.spawns) {
+    const allFlags = Game.spawns[spawn].room.find(FIND_FLAGS);
+    if (allFlags !== undefined) {
+      // eslint-disable-next-line @typescript-eslint/no-for-in-array
+      for (const iterator in allFlags) {
+        allFlags[iterator].remove();
+      }
+      return "removed all Flags";
+    }
+  }
+  return "coundn't find any Flags that could be removed";
+}
