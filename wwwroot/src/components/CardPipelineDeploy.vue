@@ -137,7 +137,7 @@ export default Vue.extend({
       try {
         this.loading = true;
 
-        const response = await axios.get(`/api/v4/projects/659/pipelines/${pipelineId}`);
+        const response = await axios.get(`${globals.GITLAB_API_URL}s/${pipelineId}`);
 
         if (response.status >= 400) {
           throw response;
@@ -173,6 +173,7 @@ export default Vue.extend({
       try {
         this.loadingDeploy = true;
         const response = await axios.post(globals.GITLAB_API_URL, {
+          ref: "master",
           variables: [
             {
               key: globals.GITLAB_ENV_VAR,
