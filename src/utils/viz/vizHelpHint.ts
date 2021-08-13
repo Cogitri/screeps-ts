@@ -4,7 +4,7 @@
  */
 export function showHelpHint(room: Room): void {
   if (global.textViz) {
-    room.visual.text("For help try help() in console.", 0, 49, {
+    room.visual.text("For help type help() in console.", 0, 49, {
       color: "green",
       font: 1,
       align: "left"
