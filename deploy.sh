@@ -14,3 +14,5 @@ else
   yarn
   yarn push-main
 fi
+
+cat screeps.json

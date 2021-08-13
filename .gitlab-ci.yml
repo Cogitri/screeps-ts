@@ -1,20 +1,20 @@
 image: node:alpine
 
 stages:
-  - test
+  #  - test
   - deploy
 
-lint:
-  stage: test
-  script:
-    - yarn
-    - yarn lint
-
-test:
-  stage: test
-  script:
-    - yarn
-    - yarn test
+    #lint:
+    #  stage: test
+    #  script:
+    #    - yarn
+    #    - yarn lint
+    #
+    #test:
+    #  stage: test
+    #  script:
+    #    - yarn
+    #    - yarn test
 
 deploy_to_screeps:
   stage: deploy
