@@ -12,7 +12,7 @@
     "test": "jest --silent=false --verbose=false",
     "watch-main": "rollup -cw --environment DEST:main",
     "watch-sim": "rollup -cw --environment DEST:sim",
-    "doc": "npx typedoc src --out docs"
+    "doc": "npx typedoc src --out docs --exclude src/utils/ErrorMapper.ts"
   },
   "license": "Unlicense",
   "devDependencies": {
