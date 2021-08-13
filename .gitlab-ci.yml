@@ -3,6 +3,7 @@ image: node:alpine
 stages:
   - test
   - deploy
+  - docs
 
 lint:
   stage: test
@@ -31,7 +32,7 @@ deploy_to_screeps:
     - ./deploy.sh
 
 deploy_doc:
-  stage: deploy
+  stage: docs
   image: ruby:latest
   only:
     refs:
