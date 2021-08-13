@@ -61,7 +61,7 @@
         If you no longer wish to use our service, you can simply delete your provided token in the Screeps settings.
       </p>
       <validation-observer ref="observer" v-slot="{ invalid, handleSubmit }">
-        <form @submit.prevent="handleSubmit(submit)">
+        <form @submit.prevent="handleSubmit(changeToken)">
           <validation-provider v-slot="{ errors }" rules="required" name="token">
             <v-text-field
               type="password"
