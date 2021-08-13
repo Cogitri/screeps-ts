@@ -29,7 +29,6 @@ describe("routineSoldier", () => {
           memory: {
             role: CreepRoles.ROLE_SOLDIER,
             isWorking: false,
-            announcedTask: false,
             currentTask: Routines.ATTACK
           },
           store: { getFreeCapacity: () => 50 },
@@ -42,7 +41,7 @@ describe("routineSoldier", () => {
       );
 
       routineSoldier(us);
-      expect(us.say).toHaveBeenCalledWith("⚔️");
+      expect(us.say).not.toHaveBeenCalledWith("⚔️");
     });
     it("should *not* move to an enemy with way more health", () => {
       const enemy = testUtil.mockCreep({
@@ -58,24 +57,32 @@ describe("routineSoldier", () => {
         {
           body: testUtil.composeBody(20),
           hits: 10,
-          memory: { role: CreepRoles.ROLE_SOLDIER, isWorking: false },
-          store: { getFreeCapacity: () => 50 },
+          memory: { role: CreepRoles.ROLE_SOLDIER, isWorking: false, currentTask: undefined },
+          store: { getFreeCapacity: () => 50, energy: 0, getCapacity: () => 50 },
           room: {
             find: () => [enemy]
           },
           moveTo: () => undefined,
           say: () => undefined,
-          attack: () => ERR_NOT_IN_RANGE
+          attack: () => ERR_NOT_IN_RANGE,
+          pickup: () => OK
         },
         {
-          findClosestByPath: () => enemy
+          findClosestByPath: (t: number) => {
+            switch (t) {
+              case FIND_HOSTILE_CREEPS:
+                return enemy;
+              default:
+                return null;
+            }
+          }
         }
       );
 
       routineSoldier(us);
 
-      expect(us.moveTo).toHaveBeenCalledTimes(0);
-      expect(us.say).toHaveBeenCalledTimes(0);
+      expect(us.moveTo).not.toHaveBeenCalledWith(enemy);
+      expect(us.say).toHaveBeenCalledTimes(1);
     });
     it("should *not* move to an enemy with way more body parts", () => {
       const enemy = testUtil.mockCreep({
@@ -91,9 +98,11 @@ describe("routineSoldier", () => {
       const us = testUtil.mockCreep(
         {
           hits: 10,
-          memory: { role: CreepRoles.ROLE_SOLDIER, isWorking: false },
+          memory: { role: CreepRoles.ROLE_SOLDIER, isWorking: false, currentTask: undefined },
           room: {
-            find: () => [enemy]
+            find: () => [enemy],
+            energyAvailable: 50,
+            energyCapacityAvailable: 50
           },
           moveTo: () => undefined,
           say: () => undefined,
@@ -109,7 +118,7 @@ describe("routineSoldier", () => {
       routineSoldier(us);
 
       expect(us.moveTo).toHaveBeenCalledTimes(0);
-      expect(us.say).toHaveBeenCalledTimes(0);
+      expect(us.say).toHaveBeenCalledTimes(1);
     });
     it("should *not* move to a stronger enemy", () => {
       const enemy = testUtil.mockCreep(
@@ -131,9 +140,11 @@ describe("routineSoldier", () => {
       const us = testUtil.mockCreep(
         {
           hits: 10,
-          memory: { role: CreepRoles.ROLE_SOLDIER, isWorking: false },
+          memory: { role: CreepRoles.ROLE_SOLDIER, isWorking: false, currentTask: undefined },
           room: {
-            find: () => [enemy]
+            find: () => [enemy],
+            energyAvailable: 50,
+            energyCapacityAvailable: 50
           },
           moveTo: () => undefined,
           say: () => undefined,
@@ -147,7 +158,7 @@ describe("routineSoldier", () => {
       routineSoldier(us);
 
       expect(us.moveTo).toHaveBeenCalledTimes(0);
-      expect(us.say).toHaveBeenCalledTimes(0);
+      expect(us.say).toHaveBeenCalledTimes(1);
     });
     it("should not fight PowerCreeps in general", () => {
       const enemy = testUtil.mockPowerCreep(
@@ -168,26 +179,34 @@ describe("routineSoldier", () => {
       const us = testUtil.mockCreep(
         {
           hits: 10,
-          memory: { role: CreepRoles.ROLE_SOLDIER, isWorking: false },
-          store: { getFreeCapacity: () => 50 },
+          memory: { role: CreepRoles.ROLE_SOLDIER, isWorking: false, currentTask: undefined },
+          store: { getFreeCapacity: () => 50, energy: 0, getCapacity: () => 50 },
           room: {
             find: () => [enemy]
           },
           moveTo: () => undefined,
           say: () => undefined,
-          attack: () => ERR_NOT_IN_RANGE
+          attack: () => ERR_NOT_IN_RANGE,
+          pickup: () => OK,
+          withdraw: () => ERR_NOT_IN_RANGE
         },
         {
-          findClosestByPath: () => enemy
+          findClosestByPath: (type: number) => {
+            switch (type) {
+              case FIND_STRUCTURES:
+                return STRUCTURE_SPAWN;
+              default:
+                return null;
+            }
+          }
         }
       );
 
       routineSoldier(us);
 
-      expect(us.moveTo).toHaveBeenCalledTimes(0);
-      expect(us.say).toHaveBeenCalledTimes(0);
+      expect(us.moveTo).not.toHaveBeenCalledWith(enemy);
     });
-    it("should fight PowerCreeps whent it has the advantage", () => {
+    it("should fight PowerCreeps when it has the advantage", () => {
       const enemy = testUtil.mockPowerCreep({
         my: false,
         hits: 100,
@@ -203,7 +222,6 @@ describe("routineSoldier", () => {
           memory: {
             role: CreepRoles.ROLE_SOLDIER,
             isWorking: false,
-            announcedTask: false,
             currentTask: Routines.ATTACK
           },
           store: { getFreeCapacity: () => 50 },
@@ -221,7 +239,7 @@ describe("routineSoldier", () => {
       routineSoldier(us);
 
       // expect(us.moveTo).toHaveBeenCalledWith(enemy);
-      expect(us.say).toHaveBeenCalledWith("⚔️");
+      expect(us.say).not.toHaveBeenCalledWith("⚔️");
     });
   });
   describe("defending", () => {
@@ -284,17 +302,23 @@ describe("routineSoldier", () => {
           my: true,
           hits: 1000,
           memory: { role: CreepRoles.ROLE_SOLDIER, isWorking: false, currentTask: Routines.ATTACK },
-          store: { getFreeCapacity: () => 0, energy: 5 },
+          store: { getFreeCapacity: () => 0, energy: 5, getCapacity: () => 5 },
           room: {
             energyAvailable: 5,
-            energyCapacityAvailable: 100,
-            find: () => STRUCTURE_SPAWN
+            energyCapacityAvailable: 100
           },
           move: () => OK,
           transfer: () => OK
         },
         {
-          findClosestByPath: () => null
+          findClosestByPath: (type: number) => {
+            switch (type) {
+              case FIND_STRUCTURES:
+                return STRUCTURE_SPAWN;
+              default:
+                return null;
+            }
+          }
         }
       );
 

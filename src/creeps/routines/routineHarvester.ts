@@ -1,39 +1,70 @@
-import { PathColors, Routines } from "utils/globalConsts";
+import { CreepRoles, PathColors } from "utils/globalConsts";
+
 import { Logger } from "utils/logger";
-import checkCreepCapacity from "./checkCreepCapacity";
 import { movePath } from "utils/viz/vizPath";
 import routineFarm from "./routineFarm";
+import routineTransporter from "./routineTransporter";
 
 /**
- * Depending on creep capacity the creep farms, upgrades or transfers energy to spawn/containers/extensions.
+ * Depending on creep capacity the creep farms or transfers energy to spawn/containers/extensions, if no transporters are alive.
  * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
  */
 export default function (creep: Creep): void {
-  if (checkCreepCapacity(creep)) {
+  if (creep.store.getUsedCapacity(RESOURCE_ENERGY) !== creep.store.getCapacity(RESOURCE_ENERGY)) {
     routineFarm(creep);
-    if (creep.memory.currentTask !== Routines.FARMER) {
-      Logger.info(`${creep.name} switched to farm routine`);
-      creep.memory.currentTask = Routines.FARMER;
-    }
   } else {
-    // the creep looks for the nearest container.
-    // the container the creep hopefully can use.
-    const container = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+    const container = creep.room.find(FIND_STRUCTURES, {
       filter: structure => {
-        return (
-          structure.structureType === STRUCTURE_CONTAINER &&
-          structure.store.getFreeCapacity(RESOURCE_ENERGY) >= creep.store.getUsedCapacity()
-        );
+        return structure.structureType === STRUCTURE_CONTAINER;
       }
     });
 
-    // check if there are any containers, if there are no containers the creep will drop the energy
-    if (container) {
-      if (creep.transfer(container, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-        movePath(creep, container, PathColors.PATHCOLOR_HARVESTER);
+    // Is a transporter alive  ---yes--->  Container already build  ---yes--->  Container have capacity left  ---yes--->  Fill container with energy
+    //     |                                   |                                      |
+    //     no                                  no                                     no
+    //     |                                   |                                      |
+    //     V                                   V                                      V
+    // Do the transporter Routine             Drop Energy                            Do the transporter Routine
+
+    if (isATransporterAlive(creep.room)) {
+      if (container.length) {
+        const emptyContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+          filter: structure => {
+            return (
+              structure.structureType === STRUCTURE_CONTAINER &&
+              structure.store.getUsedCapacity(RESOURCE_ENERGY) !== structure.store.getCapacity(RESOURCE_ENERGY)
+            );
+          }
+        });
+        if (emptyContainer) {
+          if (creep.transfer(emptyContainer, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+            movePath(creep, emptyContainer, PathColors.PATHCOLOR_HARVESTER);
+          }
+        } else {
+          routineTransporter(creep);
+        }
+      } else {
+        creep.drop(RESOURCE_ENERGY);
       }
     } else {
-      creep.drop(RESOURCE_ENERGY);
+      routineTransporter(creep);
     }
   }
+}
+
+/**
+ * Checks if min. 1 transporter is alive and in the same room, as the harvester.
+ * @param room The room, the harvester is in
+ * @returns True if min. 1 transporter is alive and in the same room. False if no transporters alive or in the same room.
+ */
+function isATransporterAlive(room: Room): boolean {
+  for (const creepName in Game.creeps) {
+    const creep = Game.creeps[creepName];
+    if (creep.memory.role === CreepRoles.ROLE_TRANSPORTER && creep.room.name === room.name) {
+      Logger.debug("Es ist min. ein Transporter am Leben");
+      return true;
+    }
+  }
+  Logger.debug("Es sind keine Transporter am Leben");
+  return false;
 }

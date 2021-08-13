@@ -54,7 +54,6 @@ declare global {
     role: CreepRoles;
     room: string;
     isWorking: boolean;
-    announcedTask: boolean;
     target?: Structure | Source | Mineral | Creep | null;
     currentTask: Routines;
     targetRoomPosition?: RoomPosition;

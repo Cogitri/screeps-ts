@@ -5,7 +5,6 @@ import creepSpawn from "./creepSpawn";
 import creepWork from "./creepWork";
 import globalConsts from "utils/globalConsts";
 import { mapToObject } from "utils/mapHelper";
-import pickupEnergy from "../creeps/routines/pickupEnergy";
 import routineTower from "../creeps/routines/routineTower";
 import { showHelpHint } from "../utils/viz/vizHelpHint";
 import { visualizeControllerProgress } from "../utils/viz/vizControllerLvl";
@@ -22,41 +21,36 @@ export default function (): void {
   const rooms: Room[] = [];
 
   // Iterate over all owned spawns
-  for (const spawn in Game.spawns) {
-    // show hint to help command in bottom left corner of the room
-    showHelpHint(Game.spawns[spawn].room);
-
-    createConstructions(Game.spawns[spawn]);
+  for (const spawnName in Game.spawns) {
+    const spawn = Game.spawns[spawnName];
+    createConstructions(spawn);
     // Check if creep is already spawning (avoids bug)
-    if (!Game.spawns[spawn].spawning) {
-      creepSpawn(Game.spawns[spawn]);
+    if (!spawn.spawning) {
+      creepSpawn(spawn);
     }
-    visualizeSpawnerProgress(spawn);
+    visualizeSpawnerProgress(spawn.name);
 
-    const tower = Game.spawns[spawn].room.find(FIND_STRUCTURES, {
-      filter: s => s.structureType === STRUCTURE_TOWER
-    });
-    tower.forEach(t => {
-      return routineTower(t as StructureTower);
-    });
-
-    if (rooms.includes(Game.spawns[spawn].room) === false) {
-      rooms.push(Game.spawns[spawn].room);
+    if (rooms.includes(spawn.room) === false) {
+      rooms.push(spawn.room);
     }
   }
 
   // Visualize dashboards and controller progress for every room
   for (const room of rooms) {
+    showHelpHint(room);
     visualizeControllerProgress(room);
     visualizeDashboards(room);
+
+    const tower = room.find(FIND_STRUCTURES, {
+      filter: t => t.structureType === STRUCTURE_TOWER
+    });
+    tower.forEach(t => {
+      return routineTower(t as StructureTower);
+    });
   }
 
   for (const creepName in Game.creeps) {
     const creep = Game.creeps[creepName];
-    if (!creep.memory.isWorking) {
-      // pickupEnergy routine started with this function. place wherever it's needed.
-      pickupEnergy(creep);
-    }
     creepWork(creep);
   }
 }

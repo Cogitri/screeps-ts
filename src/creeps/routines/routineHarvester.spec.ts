@@ -1,4 +1,6 @@
 import { mockInstanceOf, mockStructure } from "screeps-jest";
+import { CreepRoles } from "utils/globalConsts";
+
 import { TestUtil } from "utils/testUtils";
 import rountineHarvest from "./routineHarvester";
 
@@ -13,7 +15,11 @@ const source2 = mockInstanceOf<Source>({
   pos: { x: 0, y: 0 }
 });
 const spawn = mockInstanceOf<StructureSpawn>({
-  pos: { x: 0, y: 0 }
+  structureType: STRUCTURE_SPAWN,
+  store: {
+    energy: 100,
+    getFreeCapacity: () => 500
+  }
 });
 
 describe("Harvester role", () => {
@@ -29,11 +35,16 @@ describe("Harvester role", () => {
         {
           upgradeController: () => ERR_NOT_IN_RANGE,
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          store: { getFreeCapacity: () => 50, energy: 0 } as any,
+          store: { getUsedCapacity: () => 50, energy: 100, getCapacity: () => 100 } as any,
           harvest: () => ERR_NOT_IN_RANGE,
           moveTo: () => OK,
           findClosestByPath: () => null,
-
+          memory: {
+            role: CreepRoles.ROLE_HARVESTER,
+            currentTask: undefined,
+            target: null,
+            isWorking: false
+          },
           room: {
             find: () => [source1, source2, spawn],
             energyAvailable: 50,
@@ -46,20 +57,33 @@ describe("Harvester role", () => {
 
       rountineHarvest(creep);
       expect(creep.harvest).toHaveBeenCalledWith(source1);
-      expect(creep.say).toHaveBeenCalledWith("⛏️");
     });
 
     it("Upgrades the spawn when its full and the spawn can be filled", () => {
       const creep = testUtil.mockCreep({
+        store: { getUsedCapacity: () => 100, energy: 100, getCapacity: () => 100 },
         room: {
+          name: "test",
           find: () => [spawn, source1, source2],
           energyAvailable: 50,
           energyCapacityAvailable: 100
         }
       });
+      // const transporter = testUtil.mockCreep({
+      //   memory: {
+      //     role: CreepRoles.ROLE_TRANSPORTER
+      //   },
+      //   room: {
+      //     name: "test",
+      //     find: () => [spawn, source1, source2],
+      //     energyAvailable: 50,
+      //     energyCapacityAvailable: 100
+      //   }
+      // });
+      // Game.creeps.transporter = transporter;
 
       rountineHarvest(creep);
-      expect(creep.transfer).toHaveBeenCalledWith(spawn, RESOURCE_ENERGY);
+      expect(creep.transfer).toHaveBeenCalledTimes(1);
     });
   });
 });

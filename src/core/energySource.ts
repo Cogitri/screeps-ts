@@ -5,7 +5,7 @@ import { mapToObject } from "utils/mapHelper";
 const numberOfPossibleHarvestPositionsInARow = 3;
 
 function stringify(pos: RoomPosition): string {
-  return String(pos.x) + String(pos.y);
+  return `X${String(pos.x)} + Y${String(pos.y)}`;
 }
 
 /**

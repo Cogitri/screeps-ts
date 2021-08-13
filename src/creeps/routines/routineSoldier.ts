@@ -20,26 +20,24 @@ export default function (creep: Creep): void {
   const enemy: AnyCreep | null = creep.pos.findClosestByPath(FIND_HOSTILE_CREEPS, { filter: c => c.hits > 0 });
 
   // double negation is needed as otherwise TS doesn't allow to assing `null` as a boolean
-  creep.memory.isWorking = !!enemy;
+  creep.memory.isWorking =
+    (!!enemy && shouldFightEnemy(enemy, creep)) || (!!enemy && creep.attack(enemy) !== ERR_NOT_IN_RANGE);
 
   // Return to fallback and go harvest when there are no enemies or the enemy is dead
+  if (!creep.memory.isWorking) {
+    routineTransporter(creep);
+  }
+
   if (!enemy) {
-    // TODO: Refer to harvesting routine or return energy to base
-    if (!creep.memory.isWorking) {
-      routineTransporter(creep);
-    }
     return;
   }
 
   if (creep.attack(enemy) === ERR_NOT_IN_RANGE && shouldFightEnemy(enemy, creep)) {
-    if (!creep.memory.announcedTask) {
-      creep.say(WorkEmoji.EMOJI_ATTACK);
-      creep.memory.announcedTask = true;
-    }
     movePath(creep, enemy, PathColors.PATHCOLOR_SOLDIER);
     creep.memory.target = enemy;
     if (creep.memory.currentTask !== Routines.ATTACK) {
       Logger.info(`${creep.name} switched to fighting routine`);
+      creep.say(WorkEmoji.EMOJI_ATTACK);
       creep.memory.currentTask = Routines.ATTACK;
     }
   }

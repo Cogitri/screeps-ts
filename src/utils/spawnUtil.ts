@@ -14,7 +14,6 @@ export default function (role: CreepRoles, spawn: StructureSpawn): number {
       role,
       room: spawn.room.name,
       isWorking: false,
-      announcedTask: false,
       target: null,
       currentTask: Routines.NONE
     }

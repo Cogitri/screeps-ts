@@ -25,7 +25,7 @@ export default {
   /** The maximum Percetage of the total Energy that should be used to spawn a single creep */
   MAX_ENERGY_PERCENTAGE_TO_SPAWN: 0.6,
   DEFAULT_CREEP_COUNT: new Map<string, number>([
-    [CreepRoles.ROLE_BUILDER, 3],
+    [CreepRoles.ROLE_BUILDER, 2],
     [CreepRoles.ROLE_HARVESTER, 3],
     [CreepRoles.ROLE_REPAIRER, 1],
     [CreepRoles.ROLE_SOLDIER, 1],

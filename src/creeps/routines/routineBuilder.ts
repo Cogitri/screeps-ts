@@ -1,8 +1,10 @@
 import { PathColors, Routines, WorkEmoji } from "utils/globalConsts";
 import { Logger } from "utils/logger";
-import checkCreepCapacity from "./checkCreepCapacity";
 import { movePath } from "utils/viz/vizPath";
+import pickupEnergy from "./pickupEnergy";
 import routineTransporter from "./routineTransporter";
+import routineWithdraw from "./routineWithdraw";
+import shouldCreepRefill from "./shouldCreepRefill";
 
 /**
  * Basic routine for Builder role.
@@ -13,27 +15,16 @@ import routineTransporter from "./routineTransporter";
  * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
  */
 export default function (creep: Creep): void {
-  const target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
-
-  if (checkCreepCapacity(creep)) {
-    routineTransporter(creep);
-    if (creep.memory.currentTask !== Routines.FARMER) {
-      Logger.info(`${creep.name} switched to farm routine`);
-      creep.memory.currentTask = Routines.FARMER;
+  if (shouldCreepRefill(creep)) {
+    if (!pickupEnergy(creep)) {
+      routineWithdraw(creep);
     }
-  }
-
-  if (creep.memory.isWorking && target) {
-    buildByPriority(creep);
-    if (creep.memory.currentTask !== Routines.BUILD) {
-      Logger.info(`${creep.name} switched to build routine`);
-      creep.memory.currentTask = Routines.BUILD;
-    }
-  } else if (creep.memory.isWorking) {
-    repair(creep);
-    if (creep.memory.currentTask !== Routines.REPAIR) {
-      Logger.info(`${creep.name} switched to repair routine`);
-      creep.memory.currentTask = Routines.REPAIR;
+  } else {
+    const target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
+    if (target) {
+      buildByPriority(creep);
+    } else {
+      repair(creep);
     }
   }
 }
@@ -45,10 +36,6 @@ export default function (creep: Creep): void {
  */
 function build(creep: Creep, target: ConstructionSite): void {
   if (creep.build(target) === ERR_NOT_IN_RANGE) {
-    if (!creep.memory.announcedTask) {
-      creep.say(WorkEmoji.EMOJI_BUILD);
-      creep.memory.announcedTask = true;
-    }
     movePath(creep, target, PathColors.PATHCOLOR_BUILDER);
   }
 }
@@ -59,6 +46,12 @@ function build(creep: Creep, target: ConstructionSite): void {
  * @param damagedStructure AnyStructure - Structure to be repaired.
  */
 function repair(creep: Creep): void {
+  if (creep.memory.currentTask !== Routines.REPAIR) {
+    Logger.info(`${creep.name} switched to repair routine`);
+    creep.say(WorkEmoji.EMOJI_REPAIR);
+    creep.memory.currentTask = Routines.REPAIR;
+  }
+
   // check for closest damaged structure
   const damagedStructure = creep.pos.findClosestByPath(FIND_STRUCTURES, {
     filter: s =>
@@ -72,10 +65,10 @@ function repair(creep: Creep): void {
   });
   if (damagedStructure) {
     if (creep.repair(damagedStructure) === ERR_NOT_IN_RANGE) {
-      creep.memory.isWorking = true;
-      creep.say(`${WorkEmoji.EMOJI_REPAIR} repair`);
       movePath(creep, damagedStructure, PathColors.PATHCOLOR_REPAIRER);
     }
+  } else {
+    routineTransporter(creep);
   }
 }
 
@@ -85,6 +78,12 @@ function repair(creep: Creep): void {
  * @param creep {@link https://docs.screeps.com/api/#Creep|Creep} - The creep.
  */
 function buildByPriority(creep: Creep): void {
+  if (creep.memory.currentTask !== Routines.BUILD) {
+    Logger.info(`${creep.name} switched to build routine`);
+    creep.say(WorkEmoji.EMOJI_BUILD);
+    creep.memory.currentTask = Routines.BUILD;
+  }
+
   // check for different constructions
   const wall = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
     filter: s => s.structureType === STRUCTURE_WALL

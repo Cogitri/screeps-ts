@@ -35,7 +35,8 @@ export class TestUtil {
       creeps: {},
       rooms: {},
       spawns: {},
-      time: 1
+      time: 1,
+      getObjectById: () => mockInstanceOf<Source>()
     });
 
     mockGlobal<PathFinder>("PathFinder", {
@@ -105,11 +106,10 @@ export class TestUtil {
     posOpts: DeepPartialObject<RoomPosition> | undefined = undefined
   ): Creep {
     return mockInstanceOf<Creep>({
-      store: { getFreeCapacity: () => 0, energy: 50 },
+      store: { getFreeCapacity: () => 0, energy: 50, getCapacity: () => 50 },
       body: this.composeBody(),
       memory: {
         isWorking: false,
-        announcedTask: false,
         currentTask: Routines.NONE,
         target: null,
         reusePath: 100,
@@ -121,11 +121,36 @@ export class TestUtil {
       harvest: () => OK,
       say: () => OK,
       moveTo: () => OK,
+      drop: () => OK,
       pos: {
-        findClosestByPath: () => {
-          return mockInstanceOf<StructureContainer>({
-            pos: { x: 0, y: 0 }
+        findClosestByPath: (structureType: number, options: { filter: (anystruct: AnyStructure) => boolean }) => {
+          const container = mockInstanceOf<StructureContainer>({
+            resourceType: RESOURCE_ENERGY,
+            structureType: STRUCTURE_CONTAINER,
+            store: {
+              energy: 100,
+              getCapacity: () => 500,
+              getUsedCapacity: () => 100
+            }
           });
+          const spawn = mockInstanceOf<StructureSpawn>({
+            structureType: STRUCTURE_SPAWN,
+            store: {
+              energy: 100,
+              getFreeCapacity: () => 500
+            }
+          });
+          if (structureType === FIND_STRUCTURES) {
+            if (options.filter(container)) {
+              return container;
+            } else if (options.filter(spawn)) {
+              return spawn;
+            } else {
+              return undefined;
+            }
+          } else {
+            return undefined;
+          }
         },
         x: 0,
         y: 0,
