@@ -23,3 +23,14 @@ deploy_to_screeps:
       - master
   script:
     - ./deploy.sh
+
+deploy_frontend:
+  stage: deploy
+  image: ruby:latest
+  before_script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev npm
+    - gem install dpl
+  script:
+    - cd wwwroot
+    - dpl --provider=heroku --app=$HEROKU_APP_FRONTEND --api-key=$HEROKU_API_KEY --skip-cleanup=true
