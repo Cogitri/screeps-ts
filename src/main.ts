@@ -19,7 +19,6 @@ import {
 import gameLoop, { init } from "core/gameLoop";
 import { ErrorMapper } from "utils/ErrorMapper";
 import { mapToObject } from "utils/mapHelper";
-
 declare global {
   /**
    * Global Memory Interface
@@ -37,6 +36,8 @@ declare global {
     pathToSources: { [k: string]: boolean };
     roleBodyParts: { [k: string]: BodyPartConstant[] };
     blockedSourcePositions: { [key: string]: Creep | null };
+    spawnQueue: CreepRoles[];
+    creepsInSpawnQueue: { [k: string]: number };
   }
   /**
    *  Creep Memory Interface
@@ -87,6 +88,9 @@ global.dashboards = true;
 
 const initBlockedSourcePositions = new Map<string, Creep | null>();
 Memory.blockedSourcePositions = mapToObject(initBlockedSourcePositions);
+
+const initCreepsInSpawnQueue = new Map<CreepRoles, number>();
+Memory.creepsInSpawnQueue = mapToObject(initCreepsInSpawnQueue);
 /**
  * The loop that gets run on game start.
  *

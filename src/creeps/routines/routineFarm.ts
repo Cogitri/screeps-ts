@@ -1,5 +1,5 @@
 import { PathColors, WorkEmoji } from "utils/globalConsts";
-import findBestEnergySourcePos, { freeSourcePos } from "core/energySource";
+import findBestEnergySourcePos, { unblockSourcePos } from "core/energySource";
 import { Logger } from "utils/logger";
 import { movePath } from "utils/viz/vizPath";
 
@@ -19,7 +19,7 @@ export default function (creep: Creep): void {
       movePath(creep, pos, PathColors.PATHCOLOR_HARVESTER);
       creep.say(WorkEmoji.EMOJI_HARVEST);
       if (creep.moveTo(pos) === ERR_INVALID_TARGET) {
-        freeSourcePos(creep);
+        unblockSourcePos(creep);
         creep.memory.target = undefined;
         creep.memory.targetRoomPosition = undefined;
         creep.memory.designatedEnergySourcePosition = undefined;

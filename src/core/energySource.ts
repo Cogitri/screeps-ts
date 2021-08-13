@@ -7,11 +7,12 @@ const numberOfPossibleHarvestPositionsInARow = 3;
 function stringify(pos: RoomPosition): string {
   return String(pos.x) + String(pos.y);
 }
+
 /**
  * should always be called when a creep doesnt need its given Position at an EnergySource anymore.
- * @param pos
+ * @param creep
  */
-export function freeSourcePos(creep: Creep): void {
+export function unblockSourcePos(creep: Creep): void {
   const pos = creep.memory.designatedEnergySourcePosition as RoomPosition;
   creep.memory.designatedEnergySourcePosition = undefined;
   const blockedMap = new Map(Object.entries(Memory.blockedSourcePositions));

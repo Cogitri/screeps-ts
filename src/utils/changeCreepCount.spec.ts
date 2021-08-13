@@ -2,7 +2,7 @@ import globalConsts, { CreepRoles } from "utils/globalConsts";
 
 import { TestUtil } from "utils/testUtils";
 import { changeCreepCount } from "utils/commands";
-import creepSpawn from "../core/creepSpawn";
+import creepSpawn from "core/creepSpawn";
 
 describe("spawnCreeps", () => {
   let testUtil: TestUtil;
@@ -21,7 +21,7 @@ describe("spawnCreeps", () => {
     }
 
     const builders = getCreepsPerRole(CreepRoles.ROLE_BUILDER);
-    expect(builders).toEqual(5);
+    expect(builders).toEqual(4);
 
     const creepCountMap = new Map(Object.entries(Memory.creepCount));
     expect(creepCountMap.get("builder")).toEqual(5);

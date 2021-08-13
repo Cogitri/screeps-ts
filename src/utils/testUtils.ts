@@ -45,7 +45,9 @@ export class TestUtil {
     mockGlobal<Memory>("Memory", {
       creepCount: {},
       roleBodyParts: {},
-      blockedSourcePositions: {}
+      blockedSourcePositions: {},
+      creepsInSpawnQueue: {},
+      spawnQueue: []
     });
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
