@@ -28,10 +28,7 @@ deploy_to_screeps:
     refs:
       - master
   script:
-    - cp screeps.sample.json screeps.json
-    - sed -i "s/\"YOUR_TOKEN\"/\"$SCREEPS_MASTER_DEPLOY\"/g" ./screeps.json
-    - yarn
-    - yarn push-main
+    - ./deploy.sh
 
 deploy_doc:
   stage: deploy
@@ -50,3 +47,16 @@ deploy_doc:
     - npm run doc
     - dpl --provider=heroku --app=$HEROKU_APP_DOCS --api-key=$HEROKU_API_KEY --skip-cleanup=true
 
+deploy_frontend:
+  stage: deploy
+  image: ruby:latest
+  only:
+    refs:
+      - master
+  before_script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev npm
+    - gem install dpl
+  script:
+    - cd wwwroot
+    - dpl --provider=heroku --app=$HEROKU_APP_FRONTEND --api-key=$HEROKU_API_KEY --skip-cleanup=true
