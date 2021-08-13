@@ -91,6 +91,7 @@
 import axios from "axios";
 import Vue from "vue";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
+import globals from "@/globals";
 
 export default Vue.extend({
   components: {
@@ -147,8 +148,8 @@ export default Vue.extend({
 
       try {
         this.loadingDeploy = true;
-        const response = await axios.post("/api/v4/projects/659/pipeline?ref=master", {
-          key: "SCREEPS_MASTER_DEPLOY",
+        const response = await axios.post(globals.GITLAB_API_URL, {
+          key: globals.GITLAB_ENV_VAR,
           variable_type: "env_var",
           value: token,
         });
@@ -193,6 +194,7 @@ export default Vue.extend({
       } catch (e) {
         console.log(e);
       } finally {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if (this.data && (this.data as any).status !== "success") {
           // TODO: Emit stuff
           console.log("no successful fetch");

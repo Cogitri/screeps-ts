@@ -40,6 +40,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import globals from "@/globals";
 import { mapMutations } from "vuex";
 import axios from "axios";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
@@ -59,8 +60,8 @@ export default Vue.extend({
     async submit() {
       this.$cookies.remove("auth-token");
       try {
-        const response = await axios.post("/api/v4/projects/659/pipeline?ref=master", {
-          key: "SCREEPS_MASTER_DEPLOY",
+        const response = await axios.post(globals.GITLAB_API_URL, {
+          key: globals.GITLAB_ENV_VAR,
           variable_type: "env_var",
           value: this.authToken,
         });
