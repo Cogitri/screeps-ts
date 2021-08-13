@@ -61,9 +61,13 @@ export default Vue.extend({
       this.$cookies.remove("auth-token");
       try {
         const response = await axios.post(globals.GITLAB_API_URL, {
-          key: globals.GITLAB_ENV_VAR,
-          variable_type: "env_var",
-          value: this.authToken,
+          variables: [
+            {
+              key: globals.GITLAB_ENV_VAR,
+              variable_type: "env_var",
+              value: this.authToken,
+            },
+          ],
         });
 
         if (response.status >= 400) {
