@@ -148,13 +148,15 @@ export default Vue.extend({
 
       try {
         this.loadingDeploy = true;
-        const response = await axios.post(globals.GITLAB_API_URL, [
-          {
-            key: globals.GITLAB_ENV_VAR,
-            variable_type: "env_var",
-            value: token,
-          },
-        ]);
+        const response = await axios.post(globals.GITLAB_API_URL, {
+          variables: [
+            {
+              key: globals.GITLAB_ENV_VAR,
+              variable_type: "env_var",
+              value: token,
+            },
+          ],
+        });
 
         if (response.status >= 400) {
           throw response;
