@@ -36,6 +36,9 @@ deploy_to_screeps:
 deploy_doc:
   stage: deploy
   image: ruby:latest
+  only:
+    refs:
+      - master
   before_script:
     - apt-get update -qy
     - apt-get install -y ruby-dev npm
