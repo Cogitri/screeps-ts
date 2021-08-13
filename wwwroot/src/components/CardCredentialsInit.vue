@@ -35,6 +35,10 @@
         </form>
       </validation-observer>
     </v-container>
+    <v-snackbar v-model="snackbarProps.show" :color="snackbarProps.color">
+      <v-btn icon @click.native="snackbarProps.show = false"><v-icon>mdi-window-close</v-icon></v-btn>
+      {{ snackbarProps.msg }}
+    </v-snackbar>
   </v-card>
 </template>
 
@@ -53,6 +57,11 @@ export default Vue.extend({
   data() {
     return {
       authToken: "",
+      snackbarProps: {
+        show: false,
+        msg: "",
+        color: "primary",
+      },
     };
   },
   methods: {
@@ -81,7 +90,13 @@ export default Vue.extend({
 
         this.setShouldShowInit(false);
       } catch (e) {
-        console.log(e);
+        this.snackbarProps.color = "error";
+        this.snackbarProps.show = true;
+        if (e.status) {
+          this.snackbarProps.msg = "The server encountered an error, please try again!";
+        } else {
+          this.snackbarProps.msg = "Unexpected error, please try again!";
+        }
       }
     },
   },

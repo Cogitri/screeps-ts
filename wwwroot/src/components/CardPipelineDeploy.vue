@@ -84,6 +84,10 @@
         </form>
       </validation-observer>
     </v-card-text>
+    <v-snackbar v-model="snackbarProps.show" :color="snackbarProps.color">
+      <v-btn icon @click.native="snackbarProps.show = false"><v-icon>mdi-window-close</v-icon></v-btn>
+      {{ snackbarProps.msg }}
+    </v-snackbar>
   </v-card>
 </template>
 
@@ -104,6 +108,11 @@ export default Vue.extend({
       loadingDeploy: false,
       data: undefined,
       authToken: "",
+      snackbarProps: {
+        show: false,
+        msg: "",
+        color: "primary",
+      },
     };
   },
   async beforeMount() {
@@ -118,7 +127,10 @@ export default Vue.extend({
       const pipelineId = this.$cookies.get("pipeline-id");
 
       if (!pipelineId) {
-        console.log("no pipeline id");
+        this.snackbarProps.show = true;
+        this.snackbarProps.msg =
+          "There is no pipeline ID set, the project will still deploy but there may be no changes";
+        this.snackbarProps.color = "warning";
         return;
       }
 
@@ -133,7 +145,16 @@ export default Vue.extend({
 
         this.data = await response.data;
       } catch (e) {
-        console.log(e);
+        if (e.status) {
+          this.snackbarProps.show = true;
+          this.snackbarProps.msg =
+            "The server encountered an error loading the pipeline status, please try again later!";
+          this.snackbarProps.color = "error";
+        } else {
+          this.snackbarProps.show = true;
+          this.snackbarProps.msg = "There was an error fetching the pipeline status, please try reloading";
+          this.snackbarProps.color = "error";
+        }
       } finally {
         this.loading = false;
       }
@@ -142,7 +163,10 @@ export default Vue.extend({
       const token = this.$cookies.get("auth-token");
 
       if (!token) {
-        console.log("no token");
+        this.snackbarProps.show = true;
+        this.snackbarProps.msg =
+          "Your deploy token was deleted! Please refresh the page, you will be prompted to enter the token again";
+        this.snackbarProps.color = "error";
         return;
       }
 
@@ -164,13 +188,15 @@ export default Vue.extend({
 
         const data = await response.data;
 
-        console.log(data.id);
-
         this.$cookies.set("pipeline-id", data.id);
 
         await this.pollApi();
       } catch (e) {
-        console.log(e);
+        if (e.status) {
+          this.snackbarProps.show = true;
+          this.snackbarProps.msg = "The server encountered an error trying to deploy, please try again later!";
+          this.snackbarProps.color = "error";
+        }
       }
     },
     async pollApi() {
@@ -202,12 +228,15 @@ export default Vue.extend({
           }
         }
       } catch (e) {
-        console.log(e);
+        // do nothing lmao
       } finally {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if (this.data && (this.data as any).status !== "success") {
           // TODO: Emit stuff
-          console.log("no successful fetch");
+          this.snackbarProps.show = true;
+          this.snackbarProps.msg =
+            "The pipeline didn't finish successfully.\nIf it is still in the 'running' state, it takes longer than expected.\nRefresh the page in a few minutes or contact us if we ";
+          this.snackbarProps.color = "warn";
         }
         this.loadingDeploy = false;
       }
