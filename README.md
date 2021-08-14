@@ -1,3 +1,8 @@
+# Deployments
+
+We have a deployment webpage here: https://screepsdeploy.herokuapp.com/
+We deploy our docs to https://screepsdoc.herokuapp.com/
+
 # How to install the project
 
 1. Install npm
